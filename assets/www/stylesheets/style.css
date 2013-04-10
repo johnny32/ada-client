@@ -1,0 +1,189 @@
+html, body, #logo-table {
+	background-color: #000;
+	height:100%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	color: white;
+	font-family: sans;
+}
+
+/* Checkbox and radiobuttons */
+
+.has-js .label_check,
+.has-js .label_radio { padding-left: 34px; }
+.has-js .label_radio { background: url(../images/radio-off.png) no-repeat; }
+.has-js .label_check { background: url(../images/check-off.png) no-repeat; }
+.has-js label.c_on { background: url(../images/check-on.png) no-repeat; }
+.has-js label.r_on { background: url(../images/radio-on.png) no-repeat; }
+.has-js .label_check input,
+.has-js .label_radio input { position: absolute; left: -9999px; }
+
+.content {
+	width: 100%;
+	height: 100%;
+	display: block;
+	text-align: center;
+}
+
+#logo-table td {
+	vertical-align: middle;
+	text-align: center;
+}
+
+#main-menu-table{
+	text-align: center;
+}
+
+#main-menu-table td{
+	padding-bottom: 10%;
+}
+
+#title-main-menu{
+	width: 100%;
+	margin-bottom: -15%;	
+}
+
+#button-main-menu{
+	width: 50%;
+}
+
+#who-div {
+	width: 80%;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10%;
+}
+
+#who-div li{
+	padding: 10px;
+	line-height: 25px;
+	text-align: left;
+}
+
+#who-div img{
+	width: 100%;
+	border-radius: 10px;
+}
+
+#gallery-link{
+	text-decoration:none;
+	background-color: #CCC;
+	padding: 10px;
+	color: #222;
+	font-family: sans;
+	border-radius: 10px;
+	border-color: #BBB;
+	border: 2px;
+	font-size: 20px;
+}
+
+#gallery-link:hover{
+	text-decoration:none;
+	background-color: #222;
+	padding: 10px;
+	color: #CCC;
+	font-family: sans;
+	border-radius: 10px;
+	border-color: #BBB;
+	border: 2px;
+	font-size: 20px;
+}
+
+
+.pagination1 .swiper-pagination-switch {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  background: #999;
+  box-shadow: 0px 1px 2px #555 inset;
+  margin: 0 3px;
+}
+.pagination1 .swiper-active-switch {
+  background: #fff;
+}
+
+#who-div, #galeria {
+  padding-bottom: 20px;
+}
+
+.main-left {
+  clear: both;
+  width: 50%;
+  float: left;
+  position: relative;
+  text-align: center;
+  padding-top: 10%;
+  padding-bottom: 10%;
+}
+
+.main-right {
+  width: 50%;
+  float: right;
+  position: relative;
+  text-align: center;
+  padding-top: 10%;
+  padding-bottom: 10%;
+}
+
+.logo {
+  width: 65%;
+}
+
+.main-logo {
+  width: 100%;
+}
+
+#splash-logo {
+  width: 100%;
+  position: relative;
+  top: 30%;
+}
+
+#header {
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
+
+/* Google Maps */
+#map-wrapper {
+  padding-top: 4%;  
+}
+
+#google-map {
+  width: 95%;
+  height: 300px;
+}
+.center-wrapper{
+  text-align: center;
+}
+.center-wrapper * {
+  margin: 0 auto;
+}
+
+#globus-gmap {
+  color: black;
+  font-size: small;
+}
+
+#globus-gmap h1 {
+  font-size: normal;
+  font-weight: bold;
+}
+
+/*Chapuza maxima, pero es la manera de que el plugin de Gmaps no sobreescrigui el CSS i faci que es vegi tot "cap a l'esquerra"*/
+#where-table {
+  width: 100% !important;
+  text-align: center !important;
+}
+
+/* Cocktails screen */
+
+.cocktail_slide_image{
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+}

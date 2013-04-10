@@ -1,0 +1,17 @@
+<licores>
+  <licor id="0">
+    <title>Whiskyu</title>
+    <image>zumo_fresa.jpg</image>
+    <description>Juquetona</description>
+  </licor>
+  <licor id="1">
+    <title>PVodfka</title>
+    <image>zumo_fresa2.jpg</image>
+    <description>Ácida</description>
+  </licor>
+  <licor id="2">
+    <title>wololo</title>
+    <image>zumo_fresa.jpg</image>
+    <description>Dulce</description>
+  </licor>
+</licores>

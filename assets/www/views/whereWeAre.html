@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title data-i18n="app_name">Dónde estamos</title>
+    <script src="../javascripts/cordova-2.3.0.js"></script>
+    <script src="../javascripts/jquery-1.8.2.min.js"></script>
+    <script src="../javascripts/controllers/base_controller.js"></script>
+    <script src="../javascripts/webintent.js"></script>
+    <!-- Llibreries pel Google Maps -->
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=true"></script>
+    <script src="../javascripts/controllers/maps_controller.js"></script>
+    <script>
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+    <link media="screen" rel="stylesheet" href="../stylesheets/reset.css" />
+    <link media="screen" rel="stylesheet" href="../stylesheets/style.css" />
+  </head>
+  <body>
+    <div class="content">
+      <div id="header">
+      	<img class="logo" src="../images/logo_petit.png" alt="Sinatra Cocteleria" onclick="loadPage('index.html')"/>
+      </div>
+      <div id="contenidor-mapa" class="center-wrapper" style="padding-top: 10%;">
+        Nos puedes encontrar en:<br>
+        <div id="map-wrapper">
+          <div id="google-map"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,17 @@
+<zumos>
+  <zumo id="0">
+    <title>Puré de fresa</title>
+    <image>zumo_fresa.jpg</image>
+    <description>Juquetona</description>
+  </zumo>
+  <zumo id="1">
+    <title>Puré de fresa2</title>
+    <image>zumo_fresa2.jpg</image>
+    <description>Ácida</description>
+  </zumo>
+  <zumo id="2">
+    <title>Puré de fresa3</title>
+    <image>zumo_fresa.jpg</image>
+    <description>Dulce</description>
+  </zumo>
+</zumos>

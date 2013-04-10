@@ -1,0 +1,17 @@
+<vasos>
+  <vaso id="0">
+    <title>martini</title>
+    <image>zumo_fresa.jpg</image>
+    <description>Juquetona</description>
+  </vaso>
+  <vaso id="1">
+    <title>brasil</title>
+    <image>zumo_fresa2.jpg</image>
+    <description>Ácida</description>
+  </vaso>
+  <vaso id="2">
+    <title>cubata</title>
+    <image>zumo_fresa.jpg</image>
+    <description>Dulce</description>
+  </vaso>
+</vasos>

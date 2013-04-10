@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title data-i18n="app_name"></title>
+    <script src="../javascripts/cordova-2.3.0.js"></script>
+    <script src="../javascripts/jquery-1.8.2.min.js"></script>
+    <script src="../javascripts/controllers/base_controller.js"></script>
+    <script src="../javascripts/controllers/cocktails_controller.js"></script>   
+    <link media="screen" rel="stylesheet" href="../stylesheets/reset.css" />
+    <link media="screen" rel="stylesheet" href="../stylesheets/style.css" />
+    
+    <!-- Swiper -->
+    <script defer src="../javascripts/idangerous.swiper-1.8.min.js"></script>
+    <link media="screen" rel="stylesheet" href="../stylesheets/idangerous.swiper.css" />
+
+    <style>
+      @font-face {
+        font-family: customFont;
+        src: url('../fonts/knewave.ttf');
+      }
+      
+      .content {
+        font-family: customFont;
+      }
+    </style>
+
+  </head>
+  <body>
+    <div class="content">
+      <div id="title">
+        ZUMOS
+      </div>
+     <div class="swiper-container">
+        <div class="swiper-wrapper">
+
+        </div>
+      </div>
+      <div id="swiper-pagination" class="pagination pagination1"></div>
+      <div id="remain_elem">
+        <span id="remain_elem"></span>
+      </div>
+      <table id="buttons" style="width: 80%; text-align: center;">
+        <tr>
+          <td style="width: 50%;">
+            <input type="button" id="add_elem" value="Añadir" />
+          </td>
+          <td style="width: 50%;">
+            <input type="button" id="finish_elem" value="Finalizar sección" />
+          </td>
+        </tr>
+      </table>  
+    </div>
+  </body>
+</html>
