@@ -205,6 +205,6 @@ function finishCocktail(){
   
   //Fadeout other elements
   
-  loadPage('makeCocktail_final.html', [json]);
+  loadPage('makeCocktail_final.html', json);
   
 }

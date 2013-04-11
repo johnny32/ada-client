@@ -16,17 +16,30 @@
     <link type="text/css" media="screen" rel="stylesheet" href="../stylesheets/style.css" />
     <script>
       $(document).ready(function($) {
+        alert("makecocktail_final");
+        
         var json = jQuery.parseJSON(getURLParameter('0'));
+        
         for (var i = 0; i < json.zumo.length; i++) {
+          alert(json.zumo[i].title);
           $('#info').append(json.zumo[i].title + "</br>");
         }
+  /*      
         for (var i = 0; i < json.licor.length; i++) {
+          alert(json.licor[i].title);
           $('#info').append(json.licor[i].title + "</br>");
         }
+        
+        alert(json.carbonico[0].title);
         $('#info').append(json.carbonico[0].title + "</br>");
+        
+        alert(json.vaso[0].title);
         $('#info').append(json.vaso[0].title + "</br>");
+        
+        alert(json.nombre);
         $('#info').append(json.nombre + "</br>");
-      });
+        
+  */    });
     </script>
     
   </head>
