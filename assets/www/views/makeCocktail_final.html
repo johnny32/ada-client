@@ -18,13 +18,15 @@
       $(document).ready(function($) {
         alert("makecocktail_final");
         
-        var json = jQuery.parseJSON(getURLParameter('0'));
+        var cocktail = window.localStorage.getItem(1);
         
-        for (var i = 0; i < json.zumo.length; i++) {
+        alert("nom: " + cocktail.nombre);
+        
+  /*      for (var i = 0; i < json.zumo.length; i++) {
           alert(json.zumo[i].title);
           $('#info').append(json.zumo[i].title + "</br>");
         }
-  /*      
+        
         for (var i = 0; i < json.licor.length; i++) {
           alert(json.licor[i].title);
           $('#info').append(json.licor[i].title + "</br>");
