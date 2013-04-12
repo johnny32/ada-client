@@ -176,7 +176,7 @@ $(document).ready(function($) {
         
         window.localStorage.setItem("n_cocktails", parseInt(window.localStorage.getItem("n_cocktails")) + 1);
 
-        window.localStorage.setItem(window.localStorage.getItem("n_cocktails"), selected_data);
+        window.localStorage.setItem(window.localStorage.getItem("n_cocktails"), JSON.stringify(selected_data));
         
         loadPage('makeCocktail_final.html');
       }

@@ -16,32 +16,18 @@
     <link media="screen" rel="stylesheet" href="../stylesheets/style.css" />
     <script>
       $(document).ready(function($) {
-        alert("makecocktail_final");
-        
-        var cocktail = window.localStorage.getItem(1);
-        
-        alert("nom: " + cocktail.nombre);
-        
-  /*      for (var i = 0; i < json.zumo.length; i++) {
-          alert(json.zumo[i].title);
-          $('#info').append(json.zumo[i].title + "</br>");
+        var cocktail_json = window.localStorage.getItem(1);
+        cocktail = jQuery.parseJSON(cocktail_json);
+        for (var i = 0; i < cocktail.zumo.length; i++) {
+          $('#info').append(cocktail.zumo[i].title + "</br>");
         }
-        
-        for (var i = 0; i < json.licor.length; i++) {
-          alert(json.licor[i].title);
-          $('#info').append(json.licor[i].title + "</br>");
+        for (var i = 0; i < cocktail.licor.length; i++) {
+          $('#info').append(cocktail.licor[i].title + "</br>");
         }
-        
-        alert(json.carbonico[0].title);
-        $('#info').append(json.carbonico[0].title + "</br>");
-        
-        alert(json.vaso[0].title);
-        $('#info').append(json.vaso[0].title + "</br>");
-        
-        alert(json.nombre);
-        $('#info').append(json.nombre + "</br>");
-        
-  */    });
+        $('#info').append(cocktail.carbonico[0].title + "</br>");
+        $('#info').append(cocktail.vaso[0].title + "</br>");
+        $('#info').append(cocktail.nombre + "</br>");
+      });
     </script>
     
   </head>

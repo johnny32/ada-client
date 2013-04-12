@@ -3,7 +3,7 @@
 document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
-  document.addEventListener("backbutton", function(e) {
+/*  document.addEventListener("backbutton", function(e) {
     var full_url = window.location.pathname;
     var pag = full_url.substring(full_url.lastIndexOf('/'), full_url.length);
     if (pag == '/index.html') {
@@ -13,6 +13,7 @@ function onDeviceReady() {
       navigator.app.backHistory();
     }
   }, false);
+  */
 }
 
 /**
