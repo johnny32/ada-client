@@ -3,17 +3,44 @@
 document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
-/*  document.addEventListener("backbutton", function(e) {
+  document.addEventListener("backbutton", function(e) {
     var full_url = window.location.pathname;
     var pag = full_url.substring(full_url.lastIndexOf('/'), full_url.length);
     if (pag == '/index.html') {
       e.preventDefault();
-      navigator.app.exitApp();
-    } else {
+      navigator.notification.confirm("¿Estás seguro que quieres salir?", exitApp, "Salir de la aplicación", 'SI, NO')
+    }
+    else if (pag == '/makeCocktail.html'){
+      e.preventDefault();
+      navigator.notification.confirm("¿Estás seguro de querer descartar el cocktail?", discartCocktail, "Salir de la aplicación", 'SI, NO')
+    }
+    else if (pag == '/makeCocktail_final.html'){
+      e.preventDefault();
+      navigator.notification.confirm("¿Estás seguro de querer descartar el cocktail?", discartCocktail2, "Salir de la aplicación", 'SI, NO')
+    }
+    else {
       navigator.app.backHistory();
     }
   }, false);
-  */
+  
+}
+
+function exitApp(button){
+  if(button == 1){
+    navigator.app.exitApp();
+  }
+}
+
+function discartCocktail(button){
+  if(button == 1){
+    navigator.app.backHistory();
+  }
+}
+
+function discartCocktail2(button){
+  if(button == 1){
+    history.go(-2); //Return to makeCocktail_intro
+  }
 }
 
 /**
