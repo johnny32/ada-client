@@ -69,6 +69,7 @@ $(document).ready(function($) {
       });
     }
     
+    //Confirmar si es vol un cocktail sense alcohol
     function confirmWithoutAlcohol(button){
       if (button == 1){
         without_alcohol = true;
@@ -76,32 +77,42 @@ $(document).ready(function($) {
       }
     }
     
+    //Funcio per a confirmar una seccio
     function confirmSection(button){
       if (button == 1){
+        //S'ha clicat a si
         finish_function();
       }
-      else{
+      else if(button == 2){
+        //S'ha clicat a cancelar
         $('#finish_elem').attr("value", "Finalizar sección");
         if (actual_product == "zumo"){
-          actual_remain = remain_zumo;
+          actual_remain = remain_zumos;
           selected_data.zumo = new Array();
           actual_array = selected_data.zumo;
         } 
         else if (actual_product == "licor"){
-          actual_remain = remain_licor;
+          actual_remain = remain_licores;
+          selected_data.licor = new Array();
+          actual_array = selected_data.licor;
           $('#finish_elem').attr("value", "Cocktail sin alcohol");
         }
-        else if (actual_product == "carbonico") actual_remain = remain_carbonico;
-        else if (actual_product == "vaso") actual_remain = remain_vaso;
-        else{
-          actual_remain = remain_nombre;
-          $('#cocktail_name').val() = "";
+        else if (actual_product == "carbonico"){
+          actual_remain = remain_carbonico;
+          selected_data.carbonico = new Array();
+          actual_array = selected_data.carbonico;
+        }
+        else if (actual_product == "vaso"){
+          actual_remain = remain_vasos;
+          selected_data.vaso = new Array();
+          actual_array = selected_data.vaso;        
         } 
         cocktails.fillRemain();
         mySwiper.swipeTo(0);
       }
     }
     
+    //Funcio per a finalitzar una seccio (ja confirmada)
     function finish_function(){
       if((actual_product == 'licor' && without_alcohol == true) || actual_array.length > 0){
 
@@ -152,6 +163,24 @@ $(document).ready(function($) {
         }
       }
     }
+    
+    function confirmName(button){
+      if(button == 1){
+        alert("Mezclar!!!");
+        selected_data.nombre = $('#cocktail_name').val();
+
+        var json = JSON.stringify(selected_data);
+        alert(json);
+
+        window.localStorage.clear();
+        if(window.localStorage.getItem("n_cocktails") == null){
+          window.localStorage.setItem("n_cocktails", 0);
+        }
+        window.localStorage.setItem("n_cocktails", parseInt(window.localStorage.getItem("n_cocktails")) + 1);
+        window.localStorage.setItem(window.localStorage.getItem("n_cocktails"), JSON.stringify(selected_data));
+        loadPage('makeCocktail_final.html');
+      }
+    }
 
     return {
       addData2Page : function() {
@@ -162,6 +191,7 @@ $(document).ready(function($) {
           success : xmlParser
         });
       },
+      //Emplenar el text de quants productes es poden escollir de més
       fillRemain : function() {
         if (actual_remain > 0) {
           $('#remain_elem').html("Puedes añadir " + actual_remain + " elementos más");
@@ -206,37 +236,20 @@ $(document).ready(function($) {
           }
         }
         else{
-          var message = "Has escogido: ";
+          var message = "Estás a punto de añadir: ";
           for (var i=0;i< actual_array.length; i++){
             message+=("\n- " + actual_array[i].title);
           }
           navigator.notification.confirm(message, confirmSection, "Confirmar sección", 'OK, Cancelar')
         }
       },
+      //Finalitzar cocktail
       finishCocktail : function() {
         if($('#cocktail_name').val() == ''){
           navigator.notification.alert("Debes ponerle un nombre al cocktail", null, "Nombre vacío")
         }
         else{
-          alert("Mezclar!!!");
-          selected_data.nombre = $('#cocktail_name').val();
-  
-          var json = JSON.stringify(selected_data);
-          alert(json);
-  
-          //Fadeout other elements
-          
-          window.localStorage.clear();
-          
-          if(window.localStorage.getItem("n_cocktails") == null){
-            window.localStorage.setItem("n_cocktails", 0);
-          }
-          
-          window.localStorage.setItem("n_cocktails", parseInt(window.localStorage.getItem("n_cocktails")) + 1);
-  
-          window.localStorage.setItem(window.localStorage.getItem("n_cocktails"), JSON.stringify(selected_data));
-          
-          loadPage('makeCocktail_final.html');
+          navigator.notification.confirm("¿Es " + $('#cocktail_name').val() + " el nombre correcto?", confirmName, "Confirmar nombre", 'Mezclar, Cancelar')
         }
       }
     };
