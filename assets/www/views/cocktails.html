@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title data-i18n="app_name">Sinatra Cockteleria</title>
+    <script src="../javascripts/cordova-2.3.0.js"></script>
+    <script src="../javascripts/jquery-1.8.2.min.js"></script>
+    <script src="../javascripts/controllers/base_controller.js"></script>
+    <script src="../javascripts/cocktail.js"></script>
+    <script src="../javascripts/bootstrap/bootstrap.min.js"></script>
+    <link media="screen" rel="stylesheet" href="../stylesheets/bestCocktails.css" />
+    <link media="screen" rel="stylesheet" href="../stylesheets/bootstrap/bootstrap.min.css" />
+    <link media="screen" rel="stylesheet" href="../stylesheets/bootstrap/bootstrap-responsive.min.css" />
+    <link media="screen" rel="stylesheet" href="../stylesheets/reset.css" />
+    <link media="screen" rel="stylesheet" href="../stylesheets/style.css" />
+    <script>
+      $(document).ready(function() {
+        
+        var params = getUrlParameters();
+                
+        if (params.type == 'best') {
+        
+          //TODO Rebem l'objecte JSON del servidor. Mentre no estigui implementat, suposarem que el tenim aqui:
+          var json = {"cocktails": [
+            new Cocktail("r", "Cocktail supremo", "GLaDOS", ["Muerte", "Destruccion"], 10),
+            new Cocktail("1", "El mejor", "Johnny", ["Cerveza", "Mas cerveza", "Mucha mas cerveza"], 9.5),
+            new Cocktail("2", "Hercorzumo", "Hercules", ["Zumo de los dioses"], 9.1),
+            new Cocktail("3", "Cocktail de zanahoria", "Bugs Bunny", ["Zanahoria", "Vodka"], 8.5),
+            new Cocktail("4", "Grog", "Guybrush Threepwood", ["queroseno", "glicol propilico", "endulzantes artificiales", "acido sulfurico", "ron", "acetona", "tinte rojo n2", "SCUMM", "grasa para ejes", "acido para baterias", "pepperoni"], 8),
+            new Cocktail("5", "Absenta negra", "Metaleros unidos S.A.", ["absenta", "color negro"], 6.66),
+            new Cocktail("6", "Sunset Sarsaparilla", "Bethesda", ["sunset", "nuka cola", "agua radioactiva"], 5.25),
+            new Cocktail("7", "Basura de cocktail", "Xose", ["Guild Wars 2", "es una mierda"], 3.5),
+          ]};
+  
+          for (var c in json.cocktails) {
+            var cktl = json.cocktails[c];
+            var btn = $('<button>', {
+              id: cktl.id,
+              class: 'btn',
+              style: 'width: 90%; height: 4em; margin: auto;',
+              text: cktl.nom,
+              click: function(e) {
+                loadPage('cocktail.html', {id: this.id})
+              }
+            });
+            
+            if (cktl.id == "r") {
+              $("#recommended-cocktail").append(btn);
+            } else {
+              //TODO Scroll nomes de la llista, infinit (va carregant a mesura que baixes)
+              $("#list-cocktails").append(btn);
+            }
+          }
+          
+        } else if (params.type == 'user') {
+          
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <div class="content">
+      <div id="header">
+        <img class="logo" src="../images/logo_petit.png" alt="Sinatra Cocteleria" onclick="loadPage('index.html')"/>
+      </div>
+      <div id="best-div">
+        Cocktail recomendado:
+        <div id="recommended-cocktail" class="btn-group btn-block"></div>
+        Los 10 mejores cocktails:
+        <div id="list-cocktails" class="btn-group btn-group-vertical btn-block"></div>
+      </div>
+      <div id="footer">
+        <form class="form-search" action="userList.html" onsubmit="loadPage('userList.html', {user: this.userQuery});">
+          <input name="userQuery" type="text" class="input-medium search-query" placeholder="Buscar usuarios...">
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+.cocktail {
+  background-color: #BBBBBB;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  color: black;
+  text-align: left;
+}
+
+#recommended-cocktail, #list-best-cocktails li {
+  padding: 2%;
+}
+
+#list-best-cocktails li {
+  border-bottom-style: solid;
+  border-bottom-color: blue;
+  border-bottom-width: 75%;
+  list-style-type: none;
+}
+
+.ul_ingredients li {
+  list-style-type: disc;
+}
+
+.cktl_title {
+  font-size: 1.6em;
+  font-weight: bold;
+}
+
+.cktl_author, .cktl_rating {
+  font-style: italic;
+}
+
+.cktl_rating {
+  text-align: right;
+}

@@ -3,7 +3,7 @@
 document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
-/*  document.addEventListener("backbutton", function(e) {
+  document.addEventListener("backbutton", function(e) {
     var full_url = window.location.pathname;
     var pag = full_url.substring(full_url.lastIndexOf('/'), full_url.length);
     if (pag == '/index.html') {
@@ -13,7 +13,6 @@ function onDeviceReady() {
       navigator.app.backHistory();
     }
   }, false);
-  */
 }
 
 /**
@@ -55,4 +54,20 @@ function sendEmail(receiver, subject, body){
         alert('Failed to send email via Android Intent');
       }
     );
+}
+
+/**
+ * Obtenir els parametres GET passats per la URL i retorna el JSON corresponent.
+ * 
+ * @author  jclara
+ * @version 1.0
+ * @date    2013-04-15 
+ */
+function getUrlParameters() {
+  var query = window.location.search.replace('?', '');
+  if (query.charAt(query.length-1) == '&') { //La funcio loadPage() posa un '&' al final de tot a vegades.
+    query = query.substring(0, query.length-1);
+  }
+  var json_string = '{"' + decodeURI(query.replace(/&/g, "\",\"").replace(/=/g,"\":\"")) + '"}';
+  return JSON.parse(json_string);
 }
