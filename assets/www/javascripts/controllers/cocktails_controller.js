@@ -24,7 +24,7 @@
 })(jQuery);
 
 $(document).ready(function($) {
-
+  
   var cocktails = function() {
     var remain_zumos = 3;
     var remain_licores = 3;
@@ -152,6 +152,8 @@ $(document).ready(function($) {
           $('#cocktail_name').limiter(30, elem);
 
           $('#swiper-pagination').remove();
+          $('#ar_left').remove();
+          $('#ar_right').remove();
           $('#remain_elem').remove();
           $('#add_elem').remove();
           $('#finish_elem').hide();
@@ -199,6 +201,7 @@ $(document).ready(function($) {
         }
       },
       add_element_function : function() {
+        
         var element_id = mySwiper.activeSlide
 
         var elem = new Object();
@@ -221,12 +224,17 @@ $(document).ready(function($) {
           actual_array[actual_array.length] = elem;
           actual_remain--;
           cocktails.fillRemain();
+          $('#element_loading').show();
+          var t=setTimeout(function(){
+            $('#element_loading').hide();
+          },300);
         }
       },
       finish_element_function : function() {
         if (actual_array.length == 0) {
           if (actual_product == "licor") {
-            navigator.notification.confirm("¿Estás seguro de querer crear un cocktail sin alcohol?", confirmWithoutAlcohol, "Cocktail sin alcohol", 'OK, Cancelar')
+            //navigator.notification.confirm("¿Estás seguro de querer crear un cocktail sin alcohol?", confirmWithoutAlcohol, "Cocktail sin alcohol", 'OK, Cancelar')
+            confirmWithoutAlcohol(1)
           } else {
             navigator.notification.alert("Necesitas añadir como mínimo un elemento", null, "Sección vacía")
           }
@@ -235,7 +243,8 @@ $(document).ready(function($) {
           for (var i = 0; i < actual_array.length; i++) {
             message += ("\n- " + actual_array[i].title);
           }
-          navigator.notification.confirm(message, confirmSection, "Confirmar sección", 'OK, Cancelar')
+          //navigator.notification.confirm(message, confirmSection, "Confirmar sección", 'OK, Cancelar')
+          confirmSection(1)
         }
       },
       //Finalitzar cocktail
@@ -243,7 +252,8 @@ $(document).ready(function($) {
         if ($('#cocktail_name').val() == '') {
           navigator.notification.alert("Debes ponerle un nombre al cocktail", null, "Nombre vacío")
         } else {
-          navigator.notification.confirm("¿Es " + $('#cocktail_name').val() + " el nombre correcto?", confirmName, "Confirmar nombre", 'Mezclar, Cancelar')
+          //navigator.notification.confirm("¿Es " + $('#cocktail_name').val() + " el nombre correcto?", confirmName, "Confirmar nombre", 'Mezclar, Cancelar')
+          confirmName(1)
         }
       }
       ,

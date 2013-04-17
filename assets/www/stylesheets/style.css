@@ -185,7 +185,7 @@ a{
   background-image: url('../images/ic_arrow_left.png');
   position: absolute;
   left: -3%;
-  top: 40%;
+  top: 28%;
   width: 72px;
   height: 72px;
   z-index: 100;
@@ -195,8 +195,31 @@ a{
   background-image: url('../images/ic_arrow_right.png');
   position: absolute;
   right: -1%;
-  top: 40%;
+  top: 28%;
   width: 66px;
   height: 72px;
   z-index: 100;
+}
+
+#element_loading{
+  position: relative;
+  top: -28%;
+  left: 50%;
+}
+
+.cocktails-main-left {
+  clear: both;
+  width: 50%;
+  float: left;
+  position: relative;
+  text-align: center;
+  padding-bottom: 10%;
+}
+
+.cocktails-main-right {
+  width: 50%;
+  float: right;
+  position: relative;
+  text-align: center;
+  padding-bottom: 10%;
 }
