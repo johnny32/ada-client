@@ -9,16 +9,9 @@ html, body, #logo-table {
 	font-family: sans;
 }
 
-/* Checkbox and radiobuttons */
-
-.has-js .label_check,
-.has-js .label_radio { padding-left: 34px; }
-.has-js .label_radio { background: url(../images/radio-off.png) no-repeat; }
-.has-js .label_check { background: url(../images/check-off.png) no-repeat; }
-.has-js label.c_on { background: url(../images/check-on.png) no-repeat; }
-.has-js label.r_on { background: url(../images/radio-on.png) no-repeat; }
-.has-js .label_check input,
-.has-js .label_radio input { position: absolute; left: -9999px; }
+a{
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+}
 
 .content {
 	width: 100%;
@@ -186,4 +179,24 @@ html, body, #logo-table {
   width: 90%;
   margin-left: 5%;
   margin-right: 5%;
+}
+
+.arrow-left{
+  background-image: url('../images/ic_arrow_left.png');
+  position: absolute;
+  left: -3%;
+  top: 40%;
+  width: 72px;
+  height: 72px;
+  z-index: 100;
+}
+
+.arrow-right{
+  background-image: url('../images/ic_arrow_right.png');
+  position: absolute;
+  right: -1%;
+  top: 40%;
+  width: 66px;
+  height: 72px;
+  z-index: 100;
 }

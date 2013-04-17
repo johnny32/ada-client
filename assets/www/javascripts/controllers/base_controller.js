@@ -12,11 +12,11 @@ function onDeviceReady() {
     }
     else if (pag == '/makeCocktail.html'){
       e.preventDefault();
-      navigator.notification.confirm("¿Estás seguro de querer descartar el cocktail?", discartCocktail, "Salir de la aplicación", 'SI, NO')
+      navigator.notification.confirm("¿Estás seguro de querer descartar el cocktail?", discartCocktail, "Descartar cocktail", 'SI, NO')
     }
     else if (pag == '/makeCocktail_final.html'){
       e.preventDefault();
-      navigator.notification.confirm("¿Estás seguro de querer descartar el cocktail?", discartCocktail2, "Salir de la aplicación", 'SI, NO')
+      navigator.notification.confirm("¿Estás seguro de querer descartar el cocktail?", discartCocktail2, "Descartar cocktail", 'SI, NO')
     }
     else {
       navigator.app.backHistory();
