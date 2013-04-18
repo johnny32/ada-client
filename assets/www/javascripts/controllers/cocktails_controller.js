@@ -157,7 +157,7 @@ $(document).ready(function($) {
           $('#remain_elem').remove();
           $('#add_elem').remove();
           $('#finish_elem').hide();
-          $('#buttons').append('<input type="button" id="finish_cocktail" value="¡Mezclar!" />');
+          $('#buttons').html('<div class="cocktails-main-center"><a id="finish_cocktail"><img class="button-main-menu" src="../images/ic_cocktail_checkmark.png"/><p>Mezclar</p></a></div><div class="cocktails-main-bottom"></div>');
           $('#finish_cocktail').click(cocktails.finishCocktail);
         }
       }

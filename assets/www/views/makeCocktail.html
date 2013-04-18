@@ -6,11 +6,11 @@
     <script src="../javascripts/cordova-2.3.0.js"></script>
     <script src="../javascripts/jquery-1.8.2.min.js"></script>
     <script src="../javascripts/controllers/base_controller.js"></script>
-    <script src="../javascripts/controllers/cocktails_controller.js"></script> 
-    <script src="../javascripts/spin.min.js"></script>   
+    <script src="../javascripts/controllers/cocktails_controller.js"></script>
+    <script src="../javascripts/spin.min.js"></script>
     <link media="screen" rel="stylesheet" href="../stylesheets/reset.css" />
     <link media="screen" rel="stylesheet" href="../stylesheets/style.css" />
-    
+
     <!-- Swiper -->
     <script defer src="../javascripts/idangerous.swiper-1.8.min.js"></script>
     <link media="screen" rel="stylesheet" href="../stylesheets/idangerous.swiper.css" />
@@ -20,37 +20,36 @@
         font-family: customFont;
         src: url('../fonts/knewave.ttf');
       }
-      
+
       .content {
         font-family: customFont;
       }
     </style>
-    
+
     <script>
-      
       $(document).ready(function($) {
         var opts = {
-          lines: 13, // The number of lines to draw
-          length: 20, // The length of each line
-          width: 23, // The line thickness
-          radius: 40, // The radius of the inner circle
-          corners: 1, // Corner roundness (0..1)
-          rotate: 90, // The rotation offset
-          direction: 1, // 1: clockwise, -1: counterclockwise
-          color: '#333', // #rgb or #rrggbb
-          speed: 0.5, // Rounds per second
-          trail: 52, // Afterglow percentage
-          shadow: true, // Whether to render a shadow
-          hwaccel: true, // Whether to use hardware acceleration
-          className: 'spinner', // The CSS class to assign to the spinner
-          zIndex: 2e9, // The z-index (defaults to 2000000000)
-          top: 'auto', // Top position relative to parent in px
-          left: 'auto' // Left position relative to parent in px
+          lines : 13, // The number of lines to draw
+          length : 20, // The length of each line
+          width : 23, // The line thickness
+          radius : 40, // The radius of the inner circle
+          corners : 1, // Corner roundness (0..1)
+          rotate : 90, // The rotation offset
+          direction : 1, // 1: clockwise, -1: counterclockwise
+          color : '#333', // #rgb or #rrggbb
+          speed : 0.5, // Rounds per second
+          trail : 52, // Afterglow percentage
+          shadow : true, // Whether to render a shadow
+          hwaccel : true, // Whether to use hardware acceleration
+          className : 'spinner', // The CSS class to assign to the spinner
+          zIndex : 2e9, // The z-index (defaults to 2000000000)
+          top : 'auto', // Top position relative to parent in px
+          left : 'auto' // Left position relative to parent in px
         }
         var target = document.getElementById('element_loading');
         var spinner = new Spinner(opts).spin(target);
       });
-      
+
     </script>
 
   </head>
@@ -61,7 +60,7 @@
       </div>
       <a class="arrow-left" id="ar_left"></a>
       <a class="arrow-right" id="ar_right"></a>
-     <div class="swiper-container" id="id_swiper_container">
+      <div class="swiper-container" id="id_swiper_container">
         <div class="swiper-wrapper">
 
         </div>
@@ -71,24 +70,20 @@
       <div id="remain_elem">
         <span id="remain_elem"></span>
       </div>
-      <ul>
-        <li>
-          <div class="cocktails-main-left">
-            <a id="add_elem">
-              <img class="button-main-menu" src="../images/ic_add.png"/>
-              <p>Añadir</p>
-            </a>
-          </div>
-        </li>
-        <li>
-          <div class="cocktails-main-right">
-            <a id="finish_elem">
-              <img class="button-main-menu" src="../images/ic_checkmark.png"/>
-              <p> Finalizar sección</p>
-            </a>
-          </div>
-        </li>
-      </ul>
-    </div>
+      <div id="buttons">
+        <div class="cocktails-main-left">
+          <a id="add_elem"> <img class="button-main-menu" src="../images/ic_add.png"/>
+          <p>
+            Añadir
+          </p> </a>
+        </div>
+        <div class="cocktails-main-right">
+          <a id="finish_elem"> <img class="button-main-menu" src="../images/ic_checkmark.png"/>
+          <p>
+            Finalizar sección
+          </p> </a>
+        </div>
+        <div class="cocktails-main-bottom"></div>
+      </div>
   </body>
 </html>

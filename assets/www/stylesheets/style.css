@@ -173,7 +173,9 @@ a{
   text-align: center !important;
 }
 
-/* Cocktails screen */
+/************************
+*   Cocktails screen    *
+************************/
 
 .cocktail_slide_image{
   width: 90%;
@@ -184,7 +186,7 @@ a{
 .arrow-left{
   background-image: url('../images/ic_arrow_left.png');
   position: absolute;
-  left: -3%;
+  left: -1%;
   top: 28%;
   width: 72px;
   height: 72px;
@@ -194,7 +196,7 @@ a{
 .arrow-right{
   background-image: url('../images/ic_arrow_right.png');
   position: absolute;
-  right: -1%;
+  right: 1%;
   top: 28%;
   width: 66px;
   height: 72px;
@@ -208,18 +210,37 @@ a{
 }
 
 .cocktails-main-left {
-  clear: both;
   width: 50%;
+  left: 3%;
   float: left;
-  position: relative;
-  text-align: center;
-  padding-bottom: 10%;
+}
+
+.cocktails-main-center {
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .cocktails-main-right {
   width: 50%;
+  right: 5%;
   float: right;
+}
+
+.cocktails-main-bottom{
+  clear: both;
+  height: 15px;
+}
+
+#finish_elem{
   position: relative;
-  text-align: center;
-  padding-bottom: 10%;
+  right: 5%;
+}
+
+#buttons{
+  position: fixed;
+  bottom: 0;
+  width: 86%;
+  margin-left: 7%;
+  margin-right: 7%;
 }
