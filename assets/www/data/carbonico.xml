@@ -1,21 +1,21 @@
 <carbonicos>
   <carbonico id="0">
-    <title>Cola</title>
+    <nombre>Cola</nombre>
     <image>zumo_fresa.jpg</image>
     <description>Juquetona</description>
   </carbonico>
   <carbonico id="1">
-    <title>Naranja</title>
+    <nombre>Naranja</nombre>
     <image>zumo_fresa2.jpg</image>
     <description>Ácida</description>
   </carbonico>
   <carbonico id="2">
-    <title>Soda</title>
+    <nombre>Soda</nombre>
     <image>zumo_fresa.jpg</image>
     <description>Dulce</description>
   </carbonico>
   <carbonico id="3">
-    <title>Limón</title>
+    <nombre>Limón</nombre>
     <image>zumo_fresa2.jpg</image>
     <description>Dulce</description>
   </carbonico>

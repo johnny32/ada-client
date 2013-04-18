@@ -1,16 +1,16 @@
 <vasos>
   <vaso id="0">
-    <title>martini</title>
+    <nombre>martini</nombre>
     <image>zumo_fresa.jpg</image>
     <description>Juquetona</description>
   </vaso>
   <vaso id="1">
-    <title>brasil</title>
+    <nombre>brasil</nombre>
     <image>zumo_fresa2.jpg</image>
     <description>Ácida</description>
   </vaso>
   <vaso id="2">
-    <title>cubata</title>
+    <nombre>cubata</nombre>
     <image>zumo_fresa.jpg</image>
     <description>Dulce</description>
   </vaso>

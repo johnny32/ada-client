@@ -41,6 +41,7 @@ $(document).ready(function($) {
     selected_data.carbonico = new Array();
     selected_data.vaso = new Array();
     selected_data.nombre = "";
+    selected_data.creador = "";
     selected_data.color = "";
 
     var allData = new Object();
@@ -59,7 +60,7 @@ $(document).ready(function($) {
 
       $(xml).find(actual_product).each(function() {
         var wrapper = $('.swiper-wrapper');
-        wrapper.append('<div class="swiper-slide" id="' + actual_product + $(this).attr("id") + '">' + '<div id="elem_title' + $(this).attr("id") + '">' + $(this).find("title").text() + '</div>' + '<div id="elem_image' + $(this).attr("id") + '">' + '<img src="../images/' + actual_product + '/' + $(this).find("image").text() + '" class="cocktail_slide_image">' + '</div>' + '</div>');
+        wrapper.append('<div class="swiper-slide" id="' + actual_product + $(this).attr("id") + '">' + '<div id="elem_title' + $(this).attr("id") + '">' + $(this).find("nombre").text() + '</div>' + '<div id="elem_image' + $(this).attr("id") + '">' + '<img src="../images/' + actual_product + '/' + $(this).find("image").text() + '" class="cocktail_slide_image">' + '</div>' + '</div>');
       });
 
       //Swiper Scroller
@@ -197,37 +198,41 @@ $(document).ready(function($) {
           $('#add_elem').removeAttr("disabled");
         } else {
           $('#add_elem').attr("disabled", "true");
-          $('#remain_elem').html("No puedes añadir más elementos.</br>Pulsa en Finalizar sección para continuar con la creación de tu coaktail");
+          $('#remain_elem').html("No puedes añadir más elementos.</br>Pulsa en Finalizar sección para continuar con la creación de tu cocktail");
         }
       },
       add_element_function : function() {
         
-        var element_id = mySwiper.activeSlide
-
-        var elem = new Object();
-        elem.id = element_id
-        elem.title = $('#elem_title' + element_id).text()
-
-        //Check if element isn't in array
-        var trobat = false;
-
-        for (var i = 0; i < actual_array.length; i++) {
-          if (actual_array[i].id == elem.id) {
-            navigator.notification.alert("No se puede añadir dos veces el mismo elemento", null, "Elemento repetido")
-            trobat = true;
-            break;
-          }
+        if (actual_remain == 0) {
+          navigator.notification.alert("No puedes añadir más elementos en esta sección", null, "Elementos máximos");
         }
-
-        if (!trobat) {
-          $('#finish_elem').attr("value", "Finalizar sección");
-          actual_array[actual_array.length] = elem;
-          actual_remain--;
-          cocktails.fillRemain();
-          $('#element_loading').show();
-          var t=setTimeout(function(){
-            $('#element_loading').hide();
-          },300);
+        else{
+          var element_id = mySwiper.activeSlide
+  
+          var elem = new Object();
+          elem.nombre = $('#elem_title' + element_id).text()
+  
+          //Check if element isn't in array
+          var trobat = false;
+  
+          for (var i = 0; i < actual_array.length; i++) {
+            if (actual_array[i].id == element_id) {
+              navigator.notification.alert("No se puede añadir dos veces el mismo elemento", null, "Elemento repetido")
+              trobat = true;
+              break;
+            }
+          }
+  
+          if (!trobat) {
+            $('#finish_elem').attr("value", "Finalizar sección");
+            actual_array[actual_array.length] = elem;
+            actual_remain--;
+            cocktails.fillRemain();
+            $('#element_loading').show();
+            var t=setTimeout(function(){
+              $('#element_loading').hide();
+            },300);
+          }
         }
       },
       finish_element_function : function() {

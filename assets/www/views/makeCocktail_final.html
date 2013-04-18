@@ -41,11 +41,21 @@
         var t = setTimeout(loadCocktail, 100);
         
         $('#send_cocktail').click(function(){
+          var cocktail_json = window.localStorage.getItem(1);
+          var url = "";
+          if (BROWSER){
+            alert("Browser");
+            url = "http://localhost:3000";
+          }
+          else{
+            alert("Simulator");
+            url = "http://10.0.2.2:3000";
+          }
            $.ajax({
             type : "POST",
-            url : "http://84.88.131.101:3000/cocktails",
-            data : window.localStorage.getItem(1),
-            success : alert("Success!!!")
+            url : (url + "/cocktails"),
+            data: cocktail_json,
+            success : function(data){alert(cocktail_json);}
           });
         });
         
@@ -57,13 +67,13 @@
         var cocktail_json = window.localStorage.getItem(1);
         cocktail = jQuery.parseJSON(cocktail_json);
         for (var i = 0; i < cocktail.zumo.length; i++) {
-          $('#cocktail_info').append(cocktail.zumo[i].title + "</br>");
+          $('#cocktail_info').append(cocktail.zumo[i].nombre + "</br>");
         }
         for (var i = 0; i < cocktail.licor.length; i++) {
-          $('#cocktail_info').append(cocktail.licor[i].title + "</br>");
+          $('#cocktail_info').append(cocktail.licor[i].nombre + "</br>");
         }
-        $('#cocktail_info').append(cocktail.carbonico[0].title + "</br>");
-        $('#cocktail_info').append(cocktail.vaso[0].title + "</br>");
+        $('#cocktail_info').append(cocktail.carbonico[0].nombre + "</br>");
+        $('#cocktail_info').append(cocktail.vaso[0].nombre + "</br>");
         $('#cocktail_info').append(cocktail.nombre + "</br>");
       }
 

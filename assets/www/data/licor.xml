@@ -1,16 +1,16 @@
 <licores>
   <licor id="0">
-    <title>Whiskyu</title>
+    <nombre>Whiskyu</nombre>
     <image>zumo_fresa.jpg</image>
     <description>Juquetona</description>
   </licor>
   <licor id="1">
-    <title>PVodfka</title>
+    <nombre>PVodfka</nombre>
     <image>zumo_fresa2.jpg</image>
     <description>Ácida</description>
   </licor>
   <licor id="2">
-    <title>wololo</title>
+    <nombre>wololo</nombre>
     <image>zumo_fresa.jpg</image>
     <description>Dulce</description>
   </licor>

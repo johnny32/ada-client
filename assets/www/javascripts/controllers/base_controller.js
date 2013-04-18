@@ -1,5 +1,7 @@
 //Base Controller
 
+var BROWSER = true;
+
 document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
