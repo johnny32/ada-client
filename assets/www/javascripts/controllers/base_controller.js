@@ -4,6 +4,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
   document.addEventListener("backbutton", function(e) {
+    //Configurem el boto "enrere" per a que, si estem a la pantalla principal, surti de l'aplicacio
     var full_url = window.location.pathname;
     var pag = full_url.substring(full_url.lastIndexOf('/'), full_url.length);
     if (pag == '/index.html') {

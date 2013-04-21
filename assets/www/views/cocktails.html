@@ -22,14 +22,18 @@
         
           //TODO Rebem l'objecte JSON del servidor. Mentre no estigui implementat, suposarem que el tenim aqui:
           var json = {"cocktails": [
-            new Cocktail("r", "Cocktail supremo", "GLaDOS", ["Muerte", "Destruccion"], 10),
-            new Cocktail("1", "El mejor", "Johnny", ["Cerveza", "Mas cerveza", "Mucha mas cerveza"], 9.5),
-            new Cocktail("2", "Hercorzumo", "Hercules", ["Zumo de los dioses"], 9.1),
-            new Cocktail("3", "Cocktail de zanahoria", "Bugs Bunny", ["Zanahoria", "Vodka"], 8.5),
-            new Cocktail("4", "Grog", "Guybrush Threepwood", ["queroseno", "glicol propilico", "endulzantes artificiales", "acido sulfurico", "ron", "acetona", "tinte rojo n2", "SCUMM", "grasa para ejes", "acido para baterias", "pepperoni"], 8),
-            new Cocktail("5", "Absenta negra", "Metaleros unidos S.A.", ["absenta", "color negro"], 6.66),
-            new Cocktail("6", "Sunset Sarsaparilla", "Bethesda", ["sunset", "nuka cola", "agua radioactiva"], 5.25),
-            new Cocktail("7", "Basura de cocktail", "Xose", ["Guild Wars 2", "es una mierda"], 3.5),
+            new Cocktail(0, "Muerte", "Destruccion", "Cola-loca", "Vaso 1", "Cocktail supremo", "Negro", "GLaDOS", 1),
+            new Cocktail(1, ["Cerveza", "Mas cerveza"], "Mucha mas cerveza", "Cerveza de la buena", "Vaso de pinta", "El mejor", "Rojo", "Johnny"),
+            new Cocktail(2, ["Cerveza", "Mas cerveza"], "Mucha mas cerveza", "Cerveza de la buena", "Vaso de pinta", "El mejor", "Rojo", "Johnny"),
+            new Cocktail(3, ["Cerveza", "Mas cerveza"], "Mucha mas cerveza", "Cerveza de la buena", "Vaso de pinta", "El mejor", "Rojo", "Johnny"),
+            new Cocktail(4, ["Cerveza", "Mas cerveza"], "Mucha mas cerveza", "Cerveza de la buena", "Vaso de pinta", "El mejor", "Rojo", "Johnny"),
+            new Cocktail(5, ["Cerveza", "Mas cerveza"], "Mucha mas cerveza", "Cerveza de la buena", "Vaso de pinta", "El mejor", "Rojo", "Johnny"),
+            new Cocktail(6, ["Cerveza", "Mas cerveza"], "Mucha mas cerveza", "Cerveza de la buena", "Vaso de pinta", "El mejor", "Rojo", "Johnny"),
+            new Cocktail(7, ["Cerveza", "Mas cerveza"], "Mucha mas cerveza", "Cerveza de la buena", "Vaso de pinta", "El mejor", "Rojo", "Johnny"),
+            new Cocktail(8, ["Cerveza", "Mas cerveza"], "Mucha mas cerveza", "Cerveza de la buena", "Vaso de pinta", "El mejor", "Rojo", "Johnny"),
+            new Cocktail(9, ["Cerveza", "Mas cerveza"], "Mucha mas cerveza", "Cerveza de la buena", "Vaso de pinta", "El mejor", "Rojo", "Johnny"),
+            new Cocktail(10, ["Cerveza", "Mas cerveza"], "Mucha mas cerveza", "Cerveza de la buena", "Vaso de pinta", "El mejor", "Rojo", "Johnny"),
+            new Cocktail(11, ["Cerveza", "Mas cerveza"], "Mucha mas cerveza", "Cerveza de la buena", "Vaso de pinta", "El mejor", "Rojo", "Johnny"),
           ]};
   
           for (var c in json.cocktails) {
@@ -38,7 +42,7 @@
               id: cktl.id,
               class: 'btn',
               style: 'width: 90%; height: 4em; margin: auto;',
-              text: cktl.nom,
+              text: cktl.nombre,
               click: function(e) {
                 loadPage('cocktail.html', {id: this.id})
               }
