@@ -14,19 +14,51 @@
 
     <link media="screen" rel="stylesheet" href="../stylesheets/reset.css" />
     <link media="screen" rel="stylesheet" href="../stylesheets/style.css" />
+    <style>
+      @font-face {
+        font-family: customFont;
+        src: url('../fonts/knewave.ttf');
+      }
+      
+      .content {
+        font-family: customFont;
+      }
+    </style>
   </head>
   <body>
     <div class="content">
       <div id="title">
-        Crea tu cocktail
-        Podr&aacute;s crear tu propio cocktail, etc etc etc
-        Bla bla bla
-        Ola k ase
+        ¡Ahora podrás crear tu propio cocktail! <br />
+        Lo único que debes hacer es escoger bien los ingredientes, darle un nombre bien original y mezclarlo todo. <br />
+        Además, si estás en el algun local Sinatra, te lo podrán preparar al moment y podrás degustar tu creación. <br />
+        Los pasos son los siguientes: <br />
+        <ul>
+          <li>1.- Escoger los zumos</li>
+          <li>2.- Escoger los licores</li>
+          <li>3.- Escoger el carbónico</li>
+          <li>4.- Escoger el vaso</li>
+          <li>5.- Ponerle un nombre</li>
+        </ol>
       </div>
       <div>
-        <a onclick="loadPage('makeCocktail.html')" id="gallery-link">
-          Crea tu cocktail
-        </a>
+        <ul>
+          <li>
+            <div class="main-left">
+              <a id="cocktail_btn" onclick="loadPage('makeCocktail.html')">
+                <img class="button-main-menu" src="../images/ic_cocktail_add.png"/>
+                <p>Crear cocktail</p>
+              </a>
+            </div>
+          </li>
+          <li>
+            <div class="main-right">
+              <a id="cocktail_btn" onclick="javascript:alert('Mis otros cocktails')">
+                <img class="button-main-menu" src="../images/ic_cocktail_safe.png"/>
+                <p> Mis otros cocktails</p>
+              </a>
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
   </body>

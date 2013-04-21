@@ -9,16 +9,9 @@ html, body, #logo-table {
 	font-family: sans;
 }
 
-/* Checkbox and radiobuttons */
-
-.has-js .label_check,
-.has-js .label_radio { padding-left: 34px; }
-.has-js .label_radio { background: url(../images/radio-off.png) no-repeat; }
-.has-js .label_check { background: url(../images/check-off.png) no-repeat; }
-.has-js label.c_on { background: url(../images/check-on.png) no-repeat; }
-.has-js label.r_on { background: url(../images/radio-on.png) no-repeat; }
-.has-js .label_check input,
-.has-js .label_radio input { position: absolute; left: -9999px; }
+a{
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+}
 
 .content {
 	width: 100%;
@@ -180,10 +173,84 @@ html, body, #logo-table {
   text-align: center !important;
 }
 
-/* Cocktails screen */
+/************************
+*   Cocktails screen    *
+************************/
 
 .cocktail_slide_image{
   width: 90%;
   margin-left: 5%;
   margin-right: 5%;
+}
+
+.arrow-left{
+  background-image: url('../images/ic_arrow_left.png');
+  position: absolute;
+  left: -1%;
+  top: 28%;
+  width: 72px;
+  height: 72px;
+  z-index: 100;
+}
+
+.arrow-right{
+  background-image: url('../images/ic_arrow_right.png');
+  position: absolute;
+  right: 1%;
+  top: 28%;
+  width: 66px;
+  height: 72px;
+  z-index: 100;
+}
+
+#element_loading{
+  position: relative;
+  top: -28%;
+  left: 50%;
+}
+
+.cocktails-main-left {
+  width: 50%;
+  left: 3%;
+  float: left;
+}
+
+.cocktails-main-center {
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cocktails-main-right {
+  width: 50%;
+  right: 5%;
+  float: right;
+}
+
+.cocktails-main-bottom{
+  clear: both;
+  height: 15px;
+}
+
+#finish_elem{
+  position: relative;
+  right: 5%;
+}
+
+#buttons{
+  position: fixed;
+  bottom: 0;
+  width: 86%;
+  margin-left: 7%;
+  margin-right: 7%;
+}
+
+.name_container{
+  margin-top: 30%;
+}
+
+#cocktail_name{
+  padding: 2%;
+  border-radius: 10px;
+  margin-bottom: 10%;
 }

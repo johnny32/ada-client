@@ -1,19 +1,49 @@
 //Base Controller
 
+var BROWSER = true;
+
 document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
+<<<<<<< HEAD
   document.addEventListener("backbutton", function(e) {
     //Configurem el boto "enrere" per a que, si estem a la pantalla principal, surti de l'aplicacio
     var full_url = window.location.pathname;
     var pag = full_url.substring(full_url.lastIndexOf('/'), full_url.length);
     if (pag == '/index.html') {
       e.preventDefault();
-      navigator.app.exitApp();
-    } else {
+      navigator.notification.confirm("¿Estás seguro que quieres salir?", exitApp, "Salir de la aplicación", 'SI, NO')
+    }
+    else if (pag == '/makeCocktail.html'){
+      e.preventDefault();
+      navigator.notification.confirm("¿Estás seguro de querer descartar el cocktail?", discartCocktail, "Descartar cocktail", 'SI, NO')
+    }
+    else if (pag == '/makeCocktail_final.html'){
+      e.preventDefault();
+      navigator.notification.confirm("¿Estás seguro de querer descartar el cocktail?", discartCocktail2, "Descartar cocktail", 'SI, NO')
+    }
+    else {
       navigator.app.backHistory();
     }
   }, false);
+}
+
+function exitApp(button){
+  if(button == 1){
+    navigator.app.exitApp();
+  }
+}
+
+function discartCocktail(button){
+  if(button == 1){
+    navigator.app.backHistory();
+  }
+}
+
+function discartCocktail2(button){
+  if(button == 1){
+    history.go(-2); //Return to makeCocktail_intro
+  }
 }
 
 /**

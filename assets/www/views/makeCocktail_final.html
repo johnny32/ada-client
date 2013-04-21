@@ -5,10 +5,12 @@
     <title data-i18n="app_name"></title>
     <script src="../javascripts/cordova-2.3.0.js"></script>
     <script src="../javascripts/jquery-1.8.2.min.js"></script>
+    <script src="../javascripts/spin.min.js"></script>
+    <!-- Loading gif -->
     <script src="../javascripts/controllers/base_controller.js"></script>
-    
+
     <link rel="stylesheet" href="../stylesheets/idangerous.swiper.css">
-    
+
     <!-- Swiper -->
     <script defer src="../javascripts/idangerous.swiper-1.8.min.js"></script>
 
@@ -16,40 +18,96 @@
     <link media="screen" rel="stylesheet" href="../stylesheets/style.css" />
     <script>
       $(document).ready(function($) {
-        alert("makecocktail_final");
-        
-        var json = jQuery.parseJSON(getURLParameter('0'));
-        
-        for (var i = 0; i < json.zumo.length; i++) {
-          alert(json.zumo[i].title);
-          $('#info').append(json.zumo[i].title + "</br>");
+        var opts = {
+          lines : 13, // The number of lines to draw
+          length : 20, // The length of each line
+          width : 23, // The line thickness
+          radius : 40, // The radius of the inner circle
+          corners : 1, // Corner roundness (0..1)
+          rotate : 90, // The rotation offset
+          direction : 1, // 1: clockwise, -1: counterclockwise
+          color : '#CCC', // #rgb or #rrggbb
+          speed : 0.5, // Rounds per second
+          trail : 52, // Afterglow percentage
+          shadow : true, // Whether to render a shadow
+          hwaccel : true, // Whether to use hardware acceleration
+          className : 'spinner', // The CSS class to assign to the spinner
+          zIndex : 2e9, // The z-index (defaults to 2000000000)
+          top : 'auto', // Top position relative to parent in px
+          left : 'auto' // Left position relative to parent in px
         }
-  /*      
-        for (var i = 0; i < json.licor.length; i++) {
-          alert(json.licor[i].title);
-          $('#info').append(json.licor[i].title + "</br>");
+        var target = document.getElementById('loading');
+        var spinner = new Spinner(opts).spin(target);
+        var t = setTimeout(loadCocktail, 100);
+        
+        $('#send_cocktail').click(function(){
+          var cocktail_json = window.localStorage.getItem(1);
+          var url = "";
+          
+          alert("Aqui es faria la pujada al servidor");
+          
+/*          if (BROWSER){
+            alert("Browser");
+            url = "http://localhost:3000";
+          }
+          else{
+            alert("Simulator");
+            url = "http://10.0.2.2:3000";
+          }
+           $.ajax({
+            type : "POST",
+            url : (url + "/cocktails"),
+            data: cocktail_json,
+            success : function(data){alert(cocktail_json);}
+          });
+*/        });
+        
+      });
+
+      function loadCocktail() {
+        $('#info').show();
+        $('#loading').hide();
+        var cocktail_json = window.localStorage.getItem(1);
+        cocktail = jQuery.parseJSON(cocktail_json);
+        for (var i = 0; i < cocktail.zumo.length; i++) {
+          $('#cocktail_info').append(cocktail.zumo[i].nombre + "</br>");
         }
-        
-        alert(json.carbonico[0].title);
-        $('#info').append(json.carbonico[0].title + "</br>");
-        
-        alert(json.vaso[0].title);
-        $('#info').append(json.vaso[0].title + "</br>");
-        
-        alert(json.nombre);
-        $('#info').append(json.nombre + "</br>");
-        
-  */    });
+        for (var i = 0; i < cocktail.licor.length; i++) {
+          $('#cocktail_info').append(cocktail.licor[i].nombre + "</br>");
+        }
+        $('#cocktail_info').append(cocktail.carbonico[0].nombre + "</br>");
+        $('#cocktail_info').append(cocktail.vaso[0].nombre + "</br>");
+        $('#cocktail_info').append(cocktail.nombre + "</br>");
+      }
+
     </script>
-    
+    <style>
+      @font-face {
+        font-family: customFont;
+        src: url('../fonts/knewave.ttf');
+      }
+
+      .content {
+        font-family: customFont;
+      }
+    </style>
+
   </head>
   <body>
     <div class="content">
       <div id="title">
         MEZCLAR
       </div>
-      <div id="info">
+      <div id="loading"></div>
+      <div id="info" style="display: none">
         <img src="../images/cocktelera.png" />
+        <div id="cocktail_info"></div>
+        <div class="cocktails-main-center">
+          <a id="send_cocktail"> <img class="button-main-menu" src="../images/ic_cocktail_checkmark.png"/>
+          <p>
+            Mezclar
+          </p></a>
+        </div><div class="cocktails-main-bottom"></div>
       </div>
     </div>
   </body>
