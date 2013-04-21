@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title data-i18n="app_name">Sinatra Cockteleria</title>
+    <script src="../javascripts/cordova-2.3.0.js"></script>
+    <script src="../javascripts/jquery-1.8.2.min.js"></script>
+    <script src="../javascripts/controllers/base_controller.js"></script>
+    <script src="../javascripts/cocktail.js"></script>
+    <script src="../javascripts/bootstrap/bootstrap.min.js"></script>
+    <link media="screen" rel="stylesheet" href="../stylesheets/bestCocktails.css" />
+    <link media="screen" rel="stylesheet" href="../stylesheets/bootstrap/bootstrap.min.css" />
+    <link media="screen" rel="stylesheet" href="../stylesheets/bootstrap/bootstrap-responsive.min.css" />
+    <link media="screen" rel="stylesheet" href="../stylesheets/reset.css" />
+    <link media="screen" rel="stylesheet" href="../stylesheets/style.css" />
+    <script>
+      $(document).ready(function() {
+        
+        var params = getUrlParameters();
+        
+        if (params.id) {
+          
+          //TODO Obtenir cocktail del servidor
+          //http://localhost:3000/cocktails/params.id          
+          var cktl = new Cocktail(1, ["Cerveza", "Mas cerveza"], "Mucha mas cerveza", "Cerveza de la buena", "Vaso de pinta", "El mejor", "Rojo", "Johnny");
+          
+          //TODO Obtenir imatge a partir del got i del color
+          //http://localhost:3000/images/cktl.vaso/cktl.color
+          var img_path = '../images/zumo/zumo_fresa.jpg';
+          
+          var img = $('<img>', {
+            id: 'img_cktl',
+            src: img_path,
+            alt: cktl.nombre
+          });
+          
+          $('#div_img').append(img);
+          
+          var info = '<span class="field">Creador:</span> ' + cktl.creador + '<br>'
+            + '<span class="field">Zumos:</span> ' + cktl.zumos.join(', ') + '<br>'
+            + '<span class="field">Licores:</span> ' + cktl.licores.join(', ') + '<br>'
+            + '<span class="field">Carbónico:</span> ' + cktl.carbonico + '<br>';
+          
+          console.log(info);
+          $('#div_info').append(info);
+          
+          $('#div_rating').append('9.5');
+        } else {
+          navigator.notification.alert('Error en la conexi&oacute;n con el servidor', function() {
+            loadPage('index.html');
+          }, 'Error');
+          console.log('Error: no hay id de cocktail.');
+        }
+        
+      });
+    </script>
+    <style>
+      #div_info {
+        float: left;
+        width: 60%;
+      }
+      
+      #div_rating {
+        width: 40%;
+      }
+
+      @font-face {
+        font-family: customFont;
+        src: url('../fonts/knewave.ttf');
+      }
+      
+      #div_more {
+        font-family: customFont;
+        clear: both;
+      }
+      
+      .field {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content">
+      <div id="header">
+        <img class="logo" src="../images/logo_petit.png" alt="Sinatra Cocteleria" onclick="loadPage('index.html')"/>
+      </div>
+      <div id="cocktail">
+        <div id="div_title"></div>
+        <div id="div_img"></div>
+        <div id="div_info"></div>
+        <div id="div_rating"></div>
+        <div id="div_more">
+          <a id="a_more" onclick="loadPage('cocktails.html', {type: 'user', id: cktl.creador})">
+            <img src="../images/cocktail_zoom.png" alt="Ver mas cocktails" />
+            Ver m&aacute;s cocktails del usuario
+          </a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
