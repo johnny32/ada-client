@@ -244,3 +244,13 @@ a{
   margin-left: 7%;
   margin-right: 7%;
 }
+
+.name_container{
+  margin-top: 30%;
+}
+
+#cocktail_name{
+  padding: 2%;
+  border-radius: 10px;
+  margin-bottom: 10%;
+}

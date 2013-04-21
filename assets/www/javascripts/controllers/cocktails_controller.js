@@ -147,7 +147,7 @@ $(document).ready(function($) {
         } else {
           $('.swiper-container').html("");
 
-          $('.swiper-container').html('<input type="text" id="cocktail_name" maxlength="30"/>' + 'Te quedan <b><span id="myCounter">30</span></b> caracteres para el nombre</font>');
+          $('.swiper-container').html('<div class="name_container"><input type="text" id="cocktail_name" maxlength="30"/><br />' + 'Te quedan <b><span id="myCounter">30</span></b> caracteres para el nombre</div>');
 
           var elem = $('#myCounter');
           $('#cocktail_name').limiter(30, elem);
@@ -166,11 +166,11 @@ $(document).ready(function($) {
 
     function confirmName(button) {
       if (button == 1) {
-        alert("Mezclar!!!");
+        //alert("Mezclar!!!");
         selected_data.nombre = $('#cocktail_name').val();
 
         var json = JSON.stringify(selected_data);
-        alert(json);
+        //alert(json);
 
         window.localStorage.clear();
         if (window.localStorage.getItem("n_cocktails") == null) {
@@ -208,13 +208,12 @@ $(document).ready(function($) {
         }
         else{
           var element_id = mySwiper.activeSlide
-  
           var elem = new Object();
+          elem.id = element_id;
           elem.nombre = $('#elem_title' + element_id).text()
   
           //Check if element isn't in array
           var trobat = false;
-  
           for (var i = 0; i < actual_array.length; i++) {
             if (actual_array[i].id == element_id) {
               navigator.notification.alert("No se puede añadir dos veces el mismo elemento", null, "Elemento repetido")

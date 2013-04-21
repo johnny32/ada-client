@@ -43,7 +43,10 @@
         $('#send_cocktail').click(function(){
           var cocktail_json = window.localStorage.getItem(1);
           var url = "";
-          if (BROWSER){
+          
+          alert("Aqui es faria la pujada al servidor");
+          
+/*          if (BROWSER){
             alert("Browser");
             url = "http://localhost:3000";
           }
@@ -57,7 +60,7 @@
             data: cocktail_json,
             success : function(data){alert(cocktail_json);}
           });
-        });
+*/        });
         
       });
 
