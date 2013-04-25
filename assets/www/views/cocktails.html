@@ -6,6 +6,7 @@
     <script src="../javascripts/cordova-2.3.0.js"></script>
     <script src="../javascripts/jquery-1.8.2.min.js"></script>
     <script src="../javascripts/controllers/base_controller.js"></script>
+    <script src="../javascripts/controllers/server_controller.js"></script>
     <script src="../javascripts/cocktail.js"></script>
     <script src="../javascripts/bootstrap/bootstrap.min.js"></script>
     <link media="screen" rel="stylesheet" href="../stylesheets/bestCocktails.css" />
@@ -17,11 +18,20 @@
       $(document).ready(function() {
         
         var params = getUrlParameters();
+        var json;
                 
         if (params.type == 'best') {
         
           //TODO Rebem l'objecte JSON del servidor. Mentre no estigui implementat, suposarem que el tenim aqui:
-          var json = {"cocktails": [
+          json = getCocktails(params);
+          
+        } else if (params.type == 'user') {
+          
+          //TODO Rebre l'usuari          
+          username = params.id;
+          
+          //TODO Rebem l'objecte JSON del servidor. Mentre no estigui implementat, suposarem que el tenim aqui:
+          json = {"cocktails": [
             new Cocktail(0, "Muerte", "Destruccion", "Cola-loca", "Vaso 1", "Cocktail supremo", "Negro", "GLaDOS", 1),
             new Cocktail(1, ["Cerveza", "Mas cerveza"], "Mucha mas cerveza", "Cerveza de la buena", "Vaso de pinta", "El mejor", "Rojo", "Johnny"),
             new Cocktail(2, ["Cerveza", "Mas cerveza"], "Mucha mas cerveza", "Cerveza de la buena", "Vaso de pinta", "El mejor", "Rojo", "Johnny"),
@@ -35,29 +45,29 @@
             new Cocktail(10, ["Cerveza", "Mas cerveza"], "Mucha mas cerveza", "Cerveza de la buena", "Vaso de pinta", "El mejor", "Rojo", "Johnny"),
             new Cocktail(11, ["Cerveza", "Mas cerveza"], "Mucha mas cerveza", "Cerveza de la buena", "Vaso de pinta", "El mejor", "Rojo", "Johnny"),
           ]};
+          
+          $('#txt_recommended').remove();
+          $('#txt_list').text($('#txt_list').text().replace('Listado de cocktails:', 'Listado de cocktails de ' + username + ':'));
+        }
   
-          for (var c in json.cocktails) {
-            var cktl = json.cocktails[c];
-            var btn = $('<button>', {
-              id: cktl.id,
-              class: 'btn',
-              style: 'width: 90%; height: 4em; margin: auto;',
-              text: cktl.nombre,
-              click: function(e) {
-                loadPage('cocktail.html', {id: this.id})
-              }
-            });
-            
-            if (cktl.id == "r") {
-              $("#recommended-cocktail").append(btn);
-            } else {
-              //TODO Scroll nomes de la llista, infinit (va carregant a mesura que baixes)
-              $("#list-cocktails").append(btn);
+        for (var c in json.cocktails) {
+          var cktl = json.cocktails[c];
+          var btn = $('<button>', {
+            id: cktl.id,
+            class: 'btn',
+            style: 'width: 90%; height: 4em; margin: auto;',
+            text: cktl.nombre,
+            click: function(e) {
+              loadPage('cocktail.html', {id: this.id})
             }
+          });
+          
+          if (cktl.id == "r") {
+            $("#recommended-cocktail").append(btn);
+          } else {
+            //TODO Scroll nomes de la llista, infinit (va carregant a mesura que baixes)
+            $("#list-cocktails").append(btn);
           }
-          
-        } else if (params.type == 'user') {
-          
         }
       });
     </script>
@@ -68,9 +78,9 @@
         <img class="logo" src="../images/logo_petit.png" alt="Sinatra Cocteleria" onclick="loadPage('index.html')"/>
       </div>
       <div id="best-div">
-        Cocktail recomendado:
+        <span id="txt_recommended">Cocktail recomendado:</span>
         <div id="recommended-cocktail" class="btn-group btn-block"></div>
-        Los 10 mejores cocktails:
+        <span id="txt_list">Listado de cocktails:</span>
         <div id="list-cocktails" class="btn-group btn-group-vertical btn-block"></div>
       </div>
       <div id="footer">

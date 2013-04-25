@@ -208,3 +208,16 @@ function finishCocktail(){
   loadPage('makeCocktail_final.html', [json]);
   
 }
+
+function rating2Image(rating) {
+  var img = '../images/ratings/';
+  var r = Math.round(rating);
+  
+  if (r <= 5 && r >= 1) {
+    img += ('r' + r + '.png');
+  } else {
+    throw new Error('Rating incorrecto.');
+  }
+  
+  return img;
+}
