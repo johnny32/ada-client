@@ -38,15 +38,13 @@
         }
         var target = document.getElementById('loading');
         var spinner = new Spinner(opts).spin(target);
-        var t = setTimeout(loadCocktail, 100);
+        var t = setTimeout(loadCocktail, 200);
         
         $('#send_cocktail').click(function(){
-          var cocktail_json = window.localStorage.getItem(1);
+          var cocktail = window.localStorage.getItem("cocktail_temp");
           var url = "";
           
-          alert("Aqui es faria la pujada al servidor");
-          
-/*          if (BROWSER){
+          if (BROWSER){
             alert("Browser");
             url = "http://localhost:3000";
           }
@@ -54,30 +52,49 @@
             alert("Simulator");
             url = "http://10.0.2.2:3000";
           }
-           $.ajax({
+          
+          shareScreen();
+ /*          $.ajax({
             type : "POST",
             url : (url + "/cocktails"),
-            data: cocktail_json,
-            success : function(data){alert(cocktail_json);}
+            data: JSON.parse(cocktail),
+            success : function(data){
+              //Mostrar pagina de compartir
+              alert("Anem a la pantalla de compartir");
+            },
+            error: function(data){
+              alert("Error con el servidor");
+            }
           });
-*/        });
+ */
+        });
         
       });
+
+      function calcularColor(){
+        alert("Calcular color");
+        //TODO: Calcular el color del cocktail
+      }
+      
+      function shareScreen(){
+        $('#info').hide();
+        $('#info').html('');
+      }
 
       function loadCocktail() {
         $('#info').show();
         $('#loading').hide();
-        var cocktail_json = window.localStorage.getItem(1);
-        cocktail = jQuery.parseJSON(cocktail_json);
-        for (var i = 0; i < cocktail.zumo.length; i++) {
-          $('#cocktail_info').append(cocktail.zumo[i].nombre + "</br>");
+        cocktail = jQuery.parseJSON(window.localStorage.getItem("cocktail_temp"));
+        for (var i = 0; i < cocktail.zumos.length; i++) {
+          $('#cocktail_info').append(cocktail.zumos[i] + "</br>");
         }
-        for (var i = 0; i < cocktail.licor.length; i++) {
-          $('#cocktail_info').append(cocktail.licor[i].nombre + "</br>");
+        for (var i = 0; i < cocktail.licores.length; i++) {
+          $('#cocktail_info').append(cocktail.licores[i] + "</br>");
         }
-        $('#cocktail_info').append(cocktail.carbonico[0].nombre + "</br>");
-        $('#cocktail_info').append(cocktail.vaso[0].nombre + "</br>");
-        $('#cocktail_info').append(cocktail.nombre + "</br>");
+        $('#cocktail_info').append(cocktail.carbonico + "</br>");
+        $('#cocktail_info').append(cocktail.vaso + "</br>");
+        $('#cocktail_info').append(cocktail.nombre + "</br>"); 
+        calcularColor();
       }
 
     </script>
