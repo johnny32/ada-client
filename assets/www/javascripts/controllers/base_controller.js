@@ -1,11 +1,10 @@
 //Base Controller
 
-var BROWSER = true;
+var BROWSER = false;
 
 document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
-<<<<<<< HEAD
   document.addEventListener("backbutton", function(e) {
     //Configurem el boto "enrere" per a que, si estem a la pantalla principal, surti de l'aplicacio
     var full_url = window.location.pathname;

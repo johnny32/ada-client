@@ -169,15 +169,24 @@ $(document).ready(function($) {
         //alert("Mezclar!!!");
         selected_data.nombre = $('#cocktail_name').val();
 
-        var json = JSON.stringify(selected_data);
-        //alert(json);
-
-        window.localStorage.clear();
-        if (window.localStorage.getItem("n_cocktails") == null) {
-          window.localStorage.setItem("n_cocktails", 0);
+        //Parsejem el JSON per al servidor
+        
+        cocktail_final = new Object();
+        cocktail_final.zumos = new Array();
+        for(var i = 0;i < selected_data.zumo.length; i++){
+          cocktail_final.zumos[i] = selected_data.zumo[i].nombre;
         }
-        window.localStorage.setItem("n_cocktails", parseInt(window.localStorage.getItem("n_cocktails")) + 1);
-        window.localStorage.setItem(window.localStorage.getItem("n_cocktails"), JSON.stringify(selected_data));
+        cocktail_final.licores = new Array();
+        for(var i = 0;i < selected_data.licor.length; i++){
+          cocktail_final.licores[i] = selected_data.licor[i].nombre;
+        }
+        cocktail_final.carbonico = selected_data.carbonico[0].nombre;
+        cocktail_final.vaso = selected_data.vaso[0].nombre;
+        cocktail_final.nombre = selected_data.nombre;
+        cocktail_final.color = "";
+        cocktail_final.creador = "";
+        
+        window.localStorage.setItem("cocktail_temp", JSON.stringify(cocktail_final));
         loadPage('makeCocktail_final.html');
       }
     }
