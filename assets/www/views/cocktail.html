@@ -6,6 +6,7 @@
     <script src="../javascripts/cordova-2.3.0.js"></script>
     <script src="../javascripts/jquery-1.8.2.min.js"></script>
     <script src="../javascripts/controllers/base_controller.js"></script>
+    <script src="../javascripts/controllers/cocktails_controller.js"></script>
     <script src="../javascripts/cocktail.js"></script>
     <script src="../javascripts/bootstrap/bootstrap.min.js"></script>
     <link media="screen" rel="stylesheet" href="../stylesheets/bestCocktails.css" />
@@ -17,62 +18,78 @@
       $(document).ready(function() {
         
         var params = getUrlParameters();
+
+        //TODO Obtenir cocktail del servidor
+        //http://localhost:3000/cocktails/params.id          
+        var cktl = new Cocktail(1, ["Cerveza", "Mas cerveza"], ["Mucha mas cerveza"], "Cerveza de la buena", "Vaso de pinta", "El mejor", "Rojo", "Johnny");
         
-        if (params.id) {
-          
-          //TODO Obtenir cocktail del servidor
-          //http://localhost:3000/cocktails/params.id          
-          var cktl = new Cocktail(1, ["Cerveza", "Mas cerveza"], "Mucha mas cerveza", "Cerveza de la buena", "Vaso de pinta", "El mejor", "Rojo", "Johnny");
-          
-          //TODO Obtenir imatge a partir del got i del color
-          //http://localhost:3000/images/cktl.vaso/cktl.color
-          var img_path = '../images/zumo/zumo_fresa.jpg';
-          
-          var img = $('<img>', {
-            id: 'img_cktl',
-            src: img_path,
-            alt: cktl.nombre
-          });
-          
-          $('#div_img').append(img);
-          
-          var info = '<span class="field">Creador:</span> ' + cktl.creador + '<br>'
-            + '<span class="field">Zumos:</span> ' + cktl.zumos.join(', ') + '<br>'
-            + '<span class="field">Licores:</span> ' + cktl.licores.join(', ') + '<br>'
-            + '<span class="field">Carbónico:</span> ' + cktl.carbonico + '<br>';
-          
-          console.log(info);
-          $('#div_info').append(info);
-          
-          $('#div_rating').append('9.5');
-        } else {
-          navigator.notification.alert('Error en la conexi&oacute;n con el servidor', function() {
-            loadPage('index.html');
-          }, 'Error');
-          console.log('Error: no hay id de cocktail.');
-        }
+        //TODO Obtenir imatge a partir del got i del color
+        //http://localhost:3000/images/cktl.vaso/cktl.color
+        var img_path = '../images/zumo/zumo_fresa.jpg';
+        
+        var img = $('<img>', {
+          id: 'img_cktl',
+          src: img_path,
+          alt: cktl.nombre
+        });
+        
+        $('#div_img').append(img);
+        
+        var info = '<span class="field">Creador:</span> ' + cktl.creador + '<br>'
+          + '<span class="field">Zumos:</span> ' + cktl.zumos.join(', ') + '<br>'
+          + '<span class="field">Licores:</span> ' + cktl.licores.join(', ') + '<br>'
+          + '<span class="field">Carb&oacute;nico:</span> ' + cktl.carbonico + '<br>';
+
+        $('#div_info').append(info);
+        
+        var rating = rating2Image(4.2175);
+        $('#div_rating').append('<img src="' + rating + '" alt="Puntuacion 4.2175" />');
+        
+        $('#a_more').click(function() {
+          loadPage('cocktails.html', {type: 'user', id: cktl.creador});
+        });
+        
+        $('#a_rate').click(function() {
+          loadPage('rate.html', {cocktail: cktl._id});
+        });
         
       });
     </script>
     <style>
+      #div_more {
+        font-family: customFont;
+        clear: both;
+        float: left;
+        margin-left: 10%;
+        width: 40%;
+        text-align: center;
+      }
+      
       #div_info {
         float: left;
+        margin-left: 10%;
         width: 60%;
+        text-align: left;
+      }
+      
+      #div_rate {
+        font-family: customFont;
+        float: right;
+        margin-right: 10%;
+        width: 40%;
+        text-align: center;
       }
       
       #div_rating {
-        width: 40%;
+        float: left;
+        margin-right: 5%;
+        width: 25%;
       }
 
       @font-face {
         font-family: customFont;
         src: url('../fonts/knewave.ttf');
-      }
-      
-      #div_more {
-        font-family: customFont;
-        clear: both;
-      }
+      }      
       
       .field {
         font-weight: bold;
@@ -90,9 +107,15 @@
         <div id="div_info"></div>
         <div id="div_rating"></div>
         <div id="div_more">
-          <a id="a_more" onclick="loadPage('cocktails.html', {type: 'user', id: cktl.creador})">
-            <img src="../images/cocktail_zoom.png" alt="Ver mas cocktails" />
+          <a id="a_more">
+            <img src="../images/ic_cocktail_zoom.png" alt="Ver mas cocktails" /><br>
             Ver m&aacute;s cocktails del usuario
+          </a>
+        </div>
+        <div id="div_rate">
+          <a id="a_rate">
+            <img src="../images/ic_cocktail_star.png" alt="Votar cocktail" /><br>
+            Votar cocktail
           </a>
         </div>
       </div>
