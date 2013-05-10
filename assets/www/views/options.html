@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title data-i18n="app_name"></title>
+    <script src="../javascripts/cordova-2.3.0.js"></script>
+    <script src="../javascripts/jquery-1.8.2.min.js"></script>
+    <script src="../javascripts/cdv-plugin-fb-connect.js"></script>
+    <script src="../javascripts/facebook_js_sdk.js"></script>
+    <script src="../javascripts/controllers/base_controller.js"></script>
+    <script src="../javascripts/optionsMenu.js"></script>
+    <link media="screen" rel="stylesheet" href="../stylesheets/reset.css" />
+    <link media="screen" rel="stylesheet" href="../stylesheets/style.css" />
+    <style>
+      @font-face {
+        font-family: customFont;
+        src: url('../fonts/knewave.ttf');
+      }
+      
+      .content {
+        font-family: customFont;
+      }
+      
+    </style>
+    
+    <!-- Facebook plugin -->
+    
+    <link rel="stylesheet" type="text/css" href="../stylesheets/facebook-style.css">
+    <script type="text/javascript" src="../javascripts/facebook-js/index.js"></script>
+    <!-- cordova facebook plugin -->
+    <script src="../javascripts/cdv-plugin-fb-connect.js"></script>
+    <!-- facebook js sdk -->
+    <script src="../javascripts/facebook_js_sdk.js"></script> 
+    
+    <!--<script src="js/_config.js"></script>-->
+    <script src="../javascripts/facebook-js/ui.js"></script>
+    <script src="../javascripts/facebook-js/auth.js"></script>
+    <script src="../javascripts/facebook-js/feed.js"></script>
+    <script src="../javascripts/facebook-js/graph_api.js"></script>
+    <script src="../javascripts/facebook-js/requests.js"></script>
+    <!--<script src="js/credits.js"></script>-->
+    
+    <script>
+        // Initialize the Facebook SDK
+        document.addEventListener('deviceready', function() {
+            FB.init({
+                appId: '326614590799358',
+                nativeInterface: CDV.FB,
+                useCachedDialogs: false
+            });
+        
+            FB.getLoginStatus(handleStatusChange);
+        
+            authUser();
+            updateAuthElements();
+        });
+    </script>
+  </head>
+  <body>
+  <div class="content">
+      <div class="main-logo" style="margin-bottom: 5%;">
+        <img id="title-main-menu" src="../images/logo.jpg"/>
+      </div>
+      <div id="fb-root"></div>
+      <div id="action">
+        <div id="loading-icon"></div>
+        
+        <div id="msg"></div>
+      </div>
+        
+      <div class="show_when_not_connected">
+        <a onclick="promptLogin()" class="login-button"> 
+          <span>Login</span>
+        </a>
+      </div>
+      <div class="show_when_connected">
+        <a onclick="logout()" class="login-button"> 
+          <span>Logout</span>
+        </a>
+        <a onclick="uninstallApp()" class="login-button"> 
+          <span>Desinstalar app</span>
+        </a>
+      </div>
+      <div id="page-root" class="page">
+        <div style="margin-bottom: 5%; margin-top:-5%; font-family: Verdana;">
+          Está aplicación utiliza la app oficial de Facebook para ingresar. Si deseas cambiar de usuario, deberás hacerlo desde la app de Facebook.
+        </div>
+        <div class="show_when_connected">
+          <div id="welcome"><img id="user-picture" /><br />Bienvenido<br /><span id="user-name"></span></div>
+        </div>
+      </div>
+
+   </div> 
+  
+    
+  </body>
+</html>
