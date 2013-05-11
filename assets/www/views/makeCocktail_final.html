@@ -3,21 +3,63 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title data-i18n="app_name"></title>
+    <script src="../javascripts/spin.min.js"></script>
     <script src="../javascripts/cordova-2.3.0.js"></script>
     <script src="../javascripts/jquery-1.8.2.min.js"></script>
-    <script src="../javascripts/spin.min.js"></script>
-    <!-- Loading gif -->
+    <script src="../javascripts/cdv-plugin-fb-connect.js"></script>
+    <script src="../javascripts/facebook_js_sdk.js"></script>
     <script src="../javascripts/controllers/base_controller.js"></script>
-
-    <link rel="stylesheet" href="../stylesheets/idangerous.swiper.css">
-
-    <!-- Swiper -->
-    <script defer src="../javascripts/idangerous.swiper-1.8.min.js"></script>
-
+    <script src="../javascripts/optionsMenu.js"></script>
     <link media="screen" rel="stylesheet" href="../stylesheets/reset.css" />
     <link media="screen" rel="stylesheet" href="../stylesheets/style.css" />
+    <style>
+      @font-face {
+        font-family: customFont;
+        src: url('../fonts/knewave.ttf');
+      }
+      
+      .content {
+        font-family: customFont;
+      }
+      
+    </style>
+    
+    <!-- Facebook plugin -->
+    
+    <link rel="stylesheet" type="text/css" href="../stylesheets/facebook-style.css">
+    <script type="text/javascript" src="../javascripts/facebook-js/index.js"></script>
+    <!-- cordova facebook plugin -->
+    <script src="../javascripts/cdv-plugin-fb-connect.js"></script>
+    <!-- facebook js sdk -->
+    <script src="../javascripts/facebook_js_sdk.js"></script> 
+    
+    <!--<script src="js/_config.js"></script>-->
+    <script src="../javascripts/facebook-js/ui.js"></script>
+    <script src="../javascripts/facebook-js/auth.js"></script>
+    <script src="../javascripts/facebook-js/feed.js"></script>
+    <script src="../javascripts/facebook-js/graph_api.js"></script>
+    <script src="../javascripts/facebook-js/requests.js"></script>
+    <!--<script src="js/credits.js"></script>-->
+    
+    <script>
+        // Initialize the Facebook SDK
+        document.addEventListener('deviceready', function() {
+            alert("FB init");
+            FB.init({
+                appId: '326614590799358',
+                nativeInterface: CDV.FB,
+                useCachedDialogs: false
+            });
+        
+            FB.getLoginStatus(handleStatusChange);
+        
+            authUser();
+            updateAuthElements();
+        });
+    </script>
     <script>
       $(document).ready(function($) {
+        alert("document.ready")
         var opts = {
           lines : 13, // The number of lines to draw
           length : 20, // The length of each line
@@ -38,45 +80,66 @@
         }
         var target = document.getElementById('loading');
         var spinner = new Spinner(opts).spin(target);
-        var t = setTimeout(loadCocktail, 200);
-        
-        $('#send_cocktail').click(function(){
+        //var t = setTimeout(loadCocktail, 200);
+
+        //Calcular color
+
+        vaso = "";
+        color = "";
+
+        vaso = "cubata";
+        color = " rojo";
+
+        if (BROWSER) {
+          alert("Browser");
+          url = "http://localhost:3000";
+        } else {
+          alert("Simulator");
+          url = "http://10.0.2.2:3000";
+        }
+        loadCocktail();
+        //Get cocktail image
+ /*       $.ajax({
+          type : "GET",
+          url : (url + "/image/" + vaso + "/" + color),
+          dataType : "json",
+          success : function(data) {
+            alert("Image: http://localhost:3000" + data.img)
+            //            $('#cocktail_image').src=data.img;
+            loadCocktail();
+          }
+        });
+*/
+        $('#send_cocktail').click(function() {
+          cocktail = jQuery.parseJSON(window.localStorage.getItem("cocktail_temp"));
+          publishStory(cocktail.nombre);
           var cocktail = window.localStorage.getItem("cocktail_temp");
           var url = "";
-          
-          if (BROWSER){
+
+          if (BROWSER) {
             alert("Browser");
             url = "http://localhost:3000";
-          }
-          else{
+          } else {
             alert("Simulator");
             url = "http://10.0.2.2:3000";
           }
-          
-          shareScreen();
- /*          $.ajax({
+
+          $.ajax({
             type : "POST",
             url : (url + "/cocktails"),
-            data: JSON.parse(cocktail),
-            success : function(data){
+            data : JSON.parse(cocktail),
+            success : function(data) {
               //Mostrar pagina de compartir
-              alert("Anem a la pantalla de compartir");
+              shareScreen();
             },
-            error: function(data){
+            error : function(data) {
               alert("Error con el servidor");
             }
           });
- */
         });
-        
       });
 
-      function calcularColor(){
-        alert("Calcular color");
-        //TODO: Calcular el color del cocktail
-      }
-      
-      function shareScreen(){
+      function shareScreen() {
         $('#info').hide();
         $('#info').html('');
       }
@@ -93,8 +156,7 @@
         }
         $('#cocktail_info').append(cocktail.carbonico + "</br>");
         $('#cocktail_info').append(cocktail.vaso + "</br>");
-        $('#cocktail_info').append(cocktail.nombre + "</br>"); 
-        calcularColor();
+        $('#title').append(cocktail.nombre + "</br>");
       }
 
     </script>
@@ -112,19 +174,29 @@
   </head>
   <body>
     <div class="content">
-      <div id="title">
-        MEZCLAR
+      <div id="title" style="margin-bottom: 2%; margin-top: 2%;"></div>
+      <div id="loading" style="margin-top: 60%;"></div>
+      <div id="info" style="display: none;">
+        <img id="cocktail_image" src="../images/cocktelera.png" />
+        <div id="cocktail_info" style="margin-bottom: 2%; font-family: Verdana;"></div>
+        <div id="fb-root"></div>
+      <div id="action">
+        <div id="loading-icon"></div>
+        
+        <div id="msg"></div>
       </div>
-      <div id="loading"></div>
-      <div id="info" style="display: none">
-        <img src="../images/cocktelera.png" />
-        <div id="cocktail_info"></div>
-        <div class="cocktails-main-center">
-          <a id="send_cocktail"> <img class="button-main-menu" src="../images/ic_cocktail_checkmark.png"/>
-          <p>
-            Mezclar
-          </p></a>
-        </div><div class="cocktails-main-bottom"></div>
+        
+      <div class="show_when_not_connected">
+        <a onclick="promptLogin()" class="login-button"> 
+          <span>Login</span>
+        </a><br />
+        Debes ingresar para poder guardar el cocktail
+      </div>
+      <div class="show_when_connected">
+        <a id="send_cocktail">
+          <img src="../images/ic_cocktail_checkmark.png"/>
+          <p>Guardar cocktail</p>
+        </a>
       </div>
     </div>
   </body>

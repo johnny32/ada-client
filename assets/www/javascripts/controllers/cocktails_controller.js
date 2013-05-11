@@ -188,6 +188,7 @@ $(document).ready(function($) {
         
         window.localStorage.setItem("cocktail_temp", JSON.stringify(cocktail_final));
         loadPage('makeCocktail_final.html');
+        //loadPage('options-aux.html');
       }
     }
 

@@ -6,13 +6,13 @@
 //////////////////////////
 
 //Publish a story to the user's own wall
-function publishStory() {
+function publishStory(nombre_cocktail) {
   FB.ui({
     method: 'feed',
-    name: 'I\'m using the Hackbook web app',
-    caption: 'Hackbook for Mobile Web.',
-    description: 'Check out Hackbook for Mobile Web to learn how you can make your web apps social using Facebook Platform.',
-    link: 'http://apps.facebook.com/mobile-start/',
+    name: 'He creado el cocktail ' + nombre_cocktail,
+    caption: 'App Sinatra Cockteleria',
+    description: 'He creado el cocktail' + nombre_cocktail + 'gracias a la aplicación de Sinatra Cockteleria. ¡Descárgate la aplicación y crea tu también uno!',
+    link: 'http://www.sinatracockteleria.com',
     picture: 'http://www.facebookmobileweb.com/hackbook/img/facebook_icon_large.png',
     actions: [{ name: 'Get Started', link: 'http://apps.facebook.com/mobile-start/' }],
   }, 
