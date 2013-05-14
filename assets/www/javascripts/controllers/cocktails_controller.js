@@ -68,6 +68,9 @@ $(document).ready(function($) {
           '">' + '<div id="elem_title' + key + '" style="font-size: 22px; margin: 10px 0 10px 0;">' + 
           value.descripcion + '</div>' + '<div id="elem_image' + key + '">' + 
           '<img class="cocktail_slide_image" src="' + server_url + images_ingredients_route + "/" +value.imagen + '">' + '</div>' + '</div>');
+          
+          $('#add_elem').fadeIn();
+          $('#finish_elem').fadeIn();
       });
       
       //Swiper Scroller
@@ -148,6 +151,8 @@ $(document).ready(function($) {
           $('.swiper-container').html('<div class="swiper-wrapper"></div>');
           cocktails.addData2Page();
           cocktails.fillRemain();
+          $('#add_elem').fadeOut();
+          $('#finish_elem').fadeOut();
         } else {
           $('.swiper-container').html("");
 

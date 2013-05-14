@@ -82,41 +82,33 @@
 
         //Obtenir imatge cocktail
         cocktail = window.localStorage.getItem("cocktail_temp");
-        alert(cocktail);
-        alert(server_url + "/image");
-        alert("before ajax");
         $.ajax({
           type : "POST",
-          url : (server_url + "/image"),
-          data : cocktail,
+          url : server_url + "/image",
+          data : JSON.parse(cocktail),
           success : function(data) {
-            alert("Color: " + data);
+            $('#cocktail_image').attr("src", server_url + data.img);
+            color = data.img.split('_')[1].split('.')[0];
+            
+            if(color == "Amarillo")  $('#cocktail_image').attr("class", "border-amarillo");
+            else if(color == "Verde") $('#cocktail_image').attr("class", "border-verde");
+            else if(color == "Rojo") $('#cocktail_image').attr("class", "border-rojo");
+            else if(color == "Naranja") $('#cocktail_image').attr("class", "border-naranja");
+            
+            loadCocktail();
            },
           error: function(header, status, from){
             alert("Error con el servidor");
           }
         });
 
-
-        loadCocktail();
-        //Get cocktail image
- /*       $.ajax({
-          type : "GET",
-          url : (url + "/image/" + vaso + "/" + color),
-          dataType : "json",
-          success : function(data) {
-            alert("Image: http://localhost:3000" + data.img)
-            //            $('#cocktail_image').src=data.img;
-            loadCocktail();
-          }
-        });
-*/
         $('#send_cocktail').click(function() {
           cocktail = jQuery.parseJSON(window.localStorage.getItem("cocktail_temp"));
           publishStory(cocktail.nombre);
           var cocktail = window.localStorage.getItem("cocktail_temp");
           var url = "";
 
+          
           $.ajax({
             type : "POST",
             url : (url + "/cocktails"),
@@ -138,17 +130,30 @@
       }
 
       function loadCocktail() {
+        var user_id = getUserID();
+        alert(user_id);
+
         $('#info').show();
         $('#loading').hide();
         cocktail = jQuery.parseJSON(window.localStorage.getItem("cocktail_temp"));
+        $('#cocktail_info').append("<span class=\"title_section\">ZUMOS: </span>");
         for (var i = 0; i < cocktail.zumos.length; i++) {
-          $('#cocktail_info').append(cocktail.zumos[i] + "</br>");
+          if(i != cocktail.zumos.length - 1)
+            $('#cocktail_info').append(cocktail.zumos[i] + ",");
+          else
+            $('#cocktail_info').append(cocktail.zumos[i] + "<br />");
         }
-        for (var i = 0; i < cocktail.licores.length; i++) {
-          $('#cocktail_info').append(cocktail.licores[i] + "</br>");
+        if(cocktail.licores.length > 0){
+          $('#cocktail_info').append("<span class=\"title_section\">LICORES: </span>");
+          for (var i = 0; i < cocktail.licores.length; i++) {
+            if(i != cocktail.licores.length - 1)
+              $('#cocktail_info').append(cocktail.licores[i] + ",");
+            else
+              $('#cocktail_info').append(cocktail.licores[i] + "</br>");
+          }
         }
-        $('#cocktail_info').append(cocktail.carbonico + "</br>");
-        $('#cocktail_info').append(cocktail.vaso + "</br>");
+        $('#cocktail_info').append("<span class=\"title_section\">CARBONICO: </span>" + cocktail.carbonico + "</br>");
+        $('#cocktail_info').append("<span class=\"title_section\">VASO: </span>" + cocktail.vaso + "</br>");
         $('#title').append(cocktail.nombre + "</br>");
       }
 
@@ -167,11 +172,11 @@
   </head>
   <body>
     <div class="content">
-      <div id="title" style="margin-bottom: 2%; margin-top: 2%;"></div>
+      <div id="title"></div>
       <div id="loading" style="margin-top: 60%;"></div>
       <div id="info" style="display: none;">
-        <img id="cocktail_image" src="../images/cocktelera.png" />
-        <div id="cocktail_info" style="margin-bottom: 2%; font-family: Verdana;"></div>
+        <img id="cocktail_image" />
+        <div id="cocktail_info"></div>
         <div id="fb-root"></div>
       <div id="action">
         <div id="loading-icon"></div>

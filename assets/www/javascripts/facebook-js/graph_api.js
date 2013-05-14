@@ -38,6 +38,10 @@ function getUserBasicInfo() {
   }
 }
 
+function getUserID(){
+  return user.id;
+}
+
 //Get the user's friends
 function getUserFriends() {
   var markup = '<div class="data-header">Friends (capped at 25):</div>';

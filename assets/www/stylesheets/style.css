@@ -255,3 +255,43 @@ a{
   border-radius: 10px;
   margin-bottom: 10%;
 }
+
+#title{
+  margin-bottom: 2%;
+  margin-top: 2%; 
+  font-size: 26px;
+}
+
+#cocktail_image{
+  width: 80%;
+  border-radius: 15px;
+}
+
+#cocktail_info{
+  margin-left: 12%; 
+  margin-bottom: 10%;
+  margin-top: 3%;
+  font-family: Verdana;
+  text-align: left;
+  line-height: 20px;
+}
+
+.title_section{
+  font-family: customFont;
+}
+
+.border-amarillo{
+  border: 2px solid gold;
+}
+
+.border-rojo{
+    border: 2px solid red;
+}
+
+.border-verde{
+    border: 2px solid greenyellow;
+}
+
+.border-naranja{
+    border: 2px solid orange;
+}
