@@ -59,7 +59,6 @@
     </script>
     <script>
       $(document).ready(function($) {
-        alert("document.ready")
         var opts = {
           lines : 13, // The number of lines to draw
           length : 20, // The length of each line
@@ -80,23 +79,25 @@
         }
         var target = document.getElementById('loading');
         var spinner = new Spinner(opts).spin(target);
-        //var t = setTimeout(loadCocktail, 200);
 
-        //Calcular color
+        //Obtenir imatge cocktail
+        cocktail = window.localStorage.getItem("cocktail_temp");
+        alert(cocktail);
+        alert(server_url + "/image");
+        alert("before ajax");
+        $.ajax({
+          type : "POST",
+          url : (server_url + "/image"),
+          data : cocktail,
+          success : function(data) {
+            alert("Color: " + data);
+           },
+          error: function(header, status, from){
+            alert("Error con el servidor");
+          }
+        });
 
-        vaso = "";
-        color = "";
 
-        vaso = "cubata";
-        color = " rojo";
-
-        if (BROWSER) {
-          alert("Browser");
-          url = "http://localhost:3000";
-        } else {
-          alert("Simulator");
-          url = "http://10.0.2.2:3000";
-        }
         loadCocktail();
         //Get cocktail image
  /*       $.ajax({
@@ -115,14 +116,6 @@
           publishStory(cocktail.nombre);
           var cocktail = window.localStorage.getItem("cocktail_temp");
           var url = "";
-
-          if (BROWSER) {
-            alert("Browser");
-            url = "http://localhost:3000";
-          } else {
-            alert("Simulator");
-            url = "http://10.0.2.2:3000";
-          }
 
           $.ajax({
             type : "POST",

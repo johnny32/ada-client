@@ -179,6 +179,7 @@ a{
 
 .cocktail_slide_image{
   width: 90%;
+  max-height: 100%;
   margin-left: 5%;
   margin-right: 5%;
 }
@@ -191,6 +192,7 @@ a{
   width: 72px;
   height: 72px;
   z-index: 100;
+  float: left;º
 }
 
 .arrow-right{
@@ -204,8 +206,8 @@ a{
 }
 
 #element_loading{
-  position: relative;
-  top: -28%;
+  position: absolute;
+  top: 40%;
   left: 50%;
 }
 
@@ -238,7 +240,6 @@ a{
 }
 
 #buttons{
-  position: fixed;
   bottom: 0;
   width: 86%;
   margin-left: 7%;
@@ -246,7 +247,7 @@ a{
 }
 
 .name_container{
-  margin-top: 30%;
+  margin-top: 16%;
 }
 
 #cocktail_name{

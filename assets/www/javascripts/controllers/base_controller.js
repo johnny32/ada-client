@@ -2,6 +2,11 @@
 
 var BROWSER = false;
 
+var server_url = "http://sinatracockteleria.herokuapp.com"
+var cocktails_route = "/cocktails"
+var ingredients_route = "/ingredients/tipo"
+var images_ingredients_route = "/images/ingredients"
+
 document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {

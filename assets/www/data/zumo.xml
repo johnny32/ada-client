@@ -1,17 +1,42 @@
 <zumos>
   <zumo id="0">
-    <nombre>Puré de fresa</nombre>
+    <nombre>Fresa</nombre>
     <image>zumo_fresa.jpg</image>
-    <description>Juquetona</description>
   </zumo>
   <zumo id="1">
-    <nombre>Puré de fresa2</nombre>
-    <image>zumo_fresa2.jpg</image>
-    <description>Ácida</description>
+    <nombre>Fruta de la pasión</nombre>
+    <image>zumo_frutadelapasion.jpg</image>
   </zumo>
   <zumo id="2">
-    <nombre>Puré de fresa3</nombre>
-    <image>zumo_fresa.jpg</image>
-    <description>Dulce</description>
+    <nombre>Limón</nombre>
+    <image>zumo_limon.jpg</image>
+  </zumo>
+  <zumo id="3">
+    <nombre>Mango</nombre>
+    <image>zumo_mango.jpg</image>
+  </zumo>
+  <zumo id="4">
+    <nombre>Melocotón</nombre>
+    <image>zumo_melocoton.jpg</image>
+  </zumo>
+  <zumo id="5">
+    <nombre>Melón</nombre>
+    <image>zumo_melon.jpg</image>
+  </zumo>
+  <zumo id="6">
+    <nombre>Naranja</nombre>
+    <image>zumo_naranja.jpg</image>
+  </zumo>
+  <zumo id="7">
+    <nombre>Piña</nombre>
+    <image>zumo_pina.jpg</image>
+  </zumo>
+  <zumo id="8">
+    <nombre>Pomelo</nombre>
+    <image>zumo_pomelo.jpg</image>
+  </zumo>
+  <zumo id="9">
+    <nombre>Sandía</nombre>
+    <image>zumo_sandia.jpg</image>
   </zumo>
 </zumos>
