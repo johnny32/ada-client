@@ -42,7 +42,6 @@ $(document).ready(function($) {
     selected_data.vaso = new Array();
     selected_data.nombre = "";
     selected_data.creador = "";
-    selected_data.color = "";
 
     var allData = new Object();
 
@@ -61,7 +60,6 @@ $(document).ready(function($) {
       console.log(ingredients[0].imagen);
 
       $.each(ingredients, function(key, value){
-        //alert("key: " + key + " element: " + value.descripcion);
         var images_route;
         var wrapper = $('.swiper-wrapper');
         wrapper.append('<div class="swiper-slide" id="' + actual_product + key + 
@@ -189,9 +187,7 @@ $(document).ready(function($) {
         cocktail_final.carbonico = selected_data.carbonico[0].nombre;
         cocktail_final.vaso = selected_data.vaso[0].nombre;
         cocktail_final.nombre = selected_data.nombre;
-        cocktail_final.color = "";
         cocktail_final.creador = "";
-        alert("Cocktail: " + JSON.stringify(cocktail_final));
         window.localStorage.setItem("cocktail_temp", JSON.stringify(cocktail_final));
         loadPage('makeCocktail_final.html');
       }

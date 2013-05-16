@@ -39,7 +39,7 @@ function getUserBasicInfo() {
 }
 
 function getUserID(){
-  return user.id;
+  $('#facebook_id').append(user.id);
 }
 
 //Get the user's friends

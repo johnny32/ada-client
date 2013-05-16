@@ -6,14 +6,14 @@
 //////////////////////////
 
 //Publish a story to the user's own wall
-function publishStory(nombre_cocktail) {
+function publishStory(nombre_cocktail, id, image) {
   FB.ui({
     method: 'feed',
     name: 'He creado el cocktail ' + nombre_cocktail,
     caption: 'App Sinatra Cockteleria',
     description: 'He creado el cocktail' + nombre_cocktail + 'gracias a la aplicación de Sinatra Cockteleria. ¡Descárgate la aplicación y crea tu también uno!',
-    link: 'http://www.sinatracockteleria.com',
-    picture: 'http://www.facebookmobileweb.com/hackbook/img/facebook_icon_large.png',
+    link: server_url + cocktails_route + "/" + id,
+    picture: server_url + image,
     actions: [{ name: 'Get Started', link: 'http://apps.facebook.com/mobile-start/' }],
   }, 
   function(response) {

@@ -44,7 +44,6 @@
     <script>
         // Initialize the Facebook SDK
         document.addEventListener('deviceready', function() {
-            alert("FB init");
             FB.init({
                 appId: '326614590799358',
                 nativeInterface: CDV.FB,
@@ -79,7 +78,7 @@
         }
         var target = document.getElementById('loading');
         var spinner = new Spinner(opts).spin(target);
-
+        var data_img;
         //Obtenir imatge cocktail
         cocktail = window.localStorage.getItem("cocktail_temp");
         $.ajax({
@@ -87,6 +86,7 @@
           url : server_url + "/image",
           data : JSON.parse(cocktail),
           success : function(data) {
+            data_img = data.img;
             $('#cocktail_image').attr("src", server_url + data.img);
             color = data.img.split('_')[1].split('.')[0];
             
@@ -103,19 +103,29 @@
         });
 
         $('#send_cocktail').click(function() {
-          cocktail = jQuery.parseJSON(window.localStorage.getItem("cocktail_temp"));
-          publishStory(cocktail.nombre);
-          var cocktail = window.localStorage.getItem("cocktail_temp");
-          var url = "";
-
           
+          //getUserID();
+          //var user_id = $('#facebook_id').text();
+          
+          var user_id = "1093535454";
+          
+          var cocktail = jQuery.parseJSON(window.localStorage.getItem("cocktail_temp"));
+          cocktail.creador = user_id;
+          cocktail.imagen = data_img;
+          cocktail = JSON.stringify(cocktail);
+
           $.ajax({
             type : "POST",
-            url : (url + "/cocktails"),
+            url : "http://localhost:3000/cocktails",
             data : JSON.parse(cocktail),
             success : function(data) {
               //Mostrar pagina de compartir
-              shareScreen();
+              alert("¡Cocktail creado correctamente!");
+              // data.url -> Url a postejar al fb
+              // data.id -> Id del cocktail
+
+              //publishStory(cocktail.nombre, data.id, data_img);
+              loadPage('cocktail.html', {id: data.id})
             },
             error : function(data) {
               alert("Error con el servidor");
@@ -124,15 +134,7 @@
         });
       });
 
-      function shareScreen() {
-        $('#info').hide();
-        $('#info').html('');
-      }
-
       function loadCocktail() {
-        var user_id = getUserID();
-        alert(user_id);
-
         $('#info').show();
         $('#loading').hide();
         cocktail = jQuery.parseJSON(window.localStorage.getItem("cocktail_temp"));
@@ -195,6 +197,7 @@
           <img src="../images/ic_cocktail_checkmark.png"/>
           <p>Guardar cocktail</p>
         </a>
+        <p id="facebook_id" style="display:none;"></p>
       </div>
     </div>
   </body>
