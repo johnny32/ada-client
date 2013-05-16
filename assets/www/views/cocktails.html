@@ -31,6 +31,20 @@
           username = params.id;
           
           //TODO Rebem l'objecte JSON del servidor. Mentre no estigui implementat, suposarem que el tenim aqui:
+          
+          $.ajax({
+            type : "GET",
+            url : "http://graph.facebook.com/" + username,
+            dataType : "json",
+            async : false,
+            success : function(data){
+              $('#txt_list').text($('#txt_list').text().replace('Listado de cocktails:', 'Listado de cocktails de ' + data.name + ':'));
+            },
+            error: function(header, status, from){
+              alert("Error con el servidor");
+            }
+          });
+          
           json = {"cocktails": [
             new Cocktail(0, "Muerte", "Destruccion", "Cola-loca", "Vaso 1", "Cocktail supremo", "Negro", "GLaDOS", 1),
             new Cocktail(1, ["Cerveza", "Mas cerveza"], "Mucha mas cerveza", "Cerveza de la buena", "Vaso de pinta", "El mejor", "Rojo", "Johnny"),
@@ -47,7 +61,18 @@
           ]};
           
           $('#txt_recommended').remove();
-          $('#txt_list').text($('#txt_list').text().replace('Listado de cocktails:', 'Listado de cocktails de ' + username + ':'));
+          $.ajax({
+            type : "GET",
+            url : "http://graph.facebook.com/" + username,
+            dataType : "json",
+            async : false,
+            success : function(data){
+              $('#txt_list').text($('#txt_list').text().replace('Listado de cocktails:', 'Listado de cocktails de ' + data.name + ':'));
+            },
+            error: function(header, status, from){
+              alert("Error con el servidor");
+            }
+          });
         }
   
         for (var c in json.cocktails) {
@@ -71,6 +96,17 @@
         }
       });
     </script>
+    <style>
+      @font-face {
+        font-family: customFont;
+        src: url('../fonts/knewave.ttf');
+      }
+      
+      .content {
+        font-family: customFont;
+      }
+      
+    </style>
   </head>
   <body>
     <div class="content">
@@ -81,7 +117,7 @@
         <span id="txt_recommended">Cocktail recomendado:</span>
         <div id="recommended-cocktail" class="btn-group btn-block"></div>
         <span id="txt_list">Listado de cocktails:</span>
-        <div id="list-cocktails" class="btn-group btn-group-vertical btn-block"></div>
+        <div id="list-cocktails" class="btn-group btn-group-vertical btn-block" style="margin-top: 2%;"></div>
       </div>
       <div id="footer">
         <form class="form-search" action="userList.html" onsubmit="loadPage('userList.html', {user: this.userQuery});">

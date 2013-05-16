@@ -10,11 +10,11 @@ function publishStory(nombre_cocktail, id, image) {
   FB.ui({
     method: 'feed',
     name: 'He creado el cocktail ' + nombre_cocktail,
-    caption: 'App Sinatra Cockteleria',
-    description: 'He creado el cocktail' + nombre_cocktail + 'gracias a la aplicación de Sinatra Cockteleria. ¡Descárgate la aplicación y crea tu también uno!',
-    link: server_url + cocktails_route + "/" + id,
+    caption: 'Aplicación Android de Sinatra Cockteleria',
+    description: 'He creado el cocktail ' + nombre_cocktail + ' gracias a la aplicación de Sinatra Cockteleria. ¡Descárgate la aplicación y crea tu también uno!',
+    link: server_url + "/" + id,
     picture: server_url + image,
-    actions: [{ name: 'Get Started', link: 'http://apps.facebook.com/mobile-start/' }],
+    actions: [{ name: 'Descárgate la app', link: 'http://sinatracockteleria.herokuapp.com/' }],
   }, 
   function(response) {
     console.log('publishStory UI response: ', response);

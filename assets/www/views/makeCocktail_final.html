@@ -88,7 +88,8 @@
           success : function(data) {
             data_img = data.img;
             $('#cocktail_image').attr("src", server_url + data.img);
-            color = data.img.split('_')[1].split('.')[0];
+            color_array = data.img.split('_');
+            color = color_array[color_array.length - 1].split('.')[0];
             
             if(color == "Amarillo")  $('#cocktail_image').attr("class", "border-amarillo");
             else if(color == "Verde") $('#cocktail_image').attr("class", "border-verde");
@@ -116,16 +117,16 @@
 
           $.ajax({
             type : "POST",
-            url : "http://localhost:3000/cocktails",
+            url : server_url + cocktails_route,
             data : JSON.parse(cocktail),
             success : function(data) {
               //Mostrar pagina de compartir
               alert("¡Cocktail creado correctamente!");
               // data.url -> Url a postejar al fb
               // data.id -> Id del cocktail
-
-              //publishStory(cocktail.nombre, data.id, data_img);
-              loadPage('cocktail.html', {id: data.id})
+              cocktail = jQuery.parseJSON(window.localStorage.getItem("cocktail_temp"));
+              publishStory(cocktail.nombre, data.id, data_img);
+              loadPage('cocktail.html', {"id": data.id})
             },
             error : function(data) {
               alert("Error con el servidor");

@@ -4,6 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title data-i18n="app_name">Sinatra Cockteleria</title>
     <script src="../javascripts/cordova-2.3.0.js"></script>
+    <script src="../javascripts/spin.min.js"></script>
     <script src="../javascripts/jquery-1.8.2.min.js"></script>
     <script src="../javascripts/controllers/base_controller.js"></script>
     <script src="../javascripts/controllers/cocktails_controller.js"></script>
@@ -16,31 +17,74 @@
     <link media="screen" rel="stylesheet" href="../stylesheets/style.css" />
     <script>
       $(document).ready(function() {
+        var cocktail_id = getUrlParameters("id").id;
+        var opts = {
+          lines : 13, // The number of lines to draw
+          length : 20, // The length of each line
+          width : 23, // The line thickness
+          radius : 40, // The radius of the inner circle
+          corners : 1, // Corner roundness (0..1)
+          rotate : 90, // The rotation offset
+          direction : 1, // 1: clockwise, -1: counterclockwise
+          color : '#CCC', // #rgb or #rrggbb
+          speed : 0.5, // Rounds per second
+          trail : 52, // Afterglow percentage
+          shadow : true, // Whether to render a shadow
+          hwaccel : true, // Whether to use hardware acceleration
+          className : 'spinner', // The CSS class to assign to the spinner
+          zIndex : 2e9, // The z-index (defaults to 2000000000)
+          top : 'auto', // Top position relative to parent in px
+          left : 'auto' // Left position relative to parent in px
+        }
+        var target = document.getElementById('loading');
+        var spinner = new Spinner(opts).spin(target);
         
-        var params = getUrlParameters();
-
-        //TODO Obtenir cocktail del servidor
-        //http://localhost:3000/cocktails/params.id          
-        var cktl = new Cocktail(1, ["Cerveza", "Mas cerveza"], ["Mucha mas cerveza"], "Cerveza de la buena", "Vaso de pinta", "El mejor", "Rojo", "Johnny");
-        
-        //TODO Obtenir imatge a partir del got i del color
-        //http://localhost:3000/images/cktl.vaso/cktl.color
-        var img_path = '../images/zumo/zumo_fresa.jpg';
-        
-        var img = $('<img>', {
-          id: 'img_cktl',
-          src: img_path,
-          alt: cktl.nombre
+        $.ajax({
+          type : "GET",
+          url : server_url + cocktails_route + "/" + cocktail_id,
+          dataType : "json",
+          async : false,
+          success : function(data){
+            cocktail = data;
+            $.ajax({
+              type : "GET",
+              url : "http://graph.facebook.com/" + cocktail.creador,
+              dataType : "json",
+              async : false,
+              success : function(data2){
+                fillData(cocktail, data2.name);
+              },
+              error: function(header, status, from){
+                alert("Error con el servidor");
+              }
+            });
+          },
+          error: function(header, status, from){
+            alert("Error con el servidor");
+          }
         });
+      });
+      
+      function fillData(cktl, user_name){
+        $('#info').show();
+        $('#loading').hide();
+        color_array = cocktail.imagen.split('_');
+        color = color_array[color_array.length - 1].split('.')[0];
         
-        $('#div_img').append(img);
+        $('#cocktail_image').attr("src", server_url + cocktail.imagen);
         
-        var info = '<span class="field">Creador:</span> ' + cktl.creador + '<br>'
-          + '<span class="field">Zumos:</span> ' + cktl.zumos.join(', ') + '<br>'
-          + '<span class="field">Licores:</span> ' + cktl.licores.join(', ') + '<br>'
-          + '<span class="field">Carb&oacute;nico:</span> ' + cktl.carbonico + '<br>';
-
-        $('#div_info').append(info);
+        if(color == "Amarillo")  $('#cocktail_image').attr("class", "border-amarillo");
+        else if(color == "Verde") $('#cocktail_image').attr("class", "border-verde");
+        else if(color == "Rojo") $('#cocktail_image').attr("class", "border-rojo");
+        else if(color == "Naranja") $('#cocktail_image').attr("class", "border-naranja");
+        
+        $('#cocktail_info').append('<span class=\"title_section\">CREADOR: </span> ' + user_name + '<br>'
+          + '<span class=\"title_section\">ZUMOS: </span> ' + cktl.zumos.join(', ') + '<br>');
+          if(cktl.licores.length > 0)
+            $('#cocktail_info').append('<span class=\"title_section\">LICORES: </span> ' + cktl.licores.join(', ') + '<br>');
+         $('#cocktail_info').append('<span class=\"title_section\">CARBÓNICO: </span> ' + cktl.carbonico + '<br>'
+          + '<span class=\"title_section\">VASO: </span> ' + cktl.carbonico + '<br>');
+        $('#title').append(cktl.nombre + "</br>");
         
         var rating = rating2Image(4.2175);
         $('#div_rating').append('<img src="' + rating + '" alt="Puntuacion 4.2175" />');
@@ -52,8 +96,8 @@
         $('#a_rate').click(function() {
           loadPage('rate.html', {cocktail: cktl._id});
         });
-        
-      });
+      }
+      
     </script>
     <style>
       #div_more {
@@ -65,13 +109,6 @@
         text-align: center;
       }
       
-      #div_info {
-        float: left;
-        margin-left: 10%;
-        width: 60%;
-        text-align: left;
-      }
-      
       #div_rate {
         font-family: customFont;
         float: right;
@@ -81,7 +118,7 @@
       }
       
       #div_rating {
-        float: left;
+        float: right;
         margin-right: 5%;
         width: 25%;
       }
@@ -102,20 +139,22 @@
         <img class="logo" src="../images/logo_petit.png" alt="Sinatra Cocteleria" onclick="loadPage('index.html')"/>
       </div>
       <div id="cocktail">
-        <div id="div_title"></div>
-        <div id="div_img"></div>
-        <div id="div_info"></div>
+        <div id="title" class="title_section"></div>
+        <div id="loading" style="margin-top: 60%;"></div>
+        <div id="info" style="display: none;">
+        <img id="cocktail_image" />
         <div id="div_rating"></div>
+        <div id="cocktail_info" style="width: 65%;"></div>
         <div id="div_more">
-          <a id="a_more">
-            <img src="../images/ic_cocktail_zoom.png" alt="Ver mas cocktails" /><br>
-            Ver m&aacute;s cocktails del usuario
+          <a id="a_more" style="-webkit-tap-highlight-color: rgba(255, 255, 255, 0);">
+            <img src="../images/ic_cocktail_zoom.png" alt="Ver mas cocktails" />
+            <p style="color: white; text-decoration: none;">Ver m&aacute;s cocktails del usuario</p>
           </a>
         </div>
         <div id="div_rate">
-          <a id="a_rate">
+          <a id="a_rate" style="-webkit-tap-highlight-color: rgba(255, 255, 255, 0);">
             <img src="../images/ic_cocktail_star.png" alt="Votar cocktail" /><br>
-            Votar cocktail
+            <p style="color: white; text-decoration: none;">Votar cocktail</p>
           </a>
         </div>
       </div>

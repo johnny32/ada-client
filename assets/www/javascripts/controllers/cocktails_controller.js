@@ -57,8 +57,6 @@ $(document).ready(function($) {
       //Hide the loader gif
       $('#element_loading').fadeOut();
       
-      console.log(ingredients[0].imagen);
-
       $.each(ingredients, function(key, value){
         var images_route;
         var wrapper = $('.swiper-wrapper');
