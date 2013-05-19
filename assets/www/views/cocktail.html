@@ -6,23 +6,57 @@
     <script src="../javascripts/cordova-2.3.0.js"></script>
     <script src="../javascripts/spin.min.js"></script>
     <script src="../javascripts/jquery-1.8.2.min.js"></script>
+    <script src="../javascripts/cdv-plugin-fb-connect.js"></script>
+    <script src="../javascripts/facebook_js_sdk.js"></script>
     <script src="../javascripts/controllers/base_controller.js"></script>
     <script src="../javascripts/controllers/cocktails_controller.js"></script>
     <script src="../javascripts/cocktail.js"></script>
+    <script src="../javascripts/optionsMenu.js"></script>
     <script src="../javascripts/bootstrap/bootstrap.min.js"></script>
-    <link media="screen" rel="stylesheet" href="../stylesheets/bestCocktails.css" />
+    <link media="screen" rel="stylesheet" href="../stylesheets/bestCocktails.css" /><!--
     <link media="screen" rel="stylesheet" href="../stylesheets/bootstrap/bootstrap.min.css" />
-    <link media="screen" rel="stylesheet" href="../stylesheets/bootstrap/bootstrap-responsive.min.css" />
+    <link media="screen" rel="stylesheet" href="../stylesheets/bootstrap/bootstrap-responsive.min.css" />-->
     <link media="screen" rel="stylesheet" href="../stylesheets/reset.css" />
     <link media="screen" rel="stylesheet" href="../stylesheets/style.css" />
+    
+    <!-- Facebook plugin -->
+    
+    <link rel="stylesheet" type="text/css" href="../stylesheets/facebook-style.css">
+    <script type="text/javascript" src="../javascripts/facebook-js/index.js"></script>
+    <!-- cordova facebook plugin -->
+    <script src="../javascripts/cdv-plugin-fb-connect.js"></script>
+    <!-- facebook js sdk -->
+    <script src="../javascripts/facebook_js_sdk.js"></script> 
+    
+    <!--<script src="js/_config.js"></script>-->
+    <script src="../javascripts/facebook-js/ui.js"></script>
+    <script src="../javascripts/facebook-js/auth.js"></script>
+    <script src="../javascripts/facebook-js/feed.js"></script>
+    <script src="../javascripts/facebook-js/graph_api.js"></script>
+    <script src="../javascripts/facebook-js/requests.js"></script>
+    <!--<script src="js/credits.js"></script>-->
+    
     <script>
+      // Initialize the Facebook SDK
+      document.addEventListener('deviceready', function() {
+          FB.init({
+              appId: '326614590799358',
+              nativeInterface: CDV.FB,
+              useCachedDialogs: false
+          });
+      
+          FB.getLoginStatus(handleStatusChange);
+      
+          authUser();
+          updateAuthElements();
+      });
+    
       $(document).ready(function() {
-        var cocktail_id = getUrlParameters("id").id;
         var opts = {
           lines : 13, // The number of lines to draw
-          length : 20, // The length of each line
-          width : 23, // The line thickness
-          radius : 40, // The radius of the inner circle
+          length : 21, // The length of each line
+          width : 8, // The line thickness
+          radius : 15, // The radius of the inner circle
           corners : 1, // Corner roundness (0..1)
           rotate : 90, // The rotation offset
           direction : 1, // 1: clockwise, -1: counterclockwise
@@ -39,39 +73,56 @@
         var target = document.getElementById('loading');
         var spinner = new Spinner(opts).spin(target);
         
-        $.ajax({
-          type : "GET",
-          url : server_url + cocktails_route + "/" + cocktail_id,
-          dataType : "json",
-          async : false,
-          success : function(data){
-            cocktail = data;
-            $.ajax({
-              type : "GET",
-              url : "http://graph.facebook.com/" + cocktail.creador,
-              dataType : "json",
-              async : false,
-              success : function(data2){
-                fillData(cocktail, data2.name);
-              },
-              error: function(header, status, from){
-                alert("Error con el servidor");
-              }
-            });
-          },
-          error: function(header, status, from){
-            alert("Error con el servidor");
-          }
-        });
+        
+        var cocktail_id = getUrlParameters("id").id;
+        if (cocktail_id == 'r'){
+          $.ajax({
+            type : "GET",
+            url : server_url + cocktails_route + "/recommended",
+            dataType : "json",
+            async : false,
+            success : function(data){
+              fillData(data, "Sinatra Cockteleria");
+            },
+            error: function(header, status, from){
+              alert("Error con el servidor");
+            }
+          });
+        }
+        else{
+          $.ajax({
+            type : "GET",
+            url : server_url + cocktails_route + "/" + cocktail_id,
+            dataType : "json",
+            async : false,
+            success : function(data){
+              cocktail = data;
+              $.ajax({
+                type : "GET",
+                url : "http://graph.facebook.com/" + cocktail.creador,
+                dataType : "json",
+                async : false,
+                success : function(data2){
+                  fillData(cocktail, data2.name);
+                },
+                error: function(header, status, from){
+                  alert("Error con el servidor");
+                }
+              });
+            },
+            error: function(header, status, from){
+              alert("Error con el servidor");
+            }
+          });
+        }
       });
       
       function fillData(cktl, user_name){
         $('#info').show();
-        $('#loading').hide();
-        color_array = cocktail.imagen.split('_');
+        color_array = cktl.imagen.split('_');
         color = color_array[color_array.length - 1].split('.')[0];
         
-        $('#cocktail_image').attr("src", server_url + cocktail.imagen);
+        $('#cocktail_image').attr("src", server_url + cktl.imagen);
         
         if(color == "Amarillo")  $('#cocktail_image').attr("class", "border-amarillo");
         else if(color == "Verde") $('#cocktail_image').attr("class", "border-verde");
@@ -83,19 +134,40 @@
           if(cktl.licores.length > 0)
             $('#cocktail_info').append('<span class=\"title_section\">LICORES: </span> ' + cktl.licores.join(', ') + '<br>');
          $('#cocktail_info').append('<span class=\"title_section\">CARBÓNICO: </span> ' + cktl.carbonico + '<br>'
-          + '<span class=\"title_section\">VASO: </span> ' + cktl.carbonico + '<br>');
+          + '<span class=\"title_section\">VASO: </span> ' + cktl.vaso + '<br>');
         $('#title').append(cktl.nombre + "</br>");
         
-        var rating = rating2Image(4.2175);
-        $('#div_rating').append('<img src="' + rating + '" alt="Puntuacion 4.2175" />');
-        
-        $('#a_more').click(function() {
-          loadPage('cocktails.html', {type: 'user', id: cktl.creador});
-        });
-        
-        $('#a_rate').click(function() {
-          loadPage('rate.html', {cocktail: cktl._id});
-        });
+        if(cktl.rating > 0){
+          var rating = rating2Image(cktl.rating);
+          $('#div_rating').append('<img src="' + rating + '" alt="Puntuacion" />');
+        }
+        if (user_name == "Sinatra Cockteleria"){
+          $('#a_more').hide();
+          $('#a_rate').hide();
+        }
+        else{
+          $('#a_more').click(function() {
+            loadPage('cocktails.html', {type: 'user', id: cktl.creador});
+          });
+          $('#a_rate').click(function() {
+            loadPage('rating.html', {cocktail: cktl._id});
+          });
+        }
+      }
+      
+      function login(){
+        var cocktail_id = getUrlParameters("id").id;
+        loadPage('rating.html', {type: 'user', u_id: "1093535454", c_id: cocktail_id});
+       // promptLogin()
+       // $('#loading').show();
+      }
+    
+      function rating(){
+        getUserBasicInfo();
+        var user_id = $('#facebook_id').text();
+        alert(user_id);
+        var cocktail_id = getUrlParameters("id").id;
+        loadPage('index.html', {type: 'user', u_id: user_id, c_id: cocktail_id});
       }
       
     </script>
@@ -109,7 +181,7 @@
         text-align: center;
       }
       
-      #div_rate {
+      .div_rate {
         font-family: customFont;
         float: right;
         margin-right: 10%;
@@ -135,12 +207,11 @@
   </head>
   <body>
     <div class="content">
-      <div id="header">
+      <div id="header2">
         <img class="logo" src="../images/logo_petit.png" alt="Sinatra Cocteleria" onclick="loadPage('index.html')"/>
       </div>
       <div id="cocktail">
         <div id="title" class="title_section"></div>
-        <div id="loading" style="margin-top: 60%;"></div>
         <div id="info" style="display: none;">
         <img id="cocktail_image" />
         <div id="div_rating"></div>
@@ -151,13 +222,26 @@
             <p style="color: white; text-decoration: none;">Ver m&aacute;s cocktails del usuario</p>
           </a>
         </div>
-        <div id="div_rate">
-          <a id="a_rate" style="-webkit-tap-highlight-color: rgba(255, 255, 255, 0);">
-            <img src="../images/ic_cocktail_star.png" alt="Votar cocktail" /><br>
+        <div id="fb-root"></div>
+        <div id="action">
+          <div id="loading-icon"></div>
+          
+          <div id="msg"></div>
+        </div>
+        <div id="div_rate_login" class="div_rate">
+          <div id="loading" class="button-main-menu show_when_not_connected" style="margin-top: 30%; margin-left: 45%; display: none;"></div>
+          <a id="a_rate_login" class="show_when_not_connected" style="-webkit-tap-highlight-color: rgba(255, 255, 255, 0);" onclick="login(); hideButton(this);">
+            <img class="button-main-menu" src="../images/ic_cocktail_star.png"/>
             <p style="color: white; text-decoration: none;">Votar cocktail</p>
           </a>
         </div>
+          <a id="a_rate" class="show_when_connected div_rate" style="-webkit-tap-highlight-color: rgba(255, 255, 255, 0);" onclick="rating()">
+            <img class="button-main-menu" src="../images/ic_cocktail_star.png"/>
+            <p style="color: white; text-decoration: none;">Votar cocktail</p>
+          </a>
       </div>
     </div>
+    <p id="facebook_id" style="display:none;"></p>
+    <div id="user-info" style="display:none;"></div>
   </body>
 </html>

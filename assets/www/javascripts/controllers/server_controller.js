@@ -25,7 +25,18 @@ function getCocktails(params) {
      alert(data);
    });
   } else if (params.type == "user") {
-    
+    $.ajax({
+      type : "GET",
+      url : server_url + cocktails_route + "/user/" + params.id,
+      dataType : "json",
+      success : function(data){
+        alert("Success!: " + data);
+        return data;
+      },
+      error: function(header, status, from){
+        alert("Error con el servidor");
+      }
+    });
   }
   return json;
 }

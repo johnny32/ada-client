@@ -141,6 +141,11 @@ a{
   padding-bottom: 5%;
 }
 
+#header2 {
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
+
 /* Google Maps */
 #map-wrapper {
   padding-top: 4%;  
@@ -268,8 +273,8 @@ a{
 }
 
 #cocktail_info{
-  margin-left: 12%; 
-  margin-bottom: 10%;
+  margin-left: 8%; 
+  padding-bottom: 10%;
   margin-top: 3%;
   font-family: Verdana;
   text-align: left;
@@ -294,4 +299,40 @@ a{
 
 .border-naranja{
     border: 2px solid orange;
+}
+
+.list_cocktail{
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #CCC;
+  border: 2px solid #444;
+  padding: 10px;
+  width: 85%;
+}
+
+.list_cocktail_r{
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #444;
+  border: 2px solid #CCC;
+  padding: 10px;
+  width: 85%;
+}
+
+.list_cocktail_item{
+  font-family: customFont;
+  width: 90%;
+  height: 4em;
+  margin: auto;
+  color: black;
+  font-size: 18px;
+}
+
+.list_cocktail_item_r{
+  font-family: customFont;
+  width: 90%;
+  height: 4em;
+  margin: auto;
+  color: #EEE;
+  font-size: 26px;
 }

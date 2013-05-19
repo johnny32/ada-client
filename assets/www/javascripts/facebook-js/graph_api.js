@@ -33,7 +33,7 @@ function getUserBasicInfo() {
     }
     markup = markup + '<strong>User ID:</strong> ' + user.id + '<br />' + '<strong>Name:</strong> ' + user.name + '<br />' + '<strong>Profile picture URL:</strong> <a href="' + profilePictureUrl + '" target="_blank">' + profilePictureUrl + '</a><br />';
     document.getElementById('user-info').innerHTML = markup;
-    
+    $('#facebook_id').append(user.id);
     clearAction();
   }
 }

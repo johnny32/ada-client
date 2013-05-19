@@ -308,7 +308,7 @@ function rating2Image(rating) {
   if (r <= 5 && r >= 1) {
     img += ('r' + r + '.png');
   } else {
-    throw new Error('Rating incorrecto.');
+    throw new Error('Rating incorrecto.');  //No mostrem cap cara
   }
   
   return img;

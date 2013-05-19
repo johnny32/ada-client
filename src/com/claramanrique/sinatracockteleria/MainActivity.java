@@ -1,4 +1,4 @@
-package com.manriqueJose.sinatracockteleria;
+package com.claramanrique.sinatracockteleria;
 
 import android.os.Bundle;
 import android.app.Activity;

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title data-i18n="app_name">Sinatra Cockteleria</title>
+    <script src="../javascripts/cordova-2.3.0.js"></script>
+    <script src="../javascripts/spin.min.js"></script>
+    <script src="../javascripts/jquery-1.8.2.min.js"></script>
+    <script src="../javascripts/controllers/base_controller.js"></script>
+    <script src="../javascripts/controllers/cocktails_controller.js"></script>
+    <script src="../javascripts/cocktail.js"></script>
+    <script src="../javascripts/optionsMenu.js"></script>
+    <script src="../javascripts/bootstrap/bootstrap.min.js"></script>
+    <link media="screen" rel="stylesheet" href="../stylesheets/bestCocktails.css" />
+    <link media="screen" rel="stylesheet" href="../stylesheets/reset.css" />
+    <link media="screen" rel="stylesheet" href="../stylesheets/style.css" />
+    
+    <script>
+      $(document).ready(function() {
+        var opts = {
+          lines : 13, // The number of lines to draw
+          length : 20, // The length of each line
+          width : 23, // The line thickness
+          radius : 40, // The radius of the inner circle
+          corners : 1, // Corner roundness (0..1)
+          rotate : 90, // The rotation offset
+          direction : 1, // 1: clockwise, -1: counterclockwise
+          color : '#CCC', // #rgb or #rrggbb
+          speed : 0.5, // Rounds per second
+          trail : 52, // Afterglow percentage
+          shadow : true, // Whether to render a shadow
+          hwaccel : true, // Whether to use hardware acceleration
+          className : 'spinner', // The CSS class to assign to the spinner
+          zIndex : 2e9, // The z-index (defaults to 2000000000)
+          top : 'auto', // Top position relative to parent in px
+          left : 'auto' // Left position relative to parent in px
+        }
+        var target = document.getElementById('loading');
+        var spinner = new Spinner(opts).spin(target);
+        var user_id = getUrlParameters("u_id").u_id;
+        var cocktail_id = getUrlParameters("c_id").c_id
+        
+        $.ajax({
+          type : "GET",
+          url : server_url + "/ratings/" + cocktail_id + "/" + user_id,
+          dataType : "json",
+          async : false,
+          success : function(data){
+            $('#loading').hide();
+            if(data.rating != "-1"){
+              $('#rats').hide();
+              $('#your_rate').show();
+              $('#your_rate').append("<img src=\"../images/ratings/r" + data.rating + ".png\" />");
+            }
+          },
+          error: function(header, status, from){
+            alert("Error con el servidor");
+          }
+        });
+      });
+      
+      function rate(r){
+        var rate = new Object();
+        rate.id_cocktail = getUrlParameters("c_id").c_id;
+        rate.id_user = getUrlParameters("u_id").u_id;
+        rate.rating = r;
+        var jsonRate = JSON.stringify(rate);
+        alert(jsonRate);
+        $.ajax({
+          type : "POST",
+          url : server_url + "/ratings",
+          data : JSON.parse(jsonRate),
+          success : function(data) {
+            alert("Votado correctamente");
+            navigator.app.backHistory();
+          },
+          error: function(header, status, from){
+            alert("Error con el servidor");
+          }
+        });
+      }
+      
+    </script>
+    <style>
+      @font-face {
+        font-family: customFont;
+        src: url('../fonts/knewave.ttf');
+      }
+      
+      .content {
+        font-family: customFont;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <div id="loading" style="margin-top: 50%;"></div>
+    <div class="content">
+      <div id="header">
+        <img class="logo" src="../images/logo_petit.png" alt="Sinatra Cocteleria" onclick="loadPage('index.html')"/>
+      </div>
+      <p>Vota por el cocktail:</p>
+      <div id="rats" style="margin-top: 5%;">
+        <a>
+          <img src="../images/ratings/r1.png" onclick="rate(1)"/>
+        </a>
+        <a>
+          <img src="../images/ratings/r2.png" onclick="rate(2)"/>
+        </a>
+        <a>
+          <img src="../images/ratings/r3.png" onclick="rate(3)"/>
+        </a>
+        <a>
+          <img src="../images/ratings/r4.png" onclick="rate(4)"/>
+        </a>
+        <a>
+          <img src="../images/ratings/r5.png" onclick="rate(5)"/>
+        </a>
+      </div>
+      <div id="your_rate" style="display:none; margin-top: 5%;">
+        <p>Ya has votado por este cocktail</p><p style="margin-top: 1%;">tu puntuación ha sido:</p>
+      </div>
+    </div>
+  </body>
+</html>

@@ -18,8 +18,6 @@ function onDeviceReady() {
 
       var menuDiv = document.getElementById("optionsmenu");
 
-      console.log("optionsmenu: " + menuDiv);
-
       if (menuDiv.style.display == 'block') {
         menuDiv.style.display = 'none';
       } else {
@@ -36,15 +34,15 @@ function onDeviceReady() {
       navigator.app.backHistory();
     }
   }, false);
-
+  
   //Options menu
 
   var onSettings = function() {
-    loadPage('options.html')
+    loadPage('options.html');
   };
 
   var onCredits = function() {
-    console.log("help");
+    alert("credits");
   };
 
   var optionsmenu = new OptionsMenu({

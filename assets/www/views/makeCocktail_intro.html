@@ -5,13 +5,11 @@
     <title data-i18n="app_name"></title>
     <script src="../javascripts/cordova-2.3.0.js"></script>
     <script src="../javascripts/jquery-1.8.2.min.js"></script>
+    <script src="../javascripts/cdv-plugin-fb-connect.js"></script>
+    <script src="../javascripts/facebook_js_sdk.js"></script>
     <script src="../javascripts/controllers/base_controller.js"></script>
-    
-    <link rel="stylesheet" href="../stylesheets/idangerous.swiper.css">
-    
-    <!-- Swiper -->
-    <script defer src="../javascripts/idangerous.swiper-1.8.min.js"></script>
-
+    <script src="../javascripts/spin.min.js"></script>
+    <script src="../javascripts/optionsMenu.js"></script>
     <link media="screen" rel="stylesheet" href="../stylesheets/reset.css" />
     <link media="screen" rel="stylesheet" href="../stylesheets/style.css" />
     <style>
@@ -24,10 +22,78 @@
         font-family: customFont;
       }
     </style>
+    
+    <!-- Facebook plugin -->
+    
+    <link rel="stylesheet" type="text/css" href="../stylesheets/facebook-style.css">
+    <script type="text/javascript" src="../javascripts/facebook-js/index.js"></script>
+    <!-- cordova facebook plugin -->
+    <script src="../javascripts/cdv-plugin-fb-connect.js"></script>
+    <!-- facebook js sdk -->
+    <script src="../javascripts/facebook_js_sdk.js"></script> 
+    
+    <!--<script src="js/_config.js"></script>-->
+    <script src="../javascripts/facebook-js/ui.js"></script>
+    <script src="../javascripts/facebook-js/auth.js"></script>
+    <script src="../javascripts/facebook-js/feed.js"></script>
+    <script src="../javascripts/facebook-js/graph_api.js"></script>
+    <script src="../javascripts/facebook-js/requests.js"></script>
+    <!--<script src="js/credits.js"></script>-->
+    
+    <script>
+        // Initialize the Facebook SDK
+        document.addEventListener('deviceready', function() {
+            FB.init({
+                appId: '326614590799358',
+                nativeInterface: CDV.FB,
+                useCachedDialogs: false
+            });
+        
+            FB.getLoginStatus(handleStatusChange);
+        
+            authUser();
+            updateAuthElements();
+        });
+      $(document).ready(function() {
+        //$('#my_cocktails').hide();
+        var opts = {
+          lines : 13, // The number of lines to draw
+          length : 21, // The length of each line
+          width : 8, // The line thickness
+          radius : 15, // The radius of the inner circle
+          corners : 1, // Corner roundness (0..1)
+          rotate : 90, // The rotation offset
+          direction : 1, // 1: clockwise, -1: counterclockwise
+          color : '#CCC', // #rgb or #rrggbb
+          speed : 0.5, // Rounds per second
+          trail : 52, // Afterglow percentage
+          shadow : true, // Whether to render a shadow
+          hwaccel : true, // Whether to use hardware acceleration
+          className : 'spinner', // The CSS class to assign to the spinner
+          zIndex : 2e9, // The z-index (defaults to 2000000000)
+          top : 'auto', // Top position relative to parent in px
+          left : 'auto' // Left position relative to parent in px
+        }
+        var target = document.getElementById('loading');
+        var spinner = new Spinner(opts).spin(target);
+      });
+
+      function login(){
+        loadPage('cocktails.html', {type: 'user', id: "1093535454"});
+        //promptLogin()
+        //$('#loading').show();
+      }
+    
+      function owncocktails(){
+        getUserBasicInfo();
+        var user_id = $('#facebook_id').text();
+        loadPage('cocktails.html', {type: 'user', id: user_id});
+      }
+    </script>
   </head>
   <body>
     <div class="content">
-      <div id="header">
+      <div id="header2">
         <img class="logo" src="../images/logo_petit.png" alt="Sinatra Cocteleria" onclick="loadPage('index.html')"/>
       </div>
       <div style="font-family: Verdana; text-align: justify; line-height: 20px;">
@@ -55,14 +121,29 @@
           </li>
           <li>
             <div class="main-right">
-              <a id="cocktail_btn" onclick="javascript:alert('Mis otros cocktails')">
+              <div id="loading" class="button-main-menu show_when_not_connected" style="margin-top: 30%; margin-left: 45%; display: none;"></div>
+              <div id="fb-root"></div>
+              <div id="action">
+                <div id="loading-icon"></div>
+                
+                <div id="msg"></div>
+              </div>
+              <a id="cocktail_btn_login" class="show_when_not_connected" onclick="login(); hideButton(this);">
                 <img class="button-main-menu" src="../images/ic_cocktail_safe.png"/>
                 <p> Mis otros cocktails</p>
               </a>
+              <div id="my_cocktails">
+                <a id="cocktail_btn" class="show_when_connected" onclick="owncocktails()">
+                  <img class="button-main-menu" src="../images/ic_cocktail_safe.png"/>
+                  <p> Mis otros cocktails</p>
+                </a>
+              </div>
             </div>
           </li>
         </ul>
       </div>
+      <p id="facebook_id" style="display:none;"></p>
+      <div id="user-info" style="display:none;"></div>
     </div>
   </body>
 </html>

@@ -105,10 +105,10 @@
 
         $('#send_cocktail').click(function() {
           
-          //getUserID();
-          //var user_id = $('#facebook_id').text();
+          getUserID();
+          var user_id = $('#facebook_id').text();
           
-          var user_id = "1093535454";
+          //var user_id = "1093535454";
           
           var cocktail = jQuery.parseJSON(window.localStorage.getItem("cocktail_temp"));
           cocktail.creador = user_id;
