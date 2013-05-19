@@ -30,7 +30,18 @@ function onDeviceReady() {
     } else if (pag == '/makeCocktail_final.html') {
       e.preventDefault();
       navigator.notification.confirm("¿Estás seguro de querer descartar el cocktail?", discartCocktail2, "Descartar cocktail", 'SI, NO')
-    } else {
+    } else if (pag == "/cocktail.html"){
+      var goback = getUrlParameters("back").back;
+      if(goback == '1'){
+        e.preventDefault();
+        loadPage('makeCocktail_intro.html');
+      }
+      else{
+        e.preventDefault();
+        navigator.app.backHistory();
+      }
+    }
+    else {
       navigator.app.backHistory();
     }
   }, false);

@@ -126,7 +126,7 @@
               // data.id -> Id del cocktail
               cocktail = jQuery.parseJSON(window.localStorage.getItem("cocktail_temp"));
               publishStory(cocktail.nombre, data.id, data_img);
-              loadPage('cocktail.html', {"id": data.id})
+              loadPage('cocktail.html', {"id": data.id, "back": '1'})
             },
             error : function(data) {
               alert("Error con el servidor");
