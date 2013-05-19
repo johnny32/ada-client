@@ -158,14 +158,13 @@
       function login(){
         var cocktail_id = getUrlParameters("id").id;
         loadPage('rating.html', {type: 'user', u_id: "1093535454", c_id: cocktail_id});
-       // promptLogin()
-       // $('#loading').show();
+        //promptLogin()
+        //$('#loading').show();
       }
     
       function rating(){
         getUserBasicInfo();
         var user_id = $('#facebook_id').text();
-        alert(user_id);
         var cocktail_id = getUrlParameters("id").id;
         loadPage('index.html', {type: 'user', u_id: user_id, c_id: cocktail_id});
       }

@@ -65,14 +65,13 @@
         rate.id_user = getUrlParameters("u_id").u_id;
         rate.rating = r;
         var jsonRate = JSON.stringify(rate);
-        alert(jsonRate);
         $.ajax({
           type : "POST",
           url : server_url + "/ratings",
           data : JSON.parse(jsonRate),
           success : function(data) {
             alert("Votado correctamente");
-            navigator.app.backHistory();
+            loadPage('cocktail.html', {id: getUrlParameters("c_id").c_id})
           },
           error: function(header, status, from){
             alert("Error con el servidor");
@@ -103,22 +102,22 @@
       <div id="rats" style="margin-top: 5%;">
         <a>
           <img src="../images/ratings/r1.png" onclick="rate(1)"/>
-        </a>
+        </a><br />
         <a>
           <img src="../images/ratings/r2.png" onclick="rate(2)"/>
-        </a>
+        </a><br />
         <a>
           <img src="../images/ratings/r3.png" onclick="rate(3)"/>
-        </a>
+        </a><br />
         <a>
           <img src="../images/ratings/r4.png" onclick="rate(4)"/>
-        </a>
+        </a><br />
         <a>
           <img src="../images/ratings/r5.png" onclick="rate(5)"/>
         </a>
       </div>
       <div id="your_rate" style="display:none; margin-top: 5%;">
-        <p>Ya has votado por este cocktail</p><p style="margin-top: 1%;">tu puntuación ha sido:</p>
+        <p>Ya has votado por este cocktail</p><p style="margin-top: 2%;">tu puntuación ha sido</p>
       </div>
     </div>
   </body>
