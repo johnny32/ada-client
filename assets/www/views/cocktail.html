@@ -142,8 +142,8 @@
           $('#div_rating').append('<img src="' + rating + '" alt="Puntuacion" />');
         }
         if (user_name == "Sinatra Cockteleria"){
-          $('#a_more').hide();
-          $('#a_rate').hide();
+          $('#div_more_id').hide();
+          $('#div_rate_id').hide();
         }
         else{
           $('#a_more').click(function() {
@@ -156,10 +156,8 @@
       }
       
       function login(){
-        var cocktail_id = getUrlParameters("id").id;
-        loadPage('rating.html', {type: 'user', u_id: "1093535454", c_id: cocktail_id});
-        //promptLogin()
-        //$('#loading').show();
+        promptLogin()
+        $('#loading').show();
       }
     
       function rating(){
@@ -171,12 +169,12 @@
       
     </script>
     <style>
-      #div_more {
+      .div_more {
         font-family: customFont;
         clear: both;
         float: left;
         margin-left: 10%;
-        width: 40%;
+        width: 160px;
         text-align: center;
       }
       
@@ -184,7 +182,7 @@
         font-family: customFont;
         float: right;
         margin-right: 10%;
-        width: 40%;
+        width: 160px;
         text-align: center;
       }
       
@@ -215,7 +213,7 @@
         <img id="cocktail_image" />
         <div id="div_rating"></div>
         <div id="cocktail_info" style="width: 65%;"></div>
-        <div id="div_more">
+        <div class="div_more_id">
           <a id="a_more" style="-webkit-tap-highlight-color: rgba(255, 255, 255, 0);">
             <img src="../images/ic_cocktail_zoom.png" alt="Ver mas cocktails" />
             <p style="color: white; text-decoration: none;">Ver m&aacute;s cocktails del usuario</p>
@@ -227,17 +225,19 @@
           
           <div id="msg"></div>
         </div>
-        <div id="div_rate_login" class="div_rate">
-          <div id="loading" class="button-main-menu show_when_not_connected" style="margin-top: 30%; margin-left: 45%; display: none;"></div>
-          <a id="a_rate_login" class="show_when_not_connected" style="-webkit-tap-highlight-color: rgba(255, 255, 255, 0);" onclick="login(); hideButton(this);">
+        <div class="div_rate" id="div_rate_id">
+          <div id="div_rate_login">
+            <div id="loading" class="button-main-menu show_when_not_connected" style="margin-top: 30%; margin-left: 45%; display: none;"></div>
+            <a id="a_rate_login" class="show_when_not_connected" style="-webkit-tap-highlight-color: rgba(255, 255, 255, 0);" onclick="login(); hideButton(this);">
+              <img class="button-main-menu" src="../images/ic_cocktail_star.png"/>
+              <p style="color: white; text-decoration: none;">Votar cocktail</p>
+            </a>
+          </div>
+          <a id="a_rate" class="show_when_connected" style="-webkit-tap-highlight-color: rgba(255, 255, 255, 0);" onclick="rating()">
             <img class="button-main-menu" src="../images/ic_cocktail_star.png"/>
             <p style="color: white; text-decoration: none;">Votar cocktail</p>
           </a>
         </div>
-          <a id="a_rate" class="show_when_connected div_rate" style="-webkit-tap-highlight-color: rgba(255, 255, 255, 0);" onclick="rating()">
-            <img class="button-main-menu" src="../images/ic_cocktail_star.png"/>
-            <p style="color: white; text-decoration: none;">Votar cocktail</p>
-          </a>
       </div>
     </div>
     <p id="facebook_id" style="display:none;"></p>

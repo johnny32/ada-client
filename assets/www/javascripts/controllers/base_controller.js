@@ -53,7 +53,7 @@ function onDeviceReady() {
   };
 
   var onCredits = function() {
-    alert("credits");
+    loadPage('credits.html');
   };
 
   var optionsmenu = new OptionsMenu({

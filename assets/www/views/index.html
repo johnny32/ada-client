@@ -22,6 +22,14 @@
       }
       
     </style>
+    <script>
+      document.addEventListener("deviceready", function(){
+        if(window.localStorage.getItem("init_alert") != 1){
+          navigator.notification.alert("Esta aplicación todavía está en fase de pruebas. Si encuentras algun error o fallo, escríbenos a devsinatracockteleria@gmail.com e intentaremos arreglarlo lo antes posible. También puedes enviarnos un email desde el menú de créditos. Muchas gracias.", null, "Aviso")
+          window.localStorage.setItem("init_alert", 1);
+        }
+      }, false);
+    </script>
   </head>
   <body>
     <div class="content">

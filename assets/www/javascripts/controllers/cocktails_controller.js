@@ -220,8 +220,7 @@ $(document).ready(function($) {
       add_element_function : function() {
         
         if (actual_remain == 0) {
-          //navigator.notification.alert("No puedes añadir más elementos en esta sección", null, "Elementos máximos");
-          alert("No puedes añadir más elementos en esta sección");
+          navigator.notification.alert("No puedes añadir más elementos en esta sección", null, "Elementos máximos");
         }
         else{
           var element_id = mySwiper.activeSlide
@@ -233,8 +232,7 @@ $(document).ready(function($) {
           var trobat = false;
           for (var i = 0; i < actual_array.length; i++) {
             if (actual_array[i].id == element_id) {
-              //navigator.notification.alert("No se puede añadir dos veces el mismo elemento", null, "Elemento repetido")
-              alert("No se puede añadir dos veces el mismo elemento");
+              navigator.notification.alert("No se puede añadir dos veces el mismo elemento", null, "Elemento repetido")
               trobat = true;
               break;
             }
@@ -255,32 +253,24 @@ $(document).ready(function($) {
       finish_element_function : function() {
         if (actual_array.length == 0) {
           if (actual_product == "Licor") {
-            //navigator.notification.confirm("¿Estás seguro de querer crear un cocktail sin alcohol?", confirmWithoutAlcohol, "Cocktail sin alcohol", 'OK, Cancelar')
-            alert("¿Estás seguro de querer crear un cocktail sin alcohol?");
-            confirmWithoutAlcohol(1);
+            navigator.notification.confirm("¿Estás seguro de querer crear un cocktail sin alcohol?", confirmWithoutAlcohol, "Cocktail sin alcohol", 'OK, Cancelar')
           } else {
-            //navigator.notification.alert("Necesitas añadir como mínimo un elemento", null, "Sección vacía")
-            alert("Necesitas añadir como mínimo un elemento");
+            navigator.notification.alert("Necesitas añadir como mínimo un elemento", null, "Sección vacía")
           }
         } else {
           var message = "Estás a punto de añadir: ";
           for (var i = 0; i < actual_array.length; i++) {
             message += ("\n- " + actual_array[i].nombre);
           }
-          alert(message);
-          //navigator.notification.confirm(message, confirmSection, "Confirmar sección", 'OK, Cancelar')
-          confirmSection(1);
+          navigator.notification.confirm(message, confirmSection, "Confirmar sección", 'OK, Cancelar')
         }
       },
       //Finalitzar cocktail
       finishCocktail : function() {
         if ($('#cocktail_name').val() == '') {
-          //º.notification.alert("Debes ponerle un nombre al cocktail", null, "Nombre vacío")
-          alert("Debes ponerle un nombre al cocktail")
+          navigator.notification.alert("Debes ponerle un nombre al cocktail", null, "Nombre vacío")
         } else {
-          //navigator.notification.confirm("¿Es " + $('#cocktail_name').val() + " el nombre correcto?", confirmName, "Confirmar nombre", 'Mezclar, Cancelar')
-          alert("¿Es " + $('#cocktail_name').val() + " el nombre correcto?");
-          confirmName(1);
+          navigator.notification.confirm("¿Es " + $('#cocktail_name').val() + " el nombre correcto?", confirmName, "Confirmar nombre", 'Mezclar, Cancelar')
         }
       }
       ,
