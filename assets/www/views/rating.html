@@ -71,7 +71,7 @@
           data : JSON.parse(jsonRate),
           success : function(data) {
             alert("Votado correctamente");
-            loadPage('cocktail.html', {id: getUrlParameters("c_id").c_id})
+            navigator.app.backHistory();
           },
           error: function(header, status, from){
             alert("Error con el servidor");

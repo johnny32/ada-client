@@ -164,12 +164,12 @@
         getUserBasicInfo();
         var user_id = $('#facebook_id').text();
         var cocktail_id = getUrlParameters("id").id;
-        loadPage('index.html', {type: 'user', u_id: user_id, c_id: cocktail_id});
+        loadPage('rating.html', {type: 'user', u_id: user_id, c_id: cocktail_id});
       }
       
     </script>
     <style>
-      .div_more {
+      .div_more_id {
         font-family: customFont;
         clear: both;
         float: left;
@@ -183,7 +183,7 @@
         float: right;
         margin-right: 10%;
         width: 160px;
-        text-align: center;
+        text-align: center; 
       }
       
       #div_rating {
