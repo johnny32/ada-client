@@ -40,6 +40,9 @@
         var user_id = getUrlParameters("u_id").u_id;
         var cocktail_id = getUrlParameters("c_id").c_id
         
+        alert("user: " + user_id);
+        alert("cocktail: " + cocktail_id)
+        
         $.ajax({
           type : "GET",
           url : server_url + "/ratings/" + cocktail_id + "/" + user_id,
@@ -65,13 +68,15 @@
         rate.id_user = getUrlParameters("u_id").u_id;
         rate.rating = r;
         var jsonRate = JSON.stringify(rate);
+        alert(jsonRate);
         $.ajax({
           type : "POST",
           url : server_url + "/ratings",
           data : JSON.parse(jsonRate),
           success : function(data) {
             alert("Votado correctamente");
-            navigator.app.backHistory();
+            alert(rate.id_cocktail)
+            //loadPage('cocktail.html', {id: getUrlParameters("c_id").c_id})
           },
           error: function(header, status, from){
             alert("Error con el servidor");

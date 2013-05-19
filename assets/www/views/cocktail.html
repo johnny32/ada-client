@@ -164,6 +164,8 @@
         getUserBasicInfo();
         var user_id = $('#facebook_id').text();
         var cocktail_id = getUrlParameters("id").id;
+        alert("user: " + user_id + " - cocktail: " + cocktail_id);
+        user_id = "1234";
         loadPage('rating.html', {type: 'user', u_id: user_id, c_id: cocktail_id});
       }
       
