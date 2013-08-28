@@ -11,13 +11,11 @@ var permissions = ['user_status', 'publish_checkins', 'user_likes'];
 
 //Detect when Facebook tells us that the user's session has been returned
 function authUser() {
-  console.log("--------------------> authUser");
   FB.Event.subscribe('auth.statusChange', handleStatusChange);
 }
 
 // Handle status changes
 function handleStatusChange(session) {
-    console.log("--------------------> handleStatusChange");
     console.log('Got the user\'s session: ' + JSON.stringify(session));
     
     if (session.authResponse) {

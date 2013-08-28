@@ -30,6 +30,9 @@ function onDeviceReady() {
     } else if (pag == '/makeCocktail_final.html') {
       e.preventDefault();
       navigator.notification.confirm("¿Estás seguro de querer descartar el cocktail?", discartCocktail2, "Descartar cocktail", 'SI, NO')
+    } else if (pag == '/makeCocktail_intro.html') {
+      e.preventDefault();
+      loadPage('index.html');
     } else if (pag == "/cocktail.html"){
       var goback = getUrlParameters("back").back;
       if(goback == '1'){
@@ -122,7 +125,7 @@ function sendEmail(receiver, subject, body) {
     extras : extras
   }, function() {
   }, function() {
-    alert('Failed to send email via Android Intent');
+    alert('Failed to send email');
   });
 }
 

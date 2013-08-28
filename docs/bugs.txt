@@ -1,0 +1,5 @@
+Sinatra Cockteleria
+
+BUGS
+
+ - Al votar y volver atrás, no recarga la página (no se actualiza la votación)

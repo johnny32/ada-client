@@ -47,10 +47,10 @@
                 nativeInterface: CDV.FB,
                 useCachedDialogs: false
             });
-        
-            FB.getLoginStatus(handleStatusChange);
-        
+            //FB.getLoginStatus(handleStatusChange);
+
             authUser();
+            promptLogin('')
             updateAuthElements();
         });
     </script>

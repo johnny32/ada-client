@@ -22,7 +22,6 @@ function getCocktails(params) {
       }
     });*/
    $.getJSON(url + "/cocktails", function(data) {
-     alert(data);
    });
   } else if (params.type == "user") {
     $.ajax({
@@ -30,7 +29,6 @@ function getCocktails(params) {
       url : server_url + cocktails_route + "/user/" + params.id,
       dataType : "json",
       success : function(data){
-        alert("Success!: " + data);
         return data;
       },
       error: function(header, status, from){

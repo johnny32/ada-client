@@ -21,7 +21,7 @@
   <!-- See http://davidbcalhoun.com/2010/viewport-metatag for information on the viewport tag. -->
   <meta name="viewport" content="initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
   
-  <link rel="stylesheet" type="text/css" href="stylesheets/facebook-style.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 
 <body>
@@ -56,7 +56,11 @@
      <ul>
         <li class="menu-item" onclick="openPage('Login');">Login and Permissions</li>
         <li class="menu-item" onclick="openPage('Requests');">Requests</li>
-        <li class="menu-item" onclick="openPage('News-Feed');">News Feed</li>
+        <li class="menu-item">
+          <a href="views/index.html">
+            News Feed
+          </a>
+        </li>
         <li class="menu-item" onclick="openPage('Graph-API');">Graph API</li>
         <!--<li class="menu-item" onclick="openPage('Credits');" id="credits-button">Credits</li>-->
         <!-- <li class="menu-item" onclick="openPage('Social-Plugins');">Social Plugins</li> --> 
@@ -308,7 +312,7 @@
  <div id="deviceready"></div>
  
   <script type="text/javascript" src="javascripts/cordova-2.3.0.js"></script>
-  <script type="text/javascript" src="javascripts/facebook-js/index.js"></script>
+  <script type="text/javascript" src="javascripts/index.js"></script>
   <!-- cordova facebook plugin -->
   <script src="javascripts/cdv-plugin-fb-connect.js"></script>
   <!-- facebook js sdk -->
@@ -325,16 +329,18 @@
   <script>
       // Initialize the Facebook SDK
       document.addEventListener('deviceready', function() {
-          FB.init({
-              appId: '326614590799358',
-              nativeInterface: CDV.FB,
-              useCachedDialogs: false
-          });
-      
-          FB.getLoginStatus(handleStatusChange);
-      
-          authUser();
-          updateAuthElements();
+        console.log("--------------------> hackbook: Device Ready");
+        FB.init({
+            appId: '326614590799358',
+            nativeInterface: CDV.FB,
+            useCachedDialogs: false
+        });
+        console.log("--------------------> Before getLoginStatus");
+        FB.getLoginStatus(handleStatusChange);
+        console.log("--------------------> Before AuthUser");
+        authUser();
+        console.log("--------------------> Before updateAuthElements");
+        updateAuthElements();
       });
   </script>
   

@@ -15,67 +15,61 @@
     <link media="screen" rel="stylesheet" href="../stylesheets/reset.css" />
     <link media="screen" rel="stylesheet" href="../stylesheets/style.css" />
     
+    <!-- Facebook plugin -->
+    
+    <link rel="stylesheet" type="text/css" href="../stylesheets/facebook-style.css">
+    <script type="text/javascript" src="../javascripts/facebook-js/index.js"></script>
+    <!-- cordova facebook plugin -->
+    <script src="../javascripts/cdv-plugin-fb-connect.js"></script>
+    <!-- facebook js sdk -->
+    <script src="../javascripts/facebook_js_sdk.js"></script> 
+    
+    <!--<script src="js/_config.js"></script>-->
+    <script src="../javascripts/facebook-js/ui.js"></script>
+    <script src="../javascripts/facebook-js/auth.js"></script>
+    <script src="../javascripts/facebook-js/feed.js"></script>
+    <script src="../javascripts/facebook-js/graph_api.js"></script>
+    <script src="../javascripts/facebook-js/requests.js"></script>
+
+    
     <script>
-      $(document).ready(function() {
-        var opts = {
-          lines : 13, // The number of lines to draw
-          length : 20, // The length of each line
-          width : 23, // The line thickness
-          radius : 40, // The radius of the inner circle
-          corners : 1, // Corner roundness (0..1)
-          rotate : 90, // The rotation offset
-          direction : 1, // 1: clockwise, -1: counterclockwise
-          color : '#CCC', // #rgb or #rrggbb
-          speed : 0.5, // Rounds per second
-          trail : 52, // Afterglow percentage
-          shadow : true, // Whether to render a shadow
-          hwaccel : true, // Whether to use hardware acceleration
-          className : 'spinner', // The CSS class to assign to the spinner
-          zIndex : 2e9, // The z-index (defaults to 2000000000)
-          top : 'auto', // Top position relative to parent in px
-          left : 'auto' // Left position relative to parent in px
-        }
-        var target = document.getElementById('loading');
-        var spinner = new Spinner(opts).spin(target);
-        var user_id = getUrlParameters("u_id").u_id;
-        var cocktail_id = getUrlParameters("c_id").c_id
+      document.addEventListener("deviceready", function(){
         
-        alert("user: " + user_id);
-        alert("cocktail: " + cocktail_id)
-        
-        $.ajax({
-          type : "GET",
-          url : server_url + "/ratings/" + cocktail_id + "/" + user_id,
-          dataType : "json",
-          async : false,
-          success : function(data){
-            $('#loading').hide();
-            if(data.rating != "-1"){
-              $('#rats').hide();
-              $('#your_rate').show();
-              $('#your_rate').append("<img src=\"../images/ratings/r" + data.rating + ".png\" />");
-            }
-          },
-          error: function(header, status, from){
-            alert("Error con el servidor");
-          }
+/*        FB.init({
+            appId: '326614590799358',
+            nativeInterface: CDV.FB,
+            useCachedDialogs: false
         });
-      });
+    
+        authUser();
+        promptLogin('');
+*/
+
+        
+        
+        if(getUrlParameters('rating').rating != "-1"){
+          $('#rats').hide();
+          $('#your_rate').show();
+          $('#your_rate').append("<img src=\"../images/ratings/r" + getUrlParameters('rating').rating + ".png\" />");
+        }
+      }, false);
       
       function rate(r){
         var rate = new Object();
-        rate.id_cocktail = getUrlParameters("c_id").c_id;
-        rate.id_user = getUrlParameters("u_id").u_id;
+        rate.id_cocktail = getUrlParameters().c_id;
+        rate.id_user = getUrlParameters().u_id;
+        rate.imagen = getUrlParameters().imagen;
+        rate.nombre = getUrlParameters().nombre;
         rate.rating = r;
         var jsonRate = JSON.stringify(rate);
-        alert(jsonRate);
         $.ajax({
           type : "POST",
           url : server_url + "/ratings",
           data : JSON.parse(jsonRate),
           success : function(data) {
             alert("Votado correctamente");
-            alert(rate.id_cocktail)
+            ratingCocktail(rate.nombre, rate.id_cocktail, rate.imagen);
+            navigator.app.backHistory();
             //loadPage('cocktail.html', {id: getUrlParameters("c_id").c_id})
           },
           error: function(header, status, from){
@@ -98,9 +92,8 @@
     </style>
   </head>
   <body>
-    <div id="loading" style="margin-top: 50%;"></div>
     <div class="content">
-      <div id="header">
+      <div id="header2">
         <img class="logo" src="../images/logo_petit.png" alt="Sinatra Cocteleria" onclick="loadPage('index.html')"/>
       </div>
       <p>Vota por el cocktail:</p>

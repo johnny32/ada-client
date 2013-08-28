@@ -6,17 +6,157 @@
     <script src="../javascripts/cordova-2.3.0.js"></script>
     <script src="../javascripts/jquery-1.8.2.min.js"></script>
     <script src="../javascripts/controllers/base_controller.js"></script>
-	  <link media="screen" rel="stylesheet" href="../stylesheets/reset.css" />
+    <script src="../javascripts/spin.min.js"></script>
+    
+    <script src="../javascripts/facebook-js/ui.js"></script>
+    <script src="../javascripts/facebook-js/auth.js"></script>
+    <script src="../javascripts/facebook-js/feed.js"></script>
+    <script src="../javascripts/facebook-js/graph_api.js"></script>
+    <script src="../javascripts/facebook-js/requests.js"></script>
+    <!-- cordova facebook plugin -->
+    <script src="../javascripts/cdv-plugin-fb-connect.js"></script>
+    <!-- facebook js sdk -->
+    <script src="../javascripts/facebook_js_sdk.js"></script> 
+
+    
+    <link media="screen" rel="stylesheet" href="../stylesheets/reset.css" />
     <link media="screen" rel="stylesheet" href="../stylesheets/style.css" />
-  </head>
-  <body style="background-color: #000">
-  	<div class="content">
-      <img id="splash-logo" src="../images/logo.jpg" alt="Sinatra Cockteleria" />
-  	</div>
+    <style>
+      @font-face {
+        font-family: customFont;
+        src: url('../fonts/knewave.ttf');
+      }
+
+      .content {
+        font-family: customFont;
+      }
+    </style>
     <script>
       $(document).ready(function() {
-        var t=setTimeout("loadPage('index.html')",2000);
+        $('#element_loading_txt').hide();
+        var t = setTimeout(function() {
+          console.log("before wait");
+          wait();
+        },1000);
       });
+      function wait() {
+        if (window.localStorage.getItem("list_Zumo") == null || window.localStorage.getItem("list_Licor") == null 
+        || window.localStorage.getItem("list_Carbonico") == null || window.localStorage.getItem("list_Vaso") == null) {
+          console.log("No data");
+          var opts = {
+            lines : 13, // The number of lines to draw
+            length : 16, // The length of each line
+            width : 11, // The line thickness
+            radius : 20, // The radius of the inner circle
+            corners : 1, // Corner roundness (0..1)
+            rotate : 90, // The rotation offset
+            direction : 1, // 1: clockwise, -1: counterclockwise
+            color : '#DDD', // #rgb or #rrggbb
+            speed : 0.5, // Rounds per second
+            trail : 52, // Afterglow percentage
+            shadow : true, // Whether to render a shadow
+            hwaccel : true, // Whether to use hardware acceleration
+            className : 'spinner', // The CSS class to assign to the spinner
+            zIndex : 2e9, // The z-index (defaults to 2000000000)
+            top : 'auto', // Top position relative to parent in px
+            left : 'auto' // Left position relative to parent in px
+          }
+          var target = document.getElementById('element_loading');
+          var spinner = new Spinner(opts).spin(target);
+          $('#element_loading_txt').show();
+
+          var t = setTimeout(function() {
+            $.ajax({
+              type : "GET",
+              async : false,
+              url : server_url + ingredients_route + "/Zumo",
+              dataType : "json",
+              success : function(data) {
+                console.log("succes zumos");
+                window.localStorage.setItem("list_Zumo", JSON.stringify(data));
+              },
+              error : function(header, status, from) {
+                alert("Error con el servidor: " + header);
+              }
+            });
+            $.ajax({
+              type : "GET",
+              async : false,
+              url : server_url + ingredients_route + "/Licor",
+              dataType : "json",
+              success : function(data) {
+                console.log("success licor");
+                window.localStorage.setItem("list_Licor", JSON.stringify(data));
+              },
+              error : function(header, status, from) {
+                alert("Error con el servidor: " + header);
+              }
+            });
+            $.ajax({
+              type : "GET",
+              async : false,
+              url : server_url + ingredients_route + "/Carbonico",
+              dataType : "json",
+              success : function(data) {
+                console.log("success carbonico");
+                window.localStorage.setItem("list_Carbonico", JSON.stringify(data));
+              },
+              error : function(header, status, from) {
+                alert("Error con el servidor: " + header);
+              }
+            });
+            $.ajax({
+              type : "GET",
+              async : false,
+              url : server_url + ingredients_route + "/Vaso",
+              dataType : "json",
+              success : function(data) {
+                console.log("success vaso");
+                window.localStorage.setItem("list_Vaso", JSON.stringify(data));
+              },
+              error : function(header, status, from) {
+                alert("Error con el servidor: " + header);
+              }
+            });
+            
+            FB.init({
+              appId: '326614590799358',
+              nativeInterface: CDV.FB,
+              useCachedDialogs: false
+            });
+            authUser();
+            promptLogin('index.html');
+            
+//            console.log("load index");
+//            loadPage('index.html')
+          }, 4000);
+        }
+        else{
+          console.log("si data!!!");
+          
+          FB.init({ 
+            appId: '326614590799358',
+            nativeInterface: CDV.FB,
+            useCachedDialogs: false
+          });
+          authUser();
+          promptLogin('index.html');
+          
+//          var t = setTimeout(function() { 
+//            console.log("load index"); 
+//            loadPage('index.html')
+//          }, 4000);
+        }
+      }
     </script>
+  </head>
+  <body style="background-color: #000">
+    <div class="content">
+      <div id="element_loading" style="position: absolute; top: 75%;"></div>
+      <div id="element_loading_txt" style="position: absolute;top: 90%; width: 100%; text-align: center;">
+        Inicializando app
+      </div>
+      <img id="splash-logo" src="../images/logo.jpg" alt="Sinatra Cockteleria" />
+    </div>
   </body>
 </html>

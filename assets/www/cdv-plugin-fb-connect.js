@@ -2,7 +2,6 @@ CDV = ( typeof CDV == 'undefined' ? {} : CDV );
 var cordova = window.cordova || window.Cordova;
 CDV.FB = {
   init: function(apiKey, fail) {
-    console.log("--------------------> Init");
     // create the fb-root element if it doesn't exist
     if (!document.getElementById('fb-root')) {
       var elem = document.createElement('div');

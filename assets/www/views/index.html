@@ -5,8 +5,18 @@
     <title data-i18n="app_name"></title>
     <script src="../javascripts/cordova-2.3.0.js"></script>
     <script src="../javascripts/jquery-1.8.2.min.js"></script>
+    
+    <script src="../javascripts/facebook-js/ui.js"></script>
+    <script src="../javascripts/facebook-js/auth.js"></script>
+    <script src="../javascripts/facebook-js/feed.js"></script>
+    <script src="../javascripts/facebook-js/graph_api.js"></script>
+    <script src="../javascripts/facebook-js/requests.js"></script>
+    <!-- cordova facebook plugin -->
     <script src="../javascripts/cdv-plugin-fb-connect.js"></script>
-    <script src="../javascripts/facebook_js_sdk.js"></script>
+    <!-- facebook js sdk -->
+    <script src="../javascripts/facebook_js_sdk.js"></script> 
+
+
     <script src="../javascripts/controllers/base_controller.js"></script>
     <script src="../javascripts/optionsMenu.js"></script>
     <link media="screen" rel="stylesheet" href="../stylesheets/reset.css" />
@@ -24,6 +34,18 @@
     </style>
     <script>
       document.addEventListener("deviceready", function(){
+        
+        console.log("--------------------> app: Device Ready");
+        FB.init({
+            appId: '326614590799358',
+            nativeInterface: CDV.FB,
+            useCachedDialogs: false
+        });
+        console.log("--------------------> Before getLoginStatus");
+        FB.getLoginStatus(handleStatusChange);
+        console.log("--------------------> Before AuthUser");
+        authUser();
+
         if(window.localStorage.getItem("init_alert") != 1){
           navigator.notification.alert("Esta aplicación todavía está en fase de pruebas. Si encuentras algun error o fallo, escríbenos a devsinatracockteleria@gmail.com e intentaremos arreglarlo lo antes posible. También puedes enviarnos un email desde el menú de créditos. Muchas gracias.", null, "Aviso")
           window.localStorage.setItem("init_alert", 1);
@@ -32,6 +54,14 @@
     </script>
   </head>
   <body>
+    <!-- This initializes the Facebook JS SDK. -->
+    <div id="fb-root"></div>
+    
+    <div id="action">
+      <div id="loading-icon"></div>
+    
+      <div id="msg"></div>
+    </div>
     <div class="content">
       <div class="main-logo">
         <img id="title-main-menu" src="../images/logo.jpg"/>

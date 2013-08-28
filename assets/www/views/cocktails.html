@@ -80,9 +80,7 @@
           
           $('#less').hide();
           $('#more').hide();
-          
           username = params.id;
-          
           $.ajax({
             type : "GET",
             url : server_url + cocktails_route + "/user/" + params.id,

@@ -55,10 +55,14 @@ var OptionsMenu = function(menu) {
     
     // Listen for the menubutton event to hide/show the menu
     document.addEventListener("menubutton", function() {
+      var full_url = window.location.pathname;
+      var pag = full_url.substring(full_url.lastIndexOf('/'), full_url.length);
+      if (pag == '/index.html') {
         if (menuDiv.style.display == 'none') {
             menuDiv.style.display = 'block';
         } else {
             menuDiv.style.display = 'none';
         }
+      }
     }, false);
 };

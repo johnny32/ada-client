@@ -55,8 +55,7 @@ $(document).ready(function($) {
 
     function jsonParser(ingredients) {
       //Hide the loader gif
-      $('#element_loading').fadeOut();
-      
+      $('#element_loading').hide();
       $.each(ingredients, function(key, value){
         var images_route;
         var wrapper = $('.swiper-wrapper');
@@ -64,9 +63,6 @@ $(document).ready(function($) {
           '">' + '<div id="elem_title' + key + '" style="font-size: 22px; margin: 10px 0 10px 0;">' + 
           value.descripcion + '</div>' + '<div id="elem_image' + key + '">' + 
           '<img class="cocktail_slide_image" src="' + server_url + images_ingredients_route + "/" +value.imagen + '">' + '</div>' + '</div>');
-          
-          $('#add_elem').fadeIn();
-          $('#finish_elem').fadeIn();
       });
       
       //Swiper Scroller
@@ -75,6 +71,10 @@ $(document).ready(function($) {
         pagination : '.pagination1',
         loop : true
       });
+      
+      console.log("show buttons");
+      $('#add_elem').show();
+      $('#finish_elem').show();
     }
 
     //Confirmar si es vol un cocktail sense alcohol
@@ -120,36 +120,42 @@ $(document).ready(function($) {
     function finish_function() {
       if ((actual_product == 'Licor' && without_alcohol == true) || actual_array.length > 0) {
         if (actual_product == "Zumo") {
+          console.log("actual product: licor");
           actual_product = "Licor"
           actual_array = selected_data.licor;
           actual_remain = remain_licores;
           $('#title').html("LICORES")
           $('#finish_elem_p').text("Cocktail sin alcohol");
         } else if (actual_product == "Licor") {
+          console.log("actual product: carbonico");
           actual_product = "Carbonico";
           actual_array = selected_data.carbonico;
           actual_remain = remain_carbonico;
           $('#title').html("CARBONICOS")
           $('#finish_elem_p').text("Finalizar sección");
         } else if (actual_product == "Carbonico") {
+          console.log("actual product: vaso");
           actual_product = "Vaso";
           actual_array = selected_data.vaso;
           actual_remain = remain_vasos;
           $('#title').html("VASOS");
         } else {
+          console.log("actual product: nombre");
           actual_product = "nombre"
           actual_remain = remain_nombre;
           $('#title').html("NOMBRE");
         }
 
         if (actual_product != "nombre") {
+          console.log("No es nombre");
           $('.swiper-container').html("");
           $('.swiper-container').html('<div class="swiper-wrapper"></div>');
           cocktails.addData2Page();
           cocktails.fillRemain();
-          $('#add_elem').fadeOut();
-          $('#finish_elem').fadeOut();
+          // $('#add_elem').hide();
+          // $('#finish_elem').hide();
         } else {
+          console.log("es nombre");
           $('.swiper-container').html("");
 
           $('.swiper-container').html('<div class="name_container"><input type="text" id="cocktail_name" maxlength="30"/><br />' + 'Te quedan <b><span id="myCounter">30</span></b> caracteres para el nombre</div>');
@@ -197,7 +203,13 @@ $(document).ready(function($) {
     return {
       addData2Page : function() {
         $('#element_loading').show();
-        $.ajax({
+        
+        //Get ingredients from localStorage (saved in splash screen)
+        var ing = JSON.parse(window.localStorage.getItem("list_" + actual_product));
+        console.log("jsonParser(list_" + actual_product + ")");
+        jsonParser(ing);
+        
+ /*       $.ajax({
           type : "GET",
           url : server_url + ingredients_route + "/" + actual_product,
           dataType : "json",
@@ -206,6 +218,9 @@ $(document).ready(function($) {
             alert("Error con el servidor");
           }
         });
+  */      
+        
+        
       },
       //Emplenar el text de quants productes es poden escollir de més
       fillRemain : function() {

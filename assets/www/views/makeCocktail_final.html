@@ -50,10 +50,8 @@
                 useCachedDialogs: false
             });
         
-            FB.getLoginStatus(handleStatusChange);
-        
             authUser();
-            updateAuthElements();
+            promptLogin('');
         });
     </script>
     <script>
@@ -105,8 +103,7 @@
 
         $('#send_cocktail').click(function() {
           
-          getUserID();
-          var user_id = $('#facebook_id').text();
+          var user_id = window.localStorage.getItem("fb_id");
           
           //var user_id = "1093535454";
           
@@ -121,7 +118,6 @@
             data : JSON.parse(cocktail),
             success : function(data) {
               //Mostrar pagina de compartir
-              alert("¡Cocktail creado correctamente!");
               // data.url -> Url a postejar al fb
               // data.id -> Id del cocktail
               cocktail = jQuery.parseJSON(window.localStorage.getItem("cocktail_temp"));
@@ -180,25 +176,14 @@
       <div id="info" style="display: none;">
         <img id="cocktail_image" />
         <div id="cocktail_info"></div>
-        <div id="fb-root"></div>
-      <div id="action">
-        <div id="loading-icon"></div>
         
-        <div id="msg"></div>
       </div>
         
-      <div class="show_when_not_connected">
-        <a onclick="promptLogin()" class="login-button"> 
-          <span>Login</span>
-        </a><br />
-        Debes ingresar para poder guardar el cocktail
-      </div>
-      <div class="show_when_connected">
+      <div>
         <a id="send_cocktail">
           <img src="../images/ic_cocktail_checkmark.png"/>
           <p>Guardar cocktail</p>
         </a>
-        <p id="facebook_id" style="display:none;"></p>
       </div>
     </div>
   </body>
