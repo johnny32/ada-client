@@ -1,3 +1,17 @@
+/* Info
+
+	Version zumos: vZumo
+	Version licores: vLicor
+	Version carbonicos: vCarbonico
+	Version vasos: vVaso
+	
+	Lista de Zumos: list_Zumo
+	Lista de Licores: list_Licor
+	Lista de Carbonicos: list_Carbonico
+	Lista de Vasos: list_Vaso
+	
+*/
+
 //Base Controller
 
 var BROWSER = false;
@@ -62,10 +76,6 @@ function onDeviceReady() {
   var optionsmenu = new OptionsMenu({
     id : "optionsmenu",
     items : [[{
-      label : "Opciones",
-      image : "../images/ic_options.png",
-      action : onSettings
-    }, {
       label : "Créditos",
       image : "../images/ic_credits.png",
       action : onCredits

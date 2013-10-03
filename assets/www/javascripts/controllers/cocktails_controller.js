@@ -70,7 +70,7 @@ $(document).ready(function($) {
       mySwiper = $('.swiper-container').swiper({
         pagination : '.pagination1',
         loop : true
-      });
+      })
       
       console.log("show buttons");
       $('#add_elem').show();
@@ -131,7 +131,7 @@ $(document).ready(function($) {
           actual_product = "Carbonico";
           actual_array = selected_data.carbonico;
           actual_remain = remain_carbonico;
-          $('#title').html("CARBONICOS")
+          $('#title').html("CARBÓNICOS")
           $('#finish_elem_p').text("Finalizar sección");
         } else if (actual_product == "Carbonico") {
           console.log("actual product: vaso");
@@ -167,7 +167,7 @@ $(document).ready(function($) {
           $('#remain_elem').remove();
           $('#add_elem').remove();
           $('#finish_elem').hide();
-          $('#buttons').html('<div class="cocktails-main-center"><a id="finish_cocktail"><img class="button-main-menu" src="../images/ic_cocktail_checkmark.png"/><p>Mezclar</p></a></div><div class="cocktails-main-bottom"></div>');
+          $('#buttons').html('<div class="cocktails-main-center"><a id="finish_cocktail"><img id="shakeImg" class="button-main-menu" src="../images/ic_cocktail_checkmark.png"/><p>Mezclar</p></a></div><div class="cocktails-main-bottom"></div>');
           $('#finish_cocktail').click(cocktails.finishCocktail);
         }
       }
@@ -233,6 +233,10 @@ $(document).ready(function($) {
         }
       },
       add_element_function : function() {
+        $('#addImg').attr('src', '../images/ic_add_hover.png');
+        var t=setTimeout(function(){
+          $('#addImg').attr('src', '../images/ic_add.png');
+        },250);
         
         if (actual_remain == 0) {
           navigator.notification.alert("No puedes añadir más elementos en esta sección", null, "Elementos máximos");
@@ -266,6 +270,10 @@ $(document).ready(function($) {
         }
       },
       finish_element_function : function() {
+        $('#finishImg').attr('src', '../images/ic_checkmark_hover.png');
+        var t=setTimeout(function(){
+          $('#finishImg').attr('src', '../images/ic_checkmark.png');
+        },250);
         if (actual_array.length == 0) {
           if (actual_product == "Licor") {
             navigator.notification.confirm("¿Estás seguro de querer crear un cocktail sin alcohol?", confirmWithoutAlcohol, "Cocktail sin alcohol", 'OK, Cancelar')
@@ -282,6 +290,10 @@ $(document).ready(function($) {
       },
       //Finalitzar cocktail
       finishCocktail : function() {
+        $('#shakeImg').attr('src', '../images/ic_cocktail_checkmark_hover.png');
+        var t=setTimeout(function(){
+          $('#shakeImg').attr('src', '../images/ic_cocktail_checkmark.png');
+        },250);
         if ($('#cocktail_name').val() == '') {
           navigator.notification.alert("Debes ponerle un nombre al cocktail", null, "Nombre vacío")
         } else {
@@ -304,6 +316,18 @@ $(document).ready(function($) {
 
   $('#add_elem').click(cocktails.add_element_function);
   $('#finish_elem').click(cocktails.finish_element_function);
+  
+  $('#addImg').hover(function() {
+    $('#addImg').attr('src', '../images/ic_add_hover.png');
+  }, function() {
+    $('#addImg').attr('src', '../images/ic_add.png');
+  });
+  
+  $('#finishImg').hover(function() {
+    $('#finishImg').attr('src', '../images/ic_checkmark_hover.png');
+  }, function() {
+    $('#finishImg').attr('src', '../images/ic_checkmark.png');
+  });
 });
 
 function rating2Image(rating) {

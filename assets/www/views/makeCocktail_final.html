@@ -24,37 +24,33 @@
       
     </style>
     
-    <!-- Facebook plugin -->
-    
-    <link rel="stylesheet" type="text/css" href="../stylesheets/facebook-style.css">
-    <script type="text/javascript" src="../javascripts/facebook-js/index.js"></script>
-    <!-- cordova facebook plugin -->
-    <script src="../javascripts/cdv-plugin-fb-connect.js"></script>
-    <!-- facebook js sdk -->
-    <script src="../javascripts/facebook_js_sdk.js"></script> 
-    
-    <!--<script src="js/_config.js"></script>-->
     <script src="../javascripts/facebook-js/ui.js"></script>
     <script src="../javascripts/facebook-js/auth.js"></script>
     <script src="../javascripts/facebook-js/feed.js"></script>
     <script src="../javascripts/facebook-js/graph_api.js"></script>
     <script src="../javascripts/facebook-js/requests.js"></script>
-    <!--<script src="js/credits.js"></script>-->
+    <!-- cordova facebook plugin -->
+    <script src="../javascripts/cdv-plugin-fb-connect.js"></script>
+    <!-- facebook js sdk -->
+    <script src="../javascripts/facebook_js_sdk.js"></script>
     
     <script>
-        // Initialize the Facebook SDK
-        document.addEventListener('deviceready', function() {
-            FB.init({
-                appId: '326614590799358',
-                nativeInterface: CDV.FB,
-                useCachedDialogs: false
-            });
-        
-            authUser();
-            promptLogin('');
+      document.addEventListener("deviceready", function(){
+        FB.init({
+            appId: '326614590799358',
+            nativeInterface: CDV.FB,
+            useCachedDialogs: false
         });
-    </script>
-    <script>
+        authUser();
+        
+        $('#saveImg').hover(function() {
+          $(this).attr('src', '../images/ic_cocktail_checkmark_hover.png');
+        }, function() {
+          $(this).attr('src', '../images/ic_cocktail_checkmark.png');
+        });
+        
+      });
+
       $(document).ready(function($) {
         var opts = {
           lines : 13, // The number of lines to draw
@@ -170,6 +166,14 @@
 
   </head>
   <body>
+    <!-- This initializes the Facebook JS SDK. -->
+    <div id="fb-root"></div>
+    
+    <div id="action">
+      <div id="loading-icon"></div>
+    
+      <div id="msg"></div>
+    </div>
     <div class="content">
       <div id="title"></div>
       <div id="loading" style="margin-top: 60%;"></div>
@@ -181,7 +185,7 @@
         
       <div>
         <a id="send_cocktail">
-          <img src="../images/ic_cocktail_checkmark.png"/>
+          <img id="saveImg" src="../images/ic_cocktail_checkmark.png"/>
           <p>Guardar cocktail</p>
         </a>
       </div>

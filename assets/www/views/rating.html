@@ -15,36 +15,25 @@
     <link media="screen" rel="stylesheet" href="../stylesheets/reset.css" />
     <link media="screen" rel="stylesheet" href="../stylesheets/style.css" />
     
-    <!-- Facebook plugin -->
-    
-    <link rel="stylesheet" type="text/css" href="../stylesheets/facebook-style.css">
-    <script type="text/javascript" src="../javascripts/facebook-js/index.js"></script>
-    <!-- cordova facebook plugin -->
-    <script src="../javascripts/cdv-plugin-fb-connect.js"></script>
-    <!-- facebook js sdk -->
-    <script src="../javascripts/facebook_js_sdk.js"></script> 
-    
-    <!--<script src="js/_config.js"></script>-->
     <script src="../javascripts/facebook-js/ui.js"></script>
     <script src="../javascripts/facebook-js/auth.js"></script>
     <script src="../javascripts/facebook-js/feed.js"></script>
     <script src="../javascripts/facebook-js/graph_api.js"></script>
     <script src="../javascripts/facebook-js/requests.js"></script>
-
+    <!-- cordova facebook plugin -->
+    <script src="../javascripts/cdv-plugin-fb-connect.js"></script>
+    <!-- facebook js sdk -->
+    <script src="../javascripts/facebook_js_sdk.js"></script> 
     
     <script>
       document.addEventListener("deviceready", function(){
         
-/*        FB.init({
+        FB.init({
             appId: '326614590799358',
             nativeInterface: CDV.FB,
             useCachedDialogs: false
         });
-    
         authUser();
-        promptLogin('');
-*/
-
         
         
         if(getUrlParameters('rating').rating != "-1"){
@@ -52,6 +41,37 @@
           $('#your_rate').show();
           $('#your_rate').append("<img src=\"../images/ratings/r" + getUrlParameters('rating').rating + ".png\" />");
         }
+        
+        $('#rating1').hover(function() {
+          $(this).attr('src', '../images/ratings/r1_hover.png');
+        }, function() {
+          $(this).attr('src', '../images/ratings/r1.png');
+        });
+        
+        $('#rating2').hover(function() {
+          $(this).attr('src', '../images/ratings/r2_hover.png');
+        }, function() {
+          $(this).attr('src', '../images/ratings/r2.png');
+        });
+        
+        $('#rating3').hover(function() {
+          $(this).attr('src', '../images/ratings/r3_hover.png');
+        }, function() {
+          $(this).attr('src', '../images/ratings/r3.png');
+        });
+        
+        $('#rating4').hover(function() {
+          $(this).attr('src', '../images/ratings/r4_hover.png');
+        }, function() {
+          $(this).attr('src', '../images/ratings/r4.png');
+        });
+        
+        $('#rating5').hover(function() {
+          $(this).attr('src', '../images/ratings/r5_hover.png');
+        }, function() {
+          $(this).attr('src', '../images/ratings/r5.png');
+        });
+        
       }, false);
       
       function rate(r){
@@ -92,6 +112,14 @@
     </style>
   </head>
   <body>
+    <!-- This initializes the Facebook JS SDK. -->
+    <div id="fb-root"></div>
+    
+    <div id="action">
+      <div id="loading-icon"></div>
+    
+      <div id="msg"></div>
+    </div>
     <div class="content">
       <div id="header2">
         <img class="logo" src="../images/logo_petit.png" alt="Sinatra Cocteleria" onclick="loadPage('index.html')"/>
@@ -99,19 +127,19 @@
       <p>Vota por el cocktail:</p>
       <div id="rats" style="margin-top: 5%;">
         <a>
-          <img src="../images/ratings/r1.png" onclick="rate(1)"/>
+          <img id="rating1" src="../images/ratings/r1.png" onclick="rate(1)"/>
         </a><br />
         <a>
-          <img src="../images/ratings/r2.png" onclick="rate(2)"/>
+          <img id="rating2" src="../images/ratings/r2.png" onclick="rate(2)"/>
         </a><br />
         <a>
-          <img src="../images/ratings/r3.png" onclick="rate(3)"/>
+          <img id="rating3" src="../images/ratings/r3.png" onclick="rate(3)"/>
         </a><br />
         <a>
-          <img src="../images/ratings/r4.png" onclick="rate(4)"/>
+          <img id="rating4" src="../images/ratings/r4.png" onclick="rate(4)"/>
         </a><br />
         <a>
-          <img src="../images/ratings/r5.png" onclick="rate(5)"/>
+          <img id="rating5" src="../images/ratings/r5.png" onclick="rate(5)"/>
         </a>
       </div>
       <div id="your_rate" style="display:none; margin-top: 5%;">

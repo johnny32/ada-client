@@ -10,9 +10,20 @@
     <link media="screen" rel="stylesheet" href="../stylesheets/style.css" />
   	<script src="../javascripts/klass.min.js"></script>
   	<script src="../javascripts/code.photoswipe-3.0.5.min.js"></script>
+  	<script src="../javascripts/optionsMenu.js"></script>
   	<link href="../stylesheets/gallery.css" rel="stylesheet" />
   	
   	<link href="../stylesheets/photoswipe.css" rel="stylesheet" />
+  	
+  	<script src="../javascripts/facebook-js/ui.js"></script>
+    <script src="../javascripts/facebook-js/auth.js"></script>
+    <script src="../javascripts/facebook-js/feed.js"></script>
+    <script src="../javascripts/facebook-js/graph_api.js"></script>
+    <script src="../javascripts/facebook-js/requests.js"></script>
+    <!-- cordova facebook plugin -->
+    <script src="../javascripts/cdv-plugin-fb-connect.js"></script>
+    <!-- facebook js sdk -->
+    <script src="../javascripts/facebook_js_sdk.js"></script> 
   	<script>
   
   		(function(window, PhotoSwipe){
@@ -28,32 +39,50 @@
   			
   		}(window, window.Code.PhotoSwipe));
   		
+      document.addEventListener("deviceready", function(){
+        FB.init({
+            appId: '326614590799358',
+            nativeInterface: CDV.FB,
+            useCachedDialogs: false
+        });
+        authUser();
+      });
+    </script>
+  		
   	</script>
   </head>
   <body style="background-color: #000">
-	<ul id="Gallery" class="gallery">
+    <!-- This initializes the Facebook JS SDK. -->
+    <div id="fb-root"></div>
+    
+    <div id="action">
+      <div id="loading-icon"></div>
+    
+      <div id="msg"></div>
+    </div>
+	  <ul id="Gallery" class="gallery">
 		
-		<li><a href="../images/full/001.jpg"><img src="../images/thumb/001.jpg" alt="Image 001" /></a></li>
-		<li><a href="../images/full/002.jpg"><img src="../images/thumb/002.jpg" alt="Image 002" /></a></li>
-		<li><a href="../images/full/003.jpg"><img src="../images/thumb/003.jpg" alt="Image 003" /></a></li>
-		<li><a href="../images/full/004.jpg"><img src="../images/thumb/004.jpg" alt="Image 004" /></a></li>
-		<li><a href="../images/full/005.jpg"><img src="../images/thumb/005.jpg" alt="Image 005" /></a></li>
-		<li><a href="../images/full/006.jpg"><img src="../images/thumb/006.jpg" alt="Image 006" /></a></li>
-		<li><a href="../images/full/007.jpg"><img src="../images/thumb/007.jpg" alt="Image 007" /></a></li>
-		<li><a href="../images/full/008.jpg"><img src="../images/thumb/008.jpg" alt="Image 008" /></a></li>
-		<li><a href="../images/full/009.jpg"><img src="../images/thumb/009.jpg" alt="Image 009" /></a></li>
-		<li><a href="../images/full/010.jpg"><img src="../images/thumb/010.jpg" alt="Image 010" /></a></li>
-		<li><a href="../images/full/011.jpg"><img src="../images/thumb/011.jpg" alt="Image 011" /></a></li>
-		<li><a href="../images/full/012.jpg"><img src="../images/thumb/012.jpg" alt="Image 012" /></a></li>
-		<li><a href="../images/full/013.jpg"><img src="../images/thumb/013.jpg" alt="Image 013" /></a></li>
-		<li><a href="../images/full/014.jpg"><img src="../images/thumb/014.jpg" alt="Image 014" /></a></li>
-		<li><a href="../images/full/015.jpg"><img src="../images/thumb/015.jpg" alt="Image 015" /></a></li>
-		<li><a href="../images/full/016.jpg"><img src="../images/thumb/016.jpg" alt="Image 016" /></a></li>
-		<li><a href="../images/full/017.jpg"><img src="../images/thumb/017.jpg" alt="Image 017" /></a></li>
-		<li><a href="../images/full/018.jpg"><img src="../images/thumb/018.jpg" alt="Image 018" /></a></li>
-		<li><a href="../images/full/019.jpg"><img src="../images/thumb/019.jpg" alt="Image 019" /></a></li>
-		<li><a href="../images/full/020.jpg"><img src="../images/thumb/020.jpg" alt="Image 020" /></a></li>
-		
-	</ul>
+  		<li><a href="../images/full/001.jpg"><img src="../images/thumb/001.jpg" alt="Image 001" /></a></li>
+  		<li><a href="../images/full/002.jpg"><img src="../images/thumb/002.jpg" alt="Image 002" /></a></li>
+  		<li><a href="../images/full/003.jpg"><img src="../images/thumb/003.jpg" alt="Image 003" /></a></li>
+  		<li><a href="../images/full/004.jpg"><img src="../images/thumb/004.jpg" alt="Image 004" /></a></li>
+  		<li><a href="../images/full/005.jpg"><img src="../images/thumb/005.jpg" alt="Image 005" /></a></li>
+  		<li><a href="../images/full/006.jpg"><img src="../images/thumb/006.jpg" alt="Image 006" /></a></li>
+  		<li><a href="../images/full/007.jpg"><img src="../images/thumb/007.jpg" alt="Image 007" /></a></li>
+  		<li><a href="../images/full/008.jpg"><img src="../images/thumb/008.jpg" alt="Image 008" /></a></li>
+  		<li><a href="../images/full/009.jpg"><img src="../images/thumb/009.jpg" alt="Image 009" /></a></li>
+  		<li><a href="../images/full/010.jpg"><img src="../images/thumb/010.jpg" alt="Image 010" /></a></li>
+  		<li><a href="../images/full/011.jpg"><img src="../images/thumb/011.jpg" alt="Image 011" /></a></li>
+  		<li><a href="../images/full/012.jpg"><img src="../images/thumb/012.jpg" alt="Image 012" /></a></li>
+  		<li><a href="../images/full/013.jpg"><img src="../images/thumb/013.jpg" alt="Image 013" /></a></li>
+  		<li><a href="../images/full/014.jpg"><img src="../images/thumb/014.jpg" alt="Image 014" /></a></li>
+  		<li><a href="../images/full/015.jpg"><img src="../images/thumb/015.jpg" alt="Image 015" /></a></li>
+  		<li><a href="../images/full/016.jpg"><img src="../images/thumb/016.jpg" alt="Image 016" /></a></li>
+  		<li><a href="../images/full/017.jpg"><img src="../images/thumb/017.jpg" alt="Image 017" /></a></li>
+  		<li><a href="../images/full/018.jpg"><img src="../images/thumb/018.jpg" alt="Image 018" /></a></li>
+  		<li><a href="../images/full/019.jpg"><img src="../images/thumb/019.jpg" alt="Image 019" /></a></li>
+  		<li><a href="../images/full/020.jpg"><img src="../images/thumb/020.jpg" alt="Image 020" /></a></li>
+  		
+  	</ul>
   </body>
 </html>

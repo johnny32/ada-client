@@ -7315,7 +7315,9 @@ FB.provide('', {
     // if nativeInterface is specified then fire off the native initialization as well.
     FB._nativeInterface = options.nativeInterface;
     if (FB._nativeInterface) {
-      FB._nativeInterface.init(FB._apiKey, function(e) {alert('Cordova Facebook Connect plugin fail on init!');});
+      FB._nativeInterface.init(FB._apiKey, function(e) {
+        //alert('Cordova Facebook Connect plugin fail on init!');
+      });
     }
     
     // disable logging if told to do so, but only if the url doesnt have the

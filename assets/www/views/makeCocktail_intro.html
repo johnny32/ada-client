@@ -5,13 +5,22 @@
     <title data-i18n="app_name"></title>
     <script src="../javascripts/cordova-2.3.0.js"></script>
     <script src="../javascripts/jquery-1.8.2.min.js"></script>
-    <script src="../javascripts/cdv-plugin-fb-connect.js"></script>
-    <script src="../javascripts/facebook_js_sdk.js"></script>
     <script src="../javascripts/controllers/base_controller.js"></script>
     <script src="../javascripts/spin.min.js"></script>
     <script src="../javascripts/optionsMenu.js"></script>
     <link media="screen" rel="stylesheet" href="../stylesheets/reset.css" />
     <link media="screen" rel="stylesheet" href="../stylesheets/style.css" />
+    
+    <script src="../javascripts/facebook-js/ui.js"></script>
+    <script src="../javascripts/facebook-js/auth.js"></script>
+    <script src="../javascripts/facebook-js/feed.js"></script>
+    <script src="../javascripts/facebook-js/graph_api.js"></script>
+    <script src="../javascripts/facebook-js/requests.js"></script>
+    <!-- cordova facebook plugin -->
+    <script src="../javascripts/cdv-plugin-fb-connect.js"></script>
+    <!-- facebook js sdk -->
+    <script src="../javascripts/facebook_js_sdk.js"></script> 
+    
     <style>
       @font-face {
         font-family: customFont;
@@ -24,6 +33,28 @@
     </style>
     
     <script>
+      document.addEventListener("deviceready", function(){
+        FB.init({
+            appId: '326614590799358',
+            nativeInterface: CDV.FB,
+            useCachedDialogs: false
+        });
+        authUser();
+        
+        $('#makeCocktailImg').hover(function() {
+          $(this).attr('src', '../images/ic_cocktail_add_hover.png');
+        }, function() {
+          $(this).attr('src', '../images/ic_cocktail_add.png');
+        });
+        
+        $('#ownCocktailsImg').hover(function() {
+          $(this).attr('src', '../images/ic_cocktail_safe_hover.png');
+        }, function() {
+          $(this).attr('src', '../images/ic_cocktail_safe.png');
+        });
+        
+      });
+      
       function owncocktails(){
         var user_id = window.localStorage.getItem("fb_id");
         loadPage('cocktails.html', {type: 'user', id: user_id});
@@ -31,6 +62,14 @@
     </script>
   </head>
   <body>
+    <!-- This initializes the Facebook JS SDK. -->
+    <div id="fb-root"></div>
+    
+    <div id="action">
+      <div id="loading-icon"></div>
+    
+      <div id="msg"></div>
+    </div>
     <div class="content">
       <div id="header2">
         <img class="logo" src="../images/logo_petit.png" alt="Sinatra Cocteleria" onclick="loadPage('index.html')"/>
@@ -53,7 +92,7 @@
           <li>
             <div class="main-left">
               <a id="cocktail_btn" onclick="loadPage('makeCocktail.html')">
-                <img class="button-main-menu" src="../images/ic_cocktail_add.png"/>
+                <img id="makeCocktailImg" class="button-main-menu" src="../images/ic_cocktail_add.png"/>
                 <p>Crear cocktail</p>
               </a>
             </div>
@@ -61,7 +100,7 @@
           <li>
             <div class="main-right">
               <a id="cocktail_btn" onclick="owncocktails()">
-                <img class="button-main-menu" src="../images/ic_cocktail_safe.png"/>
+                <img id="ownCocktailsImg" class="button-main-menu" src="../images/ic_cocktail_safe.png"/>
                 <p> Mis otros cocktails</p>
               </a>
             </div>

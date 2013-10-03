@@ -6,7 +6,7 @@
 //////////////////////////
 
 var user = [];
-
+var goToPage = false;
 var permissions = ['user_status', 'publish_checkins', 'user_likes'];
 
 //Detect when Facebook tells us that the user's session has been returned
@@ -33,17 +33,24 @@ function handleStatusChange(session) {
 
             user = response;
             
-            alert(JSON.stringify(user));
+            //alert(JSON.stringify(user));
+            
+            localStorage.setItem('fb_id', user.id);
             
             console.log('Got the user\'s name and picture: ' + JSON.stringify(response));
             
+            if(goToIndex){
+              loadPage("index.html");
+              goToPage = false;
+            }
+            
             //Update display of user name and picture
-            if (document.getElementById('user-name')) {
-              document.getElementById('user-name').innerHTML = user.name;
-            }
-            if (document.getElementById('user-picture')) {
-              document.getElementById('user-picture').src = user.picture.data.url;
-            }
+            //if (document.getElementById('user-name')) {
+            //  document.getElementById('user-name').innerHTML = user.name;
+            //}
+            //if (document.getElementById('user-picture')) {
+            //  document.getElementById('user-picture').src = user.picture.data.url;
+            //}
           } else {
             document.body.className = 'not_connected';
             console.log('Error getting user info: ' + JSON.stringify(response.error));
@@ -60,6 +67,8 @@ function handleStatusChange(session) {
         });
     }
     else  {
+      alert("not connected")
+      promptLogin();
       document.body.className = 'not_connected';
     
       clearAction();
@@ -102,8 +111,16 @@ function checkUserPermissions(permissionToCheck) {
 }
 
 //Prompt the user to login and ask for the 'email' permission
-function promptLogin() {
-  FB.login(null, {scope: 'email'});
+function promptLogin(goTo) {
+  if(goTo == null){
+    FB.login(null, {scope: 'email'});
+  }
+  else{
+    FB.login(function(){
+      goToIndex = true;
+    }, {scope: 'email'});
+  }
+  //FB.login(null, {scope: 'publish_stream'});
 }
 
 //This will prompt the user to grant you acess to a given permission

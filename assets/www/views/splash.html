@@ -32,125 +32,189 @@
       }
     </style>
     <script>
+      function retryConnection(button){
+        if(button == 1){
+          var t = setTimeout(function() {
+            var networkState = navigator.connection.type;
+            if (networkState == Connection.NONE){
+              navigator.notification.confirm("Connexión no disponible", retryConnection, "Error", 'Reintentar, Salir');
+            }
+            else{
+              wait();
+            }
+          }, 2000);
+        }
+        else{
+          navigator.app.exitApp();
+        }
+      }
+    
       $(document).ready(function() {
-        $('#element_loading_txt').hide();
+		    //$('#element_loading_txt').hide();
+		    var opts = {
+          lines : 13, // The number of lines to draw
+          length : 16, // The length of each line
+          width : 11, // The line thickness
+          radius : 20, // The radius of the inner circle
+          corners : 1, // Corner roundness (0..1)
+          rotate : 90, // The rotation offset
+          direction : 1, // 1: clockwise, -1: counterclockwise
+          color : '#DDD', // #rgb or #rrggbb
+          speed : 0.5, // Rounds per second
+          trail : 52, // Afterglow percentage
+          shadow : true, // Whether to render a shadow
+          hwaccel : true, // Whether to use hardware acceleration
+          className : 'spinner', // The CSS class to assign to the spinner
+          zIndex : 2e9, // The z-index (defaults to 2000000000)
+          top : 'auto', // Top position relative to parent in px
+          left : 'auto' // Left position relative to parent in px
+        }
+        var target = document.getElementById('element_loading');
+        var spinner = new Spinner(opts).spin(target);
+        //$('#element_loading_txt').show();
+        console.log("before wait");
         var t = setTimeout(function() {
-          console.log("before wait");
-          wait();
+          $('#element_loading_txt').html("Comprobando conexión");
+          var networkState = navigator.connection.type;
+          if (networkState == Connection.NONE){
+            navigator.notification.confirm("Connexión no disponible", retryConnection, "Error", 'Reintentar, Salir');
+          }
+          else{
+            $('#element_loading_txt').html("Actualizando aplicación");
+        		wait();
+          }
         },1000);
       });
       function wait() {
-        if (window.localStorage.getItem("list_Zumo") == null || window.localStorage.getItem("list_Licor") == null 
-        || window.localStorage.getItem("list_Carbonico") == null || window.localStorage.getItem("list_Vaso") == null) {
-          console.log("No data");
-          var opts = {
-            lines : 13, // The number of lines to draw
-            length : 16, // The length of each line
-            width : 11, // The line thickness
-            radius : 20, // The radius of the inner circle
-            corners : 1, // Corner roundness (0..1)
-            rotate : 90, // The rotation offset
-            direction : 1, // 1: clockwise, -1: counterclockwise
-            color : '#DDD', // #rgb or #rrggbb
-            speed : 0.5, // Rounds per second
-            trail : 52, // Afterglow percentage
-            shadow : true, // Whether to render a shadow
-            hwaccel : true, // Whether to use hardware acceleration
-            className : 'spinner', // The CSS class to assign to the spinner
-            zIndex : 2e9, // The z-index (defaults to 2000000000)
-            top : 'auto', // Top position relative to parent in px
-            left : 'auto' // Left position relative to parent in px
-          }
-          var target = document.getElementById('element_loading');
-          var spinner = new Spinner(opts).spin(target);
-          $('#element_loading_txt').show();
-
-          var t = setTimeout(function() {
-            $.ajax({
-              type : "GET",
-              async : false,
-              url : server_url + ingredients_route + "/Zumo",
-              dataType : "json",
-              success : function(data) {
-                console.log("succes zumos");
-                window.localStorage.setItem("list_Zumo", JSON.stringify(data));
-              },
-              error : function(header, status, from) {
-                alert("Error con el servidor: " + header);
-              }
-            });
-            $.ajax({
-              type : "GET",
-              async : false,
-              url : server_url + ingredients_route + "/Licor",
-              dataType : "json",
-              success : function(data) {
-                console.log("success licor");
-                window.localStorage.setItem("list_Licor", JSON.stringify(data));
-              },
-              error : function(header, status, from) {
-                alert("Error con el servidor: " + header);
-              }
-            });
-            $.ajax({
-              type : "GET",
-              async : false,
-              url : server_url + ingredients_route + "/Carbonico",
-              dataType : "json",
-              success : function(data) {
-                console.log("success carbonico");
-                window.localStorage.setItem("list_Carbonico", JSON.stringify(data));
-              },
-              error : function(header, status, from) {
-                alert("Error con el servidor: " + header);
-              }
-            });
-            $.ajax({
-              type : "GET",
-              async : false,
-              url : server_url + ingredients_route + "/Vaso",
-              dataType : "json",
-              success : function(data) {
-                console.log("success vaso");
-                window.localStorage.setItem("list_Vaso", JSON.stringify(data));
-              },
-              error : function(header, status, from) {
-                alert("Error con el servidor: " + header);
-              }
-            });
-            
-            FB.init({
-              appId: '326614590799358',
-              nativeInterface: CDV.FB,
-              useCachedDialogs: false
-            });
-            authUser();
-            promptLogin('index.html');
-            
-//            console.log("load index");
-//            loadPage('index.html')
-          }, 4000);
-        }
-        else{
-          console.log("si data!!!");
-          
-          FB.init({ 
-            appId: '326614590799358',
-            nativeInterface: CDV.FB,
-            useCachedDialogs: false
+        
+        //Comprovar versio d'ingredients
+        
+        //Descarregar versio zumos
+        //TODO: Obtenir version del servidor (Zumos)
+        vZumoDown = 1;
+        console.log("Version zumos: " + window.localStorage.getItem("vZumo"));
+        vZumoLocal = window.localStorage.getItem("vZumo");
+        if(vZumoLocal == null || vZumoLocal < vZumoDown){
+        	console.log("Descargar zumos");
+        	//Descarregar zumos
+        	
+        	$.ajax({
+            type : "GET",
+            async : false,
+            url : server_url + ingredients_route + "/Zumo",
+            dataType : "json",
+            success : function(data) {
+              console.log("success zumos");
+              window.localStorage.setItem("list_Zumo", JSON.stringify(data));
+            },
+            error : function(header, status, from) {
+              navigator.notification.confirm("Error de connexión", retryConnection, "Error", 'Reintentar, Salir');
+            }
           });
-          authUser();
-          promptLogin('index.html');
-          
-//          var t = setTimeout(function() { 
-//            console.log("load index"); 
-//            loadPage('index.html')
-//          }, 4000);
+        	window.localStorage.setItem("vZumo", vZumoDown);
+        	console.log("Zumos version: " + vZumoDown);
         }
+        
+        //Descarregar versio licores
+        //TODO: Obtenir version del servidor (Licores)
+        vLicorDown = 1;
+        console.log("Version licores: " + window.localStorage.getItem("vLicor"));
+        vLicorLocal = window.localStorage.getItem("vLicor");
+        if(vLicorLocal == null || vLicorLocal < vLicorDown){
+        	console.log("Descargar licores");
+        	//Descarregar licores
+        	
+        	$.ajax({
+            type : "GET",
+            async : false,
+            url : server_url + ingredients_route + "/Licor",
+            dataType : "json",
+            success : function(data) {
+              console.log("success licor");
+              window.localStorage.setItem("list_Licor", JSON.stringify(data));
+            },
+            error : function(header, status, from) {
+              navigator.notification.confirm("Error de connexión", retryConnection, "Error", 'Reintentar, Salir');
+            }
+          });
+        	window.localStorage.setItem("vLicor", vLicorDown);
+        	console.log("Licores version: " + vLicorDown);
+        }
+        
+        //Descarregar version carbonicos
+        //TODO: Obtenir version del servidor (Carbonicos)
+        vCarbonicoDown = 1;
+        console.log("Version carbonicos: " + window.localStorage.getItem("vCarbonico"));
+        vCarbonicoLocal = window.localStorage.getItem("vCarbonico");
+        if(vCarbonicoLocal == null || vCarbonicoLocal < vCarbonicoDown){
+        	console.log("Descargar carbonicos");
+        	//Descarregar carbonicos
+        	
+        	$.ajax({
+            type : "GET",
+            async : false,
+            url : server_url + ingredients_route + "/Carbonico",
+            dataType : "json",
+            success : function(data) {
+              console.log("success carbonico");
+              window.localStorage.setItem("list_Carbonico", JSON.stringify(data));
+            },
+            error : function(header, status, from) {
+              navigator.notification.confirm("Error de connexión", retryConnection, "Error", 'Reintentar, Salir');
+            }
+          });
+        	window.localStorage.setItem("vCarbonico", vCarbonicoDown);
+        	console.log("Carbonicos version: " + vCarbonicoDown);
+        }
+        
+        //Descarregar versio vasos
+        //TODO: Obtenir version del servidor (Vasos)
+        vVasoDown = 1;
+        console.log("Version vasos: " + window.localStorage.getItem("vVaso"));
+        vVasoLocal = window.localStorage.getItem("vVaso");
+        if(vVasoLocal == null || vVasoLocal < vVasoDown){
+        	console.log("Descargar vasos");
+        	//Descarregar vasos
+        	
+        	$.ajax({
+            type : "GET",
+            async : false,
+            url : server_url + ingredients_route + "/Vaso",
+            dataType : "json",
+            success : function(data) {
+              console.log("success vaso");
+              window.localStorage.setItem("list_Vaso", JSON.stringify(data));
+            },
+            error : function(header, status, from) {
+              navigator.notification.confirm("Error de connexión", retryConnection, "Error", 'Reintentar, Salir');
+            }
+          });
+        	window.localStorage.setItem("vVaso", vVasoDown);
+        	console.log("Vasos version: " + vVasoDown);
+        }
+        
+        $('#element_loading_txt').html("Inicializando sesión de Facebook");
+  	    FB.init({
+  	      appId: '326614590799358',
+  	      nativeInterface: CDV.FB,
+  	      useCachedDialogs: false
+  	    });
+  	    authUser();
+  	    promptLogin(true);    
       }
+      
     </script>
   </head>
   <body style="background-color: #000">
+    <!-- This initializes the Facebook JS SDK. -->
+    <div id="fb-root"></div>
+    
+    <div id="action">
+      <div id="loading-icon"></div>
+    
+      <div id="msg"></div>
+    </div>
+    
     <div class="content">
       <div id="element_loading" style="position: absolute; top: 75%;"></div>
       <div id="element_loading_txt" style="position: absolute;top: 90%; width: 100%; text-align: center;">

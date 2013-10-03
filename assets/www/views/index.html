@@ -34,22 +34,42 @@
     </style>
     <script>
       document.addEventListener("deviceready", function(){
-        
-        console.log("--------------------> app: Device Ready");
         FB.init({
             appId: '326614590799358',
             nativeInterface: CDV.FB,
             useCachedDialogs: false
         });
-        console.log("--------------------> Before getLoginStatus");
-        FB.getLoginStatus(handleStatusChange);
-        console.log("--------------------> Before AuthUser");
         authUser();
 
         if(window.localStorage.getItem("init_alert") != 1){
           navigator.notification.alert("Esta aplicación todavía está en fase de pruebas. Si encuentras algun error o fallo, escríbenos a devsinatracockteleria@gmail.com e intentaremos arreglarlo lo antes posible. También puedes enviarnos un email desde el menú de créditos. Muchas gracias.", null, "Aviso")
           window.localStorage.setItem("init_alert", 1);
         }
+        
+        $('#whoWeAreImg').hover(function() {
+          $(this).attr('src', '../images/ic_quienes_somos_hover.png');
+        }, function() {
+          $(this).attr('src', '../images/ic_quienes_somos.png');
+        });
+        
+        $('#whereWeAreImg').hover(function() {
+          $(this).attr('src', '../images/ic_donde_estamos_hover.png');
+        }, function() {
+          $(this).attr('src', '../images/ic_donde_estamos.png');
+        });
+        
+        $('#cocktailImg').hover(function() {
+          $(this).attr('src', '../images/ic_cocktail_hover.png');
+        }, function() {
+          $(this).attr('src', '../images/ic_cocktail.png');
+        });
+        
+        $('#bestImg').hover(function() {
+          $(this).attr('src', '../images/ic_los_mejores_hover.png');
+        }, function() {
+          $(this).attr('src', '../images/ic_los_mejores.png');
+        });
+        
       }, false);
     </script>
   </head>
@@ -68,25 +88,25 @@
       </div>
       <div class="main-left">
         <a id="who_btn" onclick="loadPage('whoWeAre.html')">
-          <img class="button-main-menu" src="../images/ic_quienes_somos.png"/>
+          <img id="whoWeAreImg" class="button-main-menu" src="../images/ic_quienes_somos.png"/>
         </a>
         <p>Quienes somos</p>
       </div>
       <div class="main-right">
         <a id="where_btn" onclick="loadPage('whereWeAre.html')">
-          <img class="button-main-menu" src="../images/ic_donde_estamos.png"/>
+          <img id="whereWeAreImg"  class="button-main-menu" src="../images/ic_donde_estamos.png"/>
         </a>
         <p>Donde estamos</p>
       </div>
 			<div class="main-left">
 			  <a id="cocktail_btn" onclick="loadPage('makeCocktail_intro.html')">
-          <img class="button-main-menu" src="../images/ic_cocktail.png"/>
+          <img id="cocktailImg" class="button-main-menu" src="../images/ic_cocktail.png"/>
         </a>
         <p>Crea tu propio<br>cocktail</p>
 			</div>
 			<div class="main-right">
 			  <a id="best_btn" onclick="loadPage('cocktails.html', {type: 'best'})">
-			   <img class="button-main-menu" src="../images/ic_los_mejores.png"/>
+			   <img id="bestImg" class="button-main-menu" src="../images/ic_los_mejores.png"/>
 			  </a>
         <p>Los mejores</p>
 			</div>

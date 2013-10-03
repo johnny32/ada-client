@@ -10,15 +10,46 @@
     <script src="../javascripts/cocktail.js"></script>
     <script src="../javascripts/spin.min.js"></script>
     <script src="../javascripts/bootstrap/bootstrap.min.js"></script>
+    <script src="../javascripts/optionsMenu.js"></script>
     <link media="screen" rel="stylesheet" href="../stylesheets/bestCocktails.css" /><!--
     <link media="screen" rel="stylesheet" href="../stylesheets/bootstrap/bootstrap.min.css" />
     <link media="screen" rel="stylesheet" href="../stylesheets/bootstrap/bootstrap-responsive.min.css" />-->
     <link media="screen" rel="stylesheet" href="../stylesheets/reset.css" />
     <link media="screen" rel="stylesheet" href="../stylesheets/style.css" />
     
+    <script src="../javascripts/facebook-js/ui.js"></script>
+    <script src="../javascripts/facebook-js/auth.js"></script>
+    <script src="../javascripts/facebook-js/feed.js"></script>
+    <script src="../javascripts/facebook-js/graph_api.js"></script>
+    <script src="../javascripts/facebook-js/requests.js"></script>
+    <!-- cordova facebook plugin -->
+    <script src="../javascripts/cdv-plugin-fb-connect.js"></script>
+    <!-- facebook js sdk -->
+    <script src="../javascripts/facebook_js_sdk.js"></script>
     
     <script>
-    
+      
+      document.addEventListener("deviceready", function(){
+        FB.init({
+            appId: '326614590799358',
+            nativeInterface: CDV.FB,
+            useCachedDialogs: false
+        });
+        authUser();
+        
+        $('#lessImg').hover(function() {
+          $(this).attr('src', '../images/ic_less_hover.png');
+        }, function() {
+          $(this).attr('src', '../images/ic_less.png');
+        });
+        
+        $('#moreImg').hover(function() {
+          $(this).attr('src', '../images/ic_more_hover.png');
+        }, function() {
+          $(this).attr('src', '../images/ic_more.png');
+        });
+      });
+      
       var page = 0;
     
       $(document).ready(function() {
@@ -195,6 +226,14 @@
     </style>
   </head>
   <body>
+    <!-- This initializes the Facebook JS SDK. -->
+    <div id="fb-root"></div>
+    
+    <div id="action">
+      <div id="loading-icon"></div>
+    
+      <div id="msg"></div>
+    </div>
     <div class="content">
       <div id="header">
         <img class="logo" src="../images/logo_petit.png" alt="Sinatra Cocteleria" onclick="loadPage('index.html')"/>
@@ -213,12 +252,12 @@
 -->
       <div class="cocktails-main-left">
         <a id="less" onclick="less10()"> 
-          <img class="button-main-menu" src="../images/ic_less.png"/>
+          <img id="lessImg" class="button-main-menu" src="../images/ic_less.png"/>
         </a>
       </div>
       <div class="cocktails-main-right">
         <a id="more" onclick="more10()">
-          <img class="button-main-menu" src="../images/ic_more.png"/>
+          <img id="moreImg" class="button-main-menu" src="../images/ic_more.png"/>
         </a>
       </div>
     </div>
