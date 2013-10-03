@@ -40,7 +40,7 @@
               navigator.notification.confirm("Connexión no disponible", retryConnection, "Error", 'Reintentar, Salir');
             }
             else{
-              wait();
+              init();
             }
           }, 2000);
         }
@@ -72,7 +72,7 @@
         var target = document.getElementById('element_loading');
         var spinner = new Spinner(opts).spin(target);
         //$('#element_loading_txt').show();
-        console.log("before wait");
+        console.log("before init");
         var t = setTimeout(function() {
           $('#element_loading_txt').html("Comprobando conexión");
           var networkState = navigator.connection.type;
@@ -81,11 +81,11 @@
           }
           else{
             $('#element_loading_txt').html("Actualizando aplicación");
-        		wait();
+        		init();
           }
         },1000);
       });
-      function wait() {
+      function init() {
         
         //Comprovar versio d'ingredients
         
@@ -192,6 +192,31 @@
         	window.localStorage.setItem("vVaso", vVasoDown);
         	console.log("Vasos version: " + vVasoDown);
         }
+        
+        //Comprovar versio galeria
+        
+        //TODO: Obtenir version del servidor (Galeria)
+        vGaleriaDown = 2;
+        console.log("Version galeria: " + window.localStorage.getItem("vGaleria"));
+        vGaleriaLocal = window.localStorage.getItem("vGaleria");
+        if(vGaleriaLocal == null || vGaleriaLocal < vGaleriaDown){
+          console.log("Descargar galeria");
+          //Descarregar galeria
+          
+          //TODO: Descargar galeria de servidor
+          
+          //TODO: Quitar galeria hardcoreada
+          data = [{"_id": "1", "imagen" : "vaso/vaso_hawaii.jpg", "thumbnail": "vaso/vaso_hawaii.jpg"}, {"_id": "2", "imagen" : "vaso/vaso_penguen.jpg", "thumbnail": "vaso/vaso_penguen.jpg"}, {"_id": "3", "imagen" : "vaso/vaso_mojito.jpg",  "thumbnail": "vaso/vaso_penguen.jpg"}];
+          
+          window.localStorage.setItem("list_Galeria", JSON.stringify(data));
+         
+          window.localStorage.setItem("vGaleria", vGaleriaDown);
+          console.log("Galeria version: " + vGaleriaDown);
+        }
+        
+        
+        
+        //Comprovar versio punts del mapa
         
         $('#element_loading_txt').html("Inicializando sesión de Facebook");
   	    FB.init({

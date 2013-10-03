@@ -10,6 +10,12 @@
 	Lista de Carbonicos: list_Carbonico
 	Lista de Vasos: list_Vaso
 	
+	Version galeria: vGaleria
+	Lista de Galeria: list_Galeria
+	
+	Version mapa: vMapa
+	Lista de Mapa: list_Mapa
+	
 */
 
 //Base Controller
