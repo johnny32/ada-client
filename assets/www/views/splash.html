@@ -214,9 +214,28 @@
           console.log("Galeria version: " + vGaleriaDown);
         }
         
-        
-        
         //Comprovar versio punts del mapa
+        
+        //TODO: Obtenir version del servidor (Punts mapa)
+        vMapaDown = 2;
+        console.log("Version mapa: " + window.localStorage.getItem("vMapa"));
+        vMapaLocal = window.localStorage.getItem("vMapa");
+        if(vMapaLocal == null || vMapaLocal < vMapaDown){
+          console.log("Descargar mapa");
+          //Descarregar mapa
+          
+          //TODO: Descargar mapa de servidor
+          
+          //TODO: Quitar mapa hardcoreada
+          data = {"centro": {"latitud": 41.971634, "longitud": 2.824428, "zoom": 9}, "puntos": [{"latitud": 41.975434, "longitud": 2.823328, "titulo": "Escuela Sinatra Cockteleria", "descripcion": "C/ Creu, 2-Bis, Desp. 3"}, {"latitud": 41.815156, "longitud": 3.065009, "titulo": "Baobab (antiguo Bar Havana)", "descripcion": "Av/ s'Agaró, 176.<br /> Al lado de la disctoteca Malibu"}]};
+          
+          console.log(JSON.stringify(data));
+          
+          window.localStorage.setItem("list_Mapa", JSON.stringify(data));
+         
+          window.localStorage.setItem("vMapa", vMapaDown);
+          console.log("Mapa version: " + vMapaDown);
+        }
         
         $('#element_loading_txt').html("Inicializando sesión de Facebook");
   	    FB.init({

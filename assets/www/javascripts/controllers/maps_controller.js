@@ -9,22 +9,20 @@
  */
 function initialize() {
   
-  var latitud = 41.975434;
-  var longitud = 2.823328;
-  var titol = 'Escuela Sinatra Cockteleria';
-  var descripcio = 'C/ Creu, 2-Bis, Desp. 3'
+  var data = JSON.parse(window.localStorage.getItem("list_Mapa"));
+  var centro = data.centro;
+  var puntos = data.puntos;
   
   var mapProp = {
-    center: new google.maps.LatLng(latitud + 0.0012, longitud + 0.0011), //Per a que es vegi be el globus, no centrem el mapa just a on esta la cockteleria, sino una mica mes amunt i a la dreta
-    zoom: 9,
+    center: new google.maps.LatLng(centro.latitud, centro.longitud), //Per a que es vegi be el globus, no centrem el mapa just a on esta la cockteleria, sino una mica mes amunt i a la dreta
+    zoom: centro.zoom,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
   var map = new google.maps.Map(document.getElementById("google-map"), mapProp);
   
-  afegirGlobus(map, latitud, longitud, titol, descripcio);
-  
-  afegirGlobus(map, 41.815156, 3.065009, "Baobab (antiguo Bar Havana)", "Av/ s'Agaró, 176.<br /> Al lado de la disctoteca Malibu")
-  
+  $.each(puntos, function(k,v){
+    afegirGlobus(map, v.latitud, v.longitud, v.titulo, v.descripcion);
+  });
 }
 
 /**
@@ -57,6 +55,4 @@ function afegirGlobus(mapa, latitud, longitud, titol, descripcio) {
   google.maps.event.addListener(marcador, 'click', function() {
     globusInfo.open(mapa, marcador);
   });
-  
-  //globusInfo.open(mapa, marcador);
 }
