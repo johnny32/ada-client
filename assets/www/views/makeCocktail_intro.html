@@ -2,11 +2,11 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title data-i18n="app_name"></title>
     <script src="../javascripts/cordova-2.3.0.js"></script>
     <script src="../javascripts/jquery-1.8.2.min.js"></script>
     <script src="../javascripts/controllers/base_controller.js"></script>
     <script src="../javascripts/spin.min.js"></script>
+    <script src="../javascripts/locale.js"></script>
     <script src="../javascripts/optionsMenu.js"></script>
     <link media="screen" rel="stylesheet" href="../stylesheets/reset.css" />
     <link media="screen" rel="stylesheet" href="../stylesheets/style.css" />
@@ -75,17 +75,9 @@
         <img class="logo" src="../images/logo_petit.png" alt="Sinatra Cocteleria" onclick="loadPage('index.html')"/>
       </div>
       <div style="font-family: Verdana; text-align: justify; line-height: 20px;">
-        <p style="margin: 5%;">Ahora podrás crear tu propio cocktail!</p>
-        <p style="margin: 5%;">Lo único que debes hacer es escoger bien los ingredientes, darle un nombre bien original y mezclarlo todo.</p>
-        <p style="margin: 5%;">Además, si estás en el algun local Sinatra, te lo podrán preparar al momento y podrás degustar tu creación.</p>
-        <p style="margin: 5%;">Los pasos son los siguientes:</p>
-        <ul>
-          <li><p style="margin: 5%;">1.- Escoger los zumos</p></li>
-          <li><p style="margin: 5%;">2.- Escoger los licores</p></li>
-          <li><p style="margin: 5%;">3.- Escoger el carbónico</p></li>
-          <li><p style="margin: 5%;">4.- Escoger el vaso</p></li>
-          <li><p style="margin: 5%;">5.- Ponerle un nombre</p></li>
-        </ol>
+        <p style="margin: 5%;" data-i18n="make_cocktail1"></p>
+        <p style="margin: 5%;" data-i18n="make_cocktail2"></p>
+        <p style="margin: 5%;" data-i18n="make_cocktail3"></p>
       </div>
       <div>
         <ul>
@@ -93,7 +85,7 @@
             <div class="main-left">
               <a id="cocktail_btn" onclick="loadPage('makeCocktail.html')">
                 <img id="makeCocktailImg" class="button-main-menu" src="../images/ic_cocktail_add.png"/>
-                <p>Crear cocktail</p>
+                <p data-i18n="make_cocktail"></p>
               </a>
             </div>
           </li>
@@ -101,7 +93,7 @@
             <div class="main-right">
               <a id="cocktail_btn" onclick="owncocktails()">
                 <img id="ownCocktailsImg" class="button-main-menu" src="../images/ic_cocktail_safe.png"/>
-                <p> Mis otros cocktails</p>
+                <p data-i18n="my_other_cocktails"></p>
               </a>
             </div>
           </li>

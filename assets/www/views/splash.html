@@ -2,11 +2,11 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title data-i18n="app_name"></title>
     <script src="../javascripts/cordova-2.3.0.js"></script>
     <script src="../javascripts/jquery-1.8.2.min.js"></script>
     <script src="../javascripts/controllers/base_controller.js"></script>
     <script src="../javascripts/spin.min.js"></script>
+    <script src="../javascripts/locale.js"></script>
     
     <script src="../javascripts/facebook-js/ui.js"></script>
     <script src="../javascripts/facebook-js/auth.js"></script>
@@ -17,7 +17,6 @@
     <script src="../javascripts/cdv-plugin-fb-connect.js"></script>
     <!-- facebook js sdk -->
     <script src="../javascripts/facebook_js_sdk.js"></script> 
-
     
     <link media="screen" rel="stylesheet" href="../stylesheets/reset.css" />
     <link media="screen" rel="stylesheet" href="../stylesheets/style.css" />
@@ -37,7 +36,15 @@
           var t = setTimeout(function() {
             var networkState = navigator.connection.type;
             if (networkState == Connection.NONE){
-              navigator.notification.confirm("Connexión no disponible", retryConnection, "Error", 'Reintentar, Salir');
+              if(locale == 'es'){
+                navigator.notification.confirm("Conexión no disponible", retryConnection, "Error", 'Reintentar, Salir');
+              }
+              else if(locale == 'ca'){
+                navigator.notification.confirm("Conexió no disponible", retryConnection, "Error", 'Reintentar, Sortir');
+              }
+              else{
+                navigator.notification.confirm("Connection unavailable", retryConnection, "Error", 'Retry, Exit');
+              }
             }
             else{
               init();
@@ -50,6 +57,10 @@
       }
     
       $(document).ready(function() {
+      
+        var locale = getBrowserLocale();
+        setLocales();
+        
 		    //$('#element_loading_txt').hide();
 		    var opts = {
           lines : 13, // The number of lines to draw
@@ -74,19 +85,44 @@
         //$('#element_loading_txt').show();
         console.log("before init");
         var t = setTimeout(function() {
-          $('#element_loading_txt').html("Comprobando conexión");
-          var networkState = navigator.connection.type;
-          if (networkState == Connection.NONE){
-            navigator.notification.confirm("Connexión no disponible", retryConnection, "Error", 'Reintentar, Salir');
+          if(locale == 'es'){
+            $('#element_loading_txt').html("Comprobando conexión");
+          }
+          else if(locale == 'ca'){
+            $('#element_loading_txt').html("Comprovant conexión");
           }
           else{
-            $('#element_loading_txt').html("Actualizando aplicación");
+            $('#element_loading_txt').html("Checking connection");
+          }
+          
+          var networkState = navigator.connection.type;
+          if (networkState == Connection.NONE){
+            if(locale == 'es'){
+              navigator.notification.confirm("Conexión no disponible", retryConnection, "Error", 'Reintentar, Salir');
+            }
+            else if(locale == 'ca'){
+              navigator.notification.confirm("Conexió no disponible", retryConnection, "Error", 'Reintentar, Sortir');
+            }
+            else{
+              navigator.notification.confirm("Connection unavailable", retryConnection, "Error", 'Retry, Exit');
+            }
+          }
+          else{
+            if(locale == 'es'){
+              $('#element_loading_txt').html("Actualizando aplicación");
+            }
+            else if(locale == 'ca'){
+              $('#element_loading_txt').html("Actualitzant aplicació");
+            }
+            else{
+              $('#element_loading_txt').html("Updating application");
+            }
         		init();
           }
         },1000);
       });
       function init() {
-        
+        var locale = getBrowserLocale();
         //Comprovar versio d'ingredients
         
         //Descarregar versio zumos
@@ -186,7 +222,15 @@
               window.localStorage.setItem("list_Vaso", JSON.stringify(data));
             },
             error : function(header, status, from) {
-              navigator.notification.confirm("Error de connexión", retryConnection, "Error", 'Reintentar, Salir');
+              if(locale == 'es'){
+                navigator.notification.confirm("Error de conexión", retryConnection, "Error", 'Reintentar, Salir');
+              }
+              else if(locale == 'ca'){
+                navigator.notification.confirm("Error de conexió", retryConnection, "Error", 'Reintentar, Sortir');
+              }
+              else{
+                navigator.notification.confirm("Connection unavailable", retryConnection, "Error", 'Retry, Exit');
+              }
             }
           });
         	window.localStorage.setItem("vVaso", vVasoDown);
@@ -236,8 +280,16 @@
           window.localStorage.setItem("vMapa", vMapaDown);
           console.log("Mapa version: " + vMapaDown);
         }
+        if(locale == 'es'){
+          $('#element_loading_txt').html("Inicializando sesión de Facebook");
+        }
+        else if(locale == 'ca'){
+          $('#element_loading_txt').html("Inicialitzant sessió de Facebook");
+        }
+        else{
+          $('#element_loading_txt').html("Initializing Facebook session");
+        }
         
-        $('#element_loading_txt').html("Inicializando sesión de Facebook");
   	    FB.init({
   	      appId: '326614590799358',
   	      nativeInterface: CDV.FB,
@@ -261,9 +313,7 @@
     
     <div class="content">
       <div id="element_loading" style="position: absolute; top: 75%;"></div>
-      <div id="element_loading_txt" style="position: absolute;top: 90%; width: 100%; text-align: center;">
-        Inicializando app
-      </div>
+      <div data-i18n="initializing_app" id="element_loading_txt" style="position: absolute;top: 90%; width: 100%; text-align: center;"></div>
       <img id="splash-logo" src="../images/logo.jpg" alt="Sinatra Cockteleria" />
     </div>
   </body>

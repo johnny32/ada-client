@@ -2,12 +2,12 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title data-i18n="app_name"></title>
     <script src="../javascripts/cordova-2.3.0.js"></script>
     <script src="../javascripts/jquery-1.8.2.min.js"></script>
     <script src="../javascripts/controllers/base_controller.js"></script>
     <script src="../javascripts/optionsMenu.js"></script>
 	  <script src="../javascripts/webintent.js"></script>
+	  <script src="../javascripts/locale.js"></script>
     <link media="screen" rel="stylesheet" href="../stylesheets/reset.css" />
     <link media="screen" rel="stylesheet" href="../stylesheets/style.css" />
     <script src="../javascripts/facebook-js/ui.js"></script>
@@ -28,13 +28,6 @@
             useCachedDialogs: false
         });
         authUser();
-        
-        $('#mailImg').hover(function() {
-          $(this).attr('src', '../images/ic_mail_hover.png');
-        }, function() {
-          $(this).attr('src', '../images/ic_mail.png');
-        });
-        
       });
     </script>
     
@@ -55,21 +48,18 @@
       <div id="who-div">
         <img src="../images/gallery1.png" />
 				<ul>
-					<li>Somos una empresa dedicada a la formaci&oacute;n en todos los aspectos de la licoreria.</li>
-					<li>Cockteleria, mixologia, administraci&oacute;n de barras, protocolo de servicio y m&aacute;s.</li>
-					<li>Realizamos tambi&eacute;n eventos de cockteleria por todo el territorio nacional.</li>
+					<li data-i18n="who_we_are1"></li>
+					<li data-i18n="who_we_are2"></li>
+					<li data-i18n="who_we_are3"></li>
 				</ul>
       </div>
 			<div id="galeria">
-        <a onclick="loadPage('gallery.html')" id="gallery-link">
-				  Galeria de imagenes
-				</a>
+        <a onclick="loadPage('gallery.html')" id="gallery-link" data-i18n="image_gallery"></a>
 				</td>
 			</div>
-			<div id="social"><!--
-        <a href="https://www.facebook.com/sinatra.cockteleria"><img src="../images/ic_facebook.png" alt="Facebook"/></a>
-        &nbsp;
-        &nbsp;-->
+			<div id="social">
+			  <a onclick="window.open('http://www.sinatracockteleria.com/', '_system');"><img src="../images/ic_web.png" alt="Facebook"/></a>
+        <a onclick="window.open('https://www.facebook.com/sinatra.cockteleria', '_system');"><img src="../images/ic_facebook.png" alt="Facebook"/></a>
         <a onclick="sendEmail('info@sinatracockteleria.com', '', '')"><img id="mailImg" src="../images/ic_mail.png" alt="Email"/></a>
       </div>
     </div>

@@ -31,6 +31,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
   document.addEventListener("backbutton", function(e) {
+    var locale = getBrowserLocale();
     //Configurem el boto "enrere" per a que, si estem a la pantalla principal, surti de l'aplicacio
     var full_url = window.location.pathname;
     var pag = full_url.substring(full_url.lastIndexOf('/'), full_url.length);
@@ -42,14 +43,38 @@ function onDeviceReady() {
         menuDiv.style.display = 'none';
       } else {
         e.preventDefault();
-        navigator.notification.confirm("¿Estás seguro que quieres salir?", exitApp, "Salir de la aplicación", 'SI, NO')
+        if(locale == 'es'){
+          navigator.notification.confirm("¿Estás seguro que quieres salir?", exitApp, "Salir de la aplicación", 'SI, NO')
+        }
+        else if(locale == 'ca'){
+          navigator.notification.confirm("Estàs segur de que vols sortir?", exitApp, "Sortir de l'aplicació", 'SI, NO')
+        }
+        else{
+          navigator.notification.confirm("Are you sure you want to quit?", exitApp, "Exit the application", 'YES, NO')
+        }
       }
     } else if (pag == '/makeCocktail.html') {
       e.preventDefault();
-      navigator.notification.confirm("¿Estás seguro de querer descartar el cocktail?", discartCocktail, "Descartar cocktail", 'SI, NO')
+      if(locale == 'es'){
+        navigator.notification.confirm("¿Estás seguro de querer descartar el cocktail?", discartCocktail, "Descartar cocktail", 'SI, NO')
+      }
+      else if(locale == 'ca'){
+        navigator.notification.confirm("Estàs segur de voler descartar el cocktail?", discartCocktail, "Descartar cocktail", 'SI, NO')
+      }
+      else{
+        navigator.notification.confirm("Are you sure you want to discard the cocktail?", discartCocktail, "Discart cocktail", 'SI, NO')
+      }
     } else if (pag == '/makeCocktail_final.html') {
       e.preventDefault();
-      navigator.notification.confirm("¿Estás seguro de querer descartar el cocktail?", discartCocktail2, "Descartar cocktail", 'SI, NO')
+      if(locale == 'es'){
+        navigator.notification.confirm("¿Estás seguro de querer descartar el cocktail?", discartCocktail, "Descartar cocktail", 'SI, NO')
+      }
+      else if(locale == 'ca'){
+        navigator.notification.confirm("Estàs segur de voler descartar el cocktail?", discartCocktail, "Descartar cocktail", 'SI, NO')
+      }
+      else{
+        navigator.notification.confirm("Are you sure you want to discard the cocktail?", discartCocktail, "Discart cocktail", 'SI, NO')
+      }
     } else if (pag == '/makeCocktail_intro.html') {
       e.preventDefault();
       loadPage('index.html');
@@ -87,6 +112,8 @@ function onDeviceReady() {
       action : onCredits
     }]]
   });
+  
+  setLocales();
 }
 
 function exitApp(button) {
