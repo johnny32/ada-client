@@ -34,6 +34,8 @@ $(document).ready(function($) {
 
     var without_alcohol = false;
 
+    var locale = getBrowserLocale();
+
     var selected_data = new Object();
 
     selected_data.zumo = new Array();
@@ -59,6 +61,7 @@ $(document).ready(function($) {
       $.each(ingredients, function(key, value){
         var images_route;
         var wrapper = $('.swiper-wrapper');
+        
         wrapper.append('<div class="swiper-slide" id="' + actual_product + key + 
           '">' + '<div id="elem_title' + key + '" style="font-size: 22px; margin: 10px 0 10px 0;">' + 
           value.descripcion + '</div>' + '<div id="elem_image' + key + '">' + 
@@ -92,7 +95,7 @@ $(document).ready(function($) {
         finish_function();
       } else if (button == 2) {
         //S'ha clicat a cancelar
-        $('#finish_elem_p').text("Finalizar sección");
+        $('#finish_elem_p').text(i18n["finish_section"][locale]);
         if (actual_product == "Zumo") {
           actual_remain = remain_zumos;
           selected_data.zumo = new Array();
@@ -101,7 +104,7 @@ $(document).ready(function($) {
           actual_remain = remain_licores;
           selected_data.licor = new Array();
           actual_array = selected_data.licor;
-          $('#finish_elem_p').text("Cocktail sin alcohol");
+          $('#finish_elem_p').text(i18n["without_alcohol"][locale]);
         } else if (actual_product == "Carbonico") {
           actual_remain = remain_carbonico;
           selected_data.carbonico = new Array();
@@ -124,26 +127,26 @@ $(document).ready(function($) {
           actual_product = "Licor"
           actual_array = selected_data.licor;
           actual_remain = remain_licores;
-          $('#title').html("LICORES")
-          $('#finish_elem_p').text("Cocktail sin alcohol");
+          $('#title').html(i18n[actual_product][locale])
+          $('#finish_elem_p').text(i18n["without_alcohol"][locale]);
         } else if (actual_product == "Licor") {
           console.log("actual product: carbonico");
           actual_product = "Carbonico";
           actual_array = selected_data.carbonico;
           actual_remain = remain_carbonico;
-          $('#title').html("CARBÓNICOS")
-          $('#finish_elem_p').text("Finalizar sección");
+          $('#title').html(i18n[actual_product][locale])
+          $('#finish_elem_p').text(i18n["finish_section"][locale]);
         } else if (actual_product == "Carbonico") {
           console.log("actual product: vaso");
           actual_product = "Vaso";
           actual_array = selected_data.vaso;
           actual_remain = remain_vasos;
-          $('#title').html("VASOS");
+          $('#title').html(i18n[actual_product][locale]);
         } else {
           console.log("actual product: nombre");
           actual_product = "nombre"
           actual_remain = remain_nombre;
-          $('#title').html("NOMBRE");
+          $('#title').html(i18n[actual_product][locale]);
         }
 
         if (actual_product != "nombre") {
@@ -157,8 +160,10 @@ $(document).ready(function($) {
         } else {
           console.log("es nombre");
           $('.swiper-container').html("");
-
-          $('.swiper-container').html('<div class="name_container"><input type="text" id="cocktail_name" maxlength="30"/><br />' + 'Te quedan <b><span id="myCounter">30</span></b> caracteres para el nombre</div>');
+          
+          var remain1 = i18n["remain1"][locale];
+          var remain2 = i18n["remain2"][locale];
+          $('.swiper-container').html('<div class="name_container"><input type="text" id="cocktail_name" maxlength="30"/><br />' + remain1 + ' <b><span id="myCounter">30</span></b> ' + remain2 + '</div>');
 
           var elem = $('#myCounter');
           $('#cocktail_name').limiter(30, elem);
@@ -167,7 +172,7 @@ $(document).ready(function($) {
           $('#remain_elem').remove();
           $('#add_elem').remove();
           $('#finish_elem').hide();
-          $('#buttons').html('<div class="cocktails-main-center"><a id="finish_cocktail"><img id="shakeImg" class="button-main-menu" src="../images/ic_cocktail_checkmark.png"/><p>Mezclar</p></a></div><div class="cocktails-main-bottom"></div>');
+          $('#buttons').html('<div class="cocktails-main-center"><a id="finish_cocktail"><img id="shakeImg" class="button-main-menu" src="../images/ic_cocktail_checkmark.png"/><p>' + i18n['mezclar'][locale] + '</p></a></div><div class="cocktails-main-bottom"></div>');
           $('#finish_cocktail').click(cocktails.finishCocktail);
         }
       }
@@ -225,11 +230,11 @@ $(document).ready(function($) {
       //Emplenar el text de quants productes es poden escollir de més
       fillRemain : function() {
         if (actual_remain > 0) {
-          $('#remain_elem').html("Puedes añadir " + actual_remain + " elementos más");
+          $('#remain_elem').html(i18n["puedes_añadir"][locale] + " " + actual_remain + " " + i18n["elementos_mas"][locale]);
           $('#add_elem').removeAttr("disabled");
         } else {
           $('#add_elem').attr("disabled", "true");
-          $('#remain_elem').html("No puedes añadir más elementos.</br>Pulsa en Finalizar sección para continuar con la creación de tu cocktail");
+          $('#remain_elem').html(i18n["no_mas_elementos"][locale]);
         }
       },
       add_element_function : function() {
@@ -239,7 +244,7 @@ $(document).ready(function($) {
         },250);
         
         if (actual_remain == 0) {
-          navigator.notification.alert("No puedes añadir más elementos en esta sección", null, "Elementos máximos");
+          navigator.notification.alert(i18n["no_mas_elementos_small"][locale], null, i18n["elementos_maximos"][locale]);
         }
         else{
           var element_id = mySwiper.activeSlide
@@ -251,14 +256,14 @@ $(document).ready(function($) {
           var trobat = false;
           for (var i = 0; i < actual_array.length; i++) {
             if (actual_array[i].id == element_id) {
-              navigator.notification.alert("No se puede añadir dos veces el mismo elemento", null, "Elemento repetido")
+              navigator.notification.alert(i18n["no_dos_veces"][locale], null, i18n["no_dos_veces_title"][locale])
               trobat = true;
               break;
             }
           }
   
           if (!trobat) {
-            $('#finish_elem_p').text("Finalizar sección");
+            $('#finish_elem_p').text(i18n["finish_section"][locale]);
             actual_array[actual_array.length] = elem;
             actual_remain--;
             cocktails.fillRemain();
@@ -276,16 +281,40 @@ $(document).ready(function($) {
         },250);
         if (actual_array.length == 0) {
           if (actual_product == "Licor") {
-            navigator.notification.confirm("¿Estás seguro de querer crear un cocktail sin alcohol?", confirmWithoutAlcohol, "Cocktail sin alcohol", 'OK, Cancelar')
+            if(locale == 'es'){
+              navigator.notification.confirm("¿Estás seguro de querer crear un coctail sin alcohol?", confirmWithoutAlcohol, "Cocktail sin alcohol", 'OK, Cancelar')
+            }
+            else if(locale == 'ca'){
+              navigator.notification.confirm("Estàs segur de voler crear un coctail sense alcohol?", confirmWithoutAlcohol, "Coctail sense alcohol", 'OK, Cancel·lar')
+            }
+            else{
+              navigator.notification.confirm("Are you sure you want to create a non-alcoholic cocktail?", confirmWithoutAlcohol, "Non-alcoholic cocktail", 'OK, Cancel')
+            }
           } else {
-            navigator.notification.alert("Necesitas añadir como mínimo un elemento", null, "Sección vacía")
+            if(locale == 'es'){
+              navigator.notification.alert("Necesitas añadir como mínimo un elemento", null, "Sección vacía")
+            }
+            else if(locale == 'ca'){
+              navigator.notification.alert("Necessites afegir com a mínim un element", null, "Secció buida")
+            }
+            else{
+              navigator.notification.alert("You need to add at least one element", null, "Empty section")
+            }
           }
         } else {
-          var message = "Estás a punto de añadir: ";
+          var message = i18n["a_punto_de_añadir"][locale];
           for (var i = 0; i < actual_array.length; i++) {
             message += ("\n- " + actual_array[i].nombre);
           }
-          navigator.notification.confirm(message, confirmSection, "Confirmar sección", 'OK, Cancelar')
+          if(locale == 'es'){
+            navigator.notification.confirm(message, confirmSection, "Confirmar sección", 'OK, Cancelar')
+          }
+          else if(locale == 'ca'){
+            navigator.notification.confirm(message, confirmSection, "Confirmar secció", 'OK, Cancel·lar')
+          }
+          else{
+            navigator.notification.confirm(message, confirmSection, "Confirm section", 'OK, Cancel')
+          }
         }
       },
       //Finalitzar cocktail
@@ -295,9 +324,25 @@ $(document).ready(function($) {
           $('#shakeImg').attr('src', '../images/ic_cocktail_checkmark.png');
         },250);
         if ($('#cocktail_name').val() == '') {
-          navigator.notification.alert("Debes ponerle un nombre al cocktail", null, "Nombre vacío")
+          if(locale == 'es'){
+            navigator.notification.alert("Debes ponerle un nombre al coctail", null, "Nombre vacío")
+          }
+          else if(locale == 'ca'){
+            navigator.notification.alert("Has de posar-li un nom al coctail", null, "Nom buit")
+          }
+          else{
+            navigator.notification.alert("You have to name the cocktail", null, "Empty name")
+          }
         } else {
-          navigator.notification.confirm("¿Es " + $('#cocktail_name').val() + " el nombre correcto?", confirmName, "Confirmar nombre", 'Mezclar, Cancelar')
+          if(locale == 'es'){
+            navigator.notification.confirm("¿Es " + $('#cocktail_name').val() + " el nombre correcto?", confirmName, "Confirmar nombre", 'Mezclar, Cancelar')
+          }
+          else if(locale == 'ca'){
+            navigator.notification.confirm("És " + $('#cocktail_name').val() + " el nom correcte?", confirmName, "Confirmar nom", 'Barrejar, Cancel·lar')
+          }
+          else{
+            navigator.notification.confirm("Is " + $('#cocktail_name').val() + " the correct name?", confirmName, "Confirm name", 'Mix, Cancel')
+          }
         }
       }
       ,

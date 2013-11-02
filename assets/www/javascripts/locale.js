@@ -84,14 +84,14 @@ i18n = {
     'ca' : 'Ara podràs crear el teu propi coctail!'
   },
   make_cocktail2:{
-    'en' : 'All you have to do is choose the ingredients, the original name it and mix well.',
+    'en' : 'All you need to do is choose the ingredients, an original name, and mix it.',
     'es' : 'Lo único que debes hacer es escoger bien los ingredientes, darle un nombre bien original y mezclarlo todo.',
     'ca' : 'L\'únic que has de fer es escollir bé els ingredients, donar-li un nom ben original i barrejar-ho tot,'
   },
   make_cocktail3:{
-    'en' : 'Also, if you\'re in the some Sinatra local, they can prepare the moment and you can taste your creation.',
-    'es' : 'Además, si estás en el algun local Sinatra, te lo podrán preparar al momento y podrás degustar tu creación.',
-    'ca' : 'A més a més, si et trobes en algun local Sinatra, t\'ho podran preparar al moment i podràs degustar la teva creació.'
+    'en' : 'Also, if you\'re in a Sinatra local, they can mix it before you and you can taste it on site.',
+    'es' : 'Además, si estás en el algun local Sinatra, te lo podrán preparar frente a ti y podrás degustarlo allí mismo.',
+    'ca' : 'A més a més, si et trobes en algun local Sinatra, t\'ho podran preparar davant teu i podràs degustar-lo allà mateix.'
   },
   make_cocktail:{
     'en' : 'Make cocktail',
@@ -102,5 +102,101 @@ i18n = {
     'en' : 'My other cocktails',
     'es' : 'Mis otros coctails',
     'ca' : 'Els meus altres coctails'
+  },
+  Zumo:{
+    'en' : 'JUICES',
+    'es' : 'ZUMOS',
+    'ca' : 'SUCS'
+  },
+  Licor:{
+    'en' : 'LIQUOR',
+    'es' : 'LICORES',
+    'ca' : 'LICORS'
+  },
+  Carbonico:{
+    'en' : 'CARBONICS',
+    'es' : 'CARBÓNICOS',
+    'ca' : 'CARBÒNICS'
+  },
+  Vaso:{
+    'en' : 'CUPS',
+    'es' : 'VASOS',
+    'ca' : 'GOTS'
+  },
+  nombre:{
+    'en' : 'NAME',
+    'es' : 'NOMBRE',
+    'ca' : 'NOM'
+  },
+  remain1:{
+    'en' : 'You have',
+    'es' : 'Te quedan',
+    'ca' : 'Et queden'
+  },
+  remain2:{
+    'en' : 'characters left',
+    'es' : 'carácteres para el nombre',
+    'ca' : 'caràcters per al nom'
+  },
+  mezclar:{
+    'en' : 'Mix',
+    'es' : 'Mezclar',
+    'ca' : 'Barrejar'
+  },
+  puedes_añadir:{
+    'en' : 'You can add',
+    'es' : 'Puedes añadir',
+    'ca' : 'Pots afegir'
+  },
+  elementos_mas:{
+    'en' : 'elements more',
+    'es' : 'elementos más',
+    'ca' : 'elements més'
+  },
+  no_mas_elementos:{
+    'en' : 'You can\'t add more elements.</br>Click on Finish section to continue with cocktail creation',
+    'es' : 'No puedes añadir más elementos.</br>Pulsa en Finalizar sección para continuar con la creación de tu coctail',
+    'ca' : 'No pots afegir més elements.</br>Clica en Finalitzar secció per a continuar amb la creació del teu coctail'
+  },
+  no_mas_elementos_small:{
+    'en' : 'You can\'t add more elements.',
+    'es' : 'No puedes añadir más elementos.',
+    'ca' : 'No pots afegir més elements.'
+  },
+  elementos_maximos:{
+    'en' : 'Max elements',
+    'es' : 'Elementos máximos',
+    'ca' : 'Elements màxims'
+  },
+  no_dos_veces:{
+    'en' : 'Can\'t add element twice',
+    'es' : 'No se puede añadir dos veces el mismo elemento',
+    'ca' : 'No es pot afegir dues vegades el mateix element',
+  },
+  no_dos_veces_title:{
+    'en' : 'Repeated element',
+    'es' : 'Elemento repetido',
+    'ca' : 'Element repetit'
+  },
+  /********************** ADD *********************/
+  add:{
+    'en' : 'Add',
+    'es' : 'Añadir',
+    'ca' : 'Afegir'
+  },
+  finish_section:{
+    'en' : 'Finish section',
+    'es' : 'Finalizar sección',
+    'ca' : 'Finalitzar secció'
+  },
+  without_alcohol:{
+    'en' : 'Without alcohol',
+    'es' : 'Sin alcohol',
+    'ca' : 'Sense alcohol'
+  },
+  a_punto_de_añadir:{
+    'en' : 'You are about to add: ',
+    'es' : 'Estás a punto de añadir: ',
+    'ca' : 'Estàs a punt d\'afegir: '
   },
 };

@@ -3,6 +3,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script src="../javascripts/cordova-2.3.0.js"></script>
+    <script src="../javascripts/locale.js"></script>
     <script src="../javascripts/jquery-1.8.2.min.js"></script>
     <script src="../javascripts/controllers/base_controller.js"></script>
     <script src="../javascripts/controllers/cocktails_controller.js"></script>
@@ -102,9 +103,7 @@
       <div id="msg"></div>
     </div>
     <div class="content">
-      <div id="title" style="font-size: 22px; margin: 10px 0 10px 0;">
-        ZUMOS
-      </div>
+      <div id="title" style="font-size: 22px; margin: 10px 0 10px 0;" data-i18n="Zumo"></div>
       <div class="swiper-container" id="id_swiper_container">
         <div class="swiper-wrapper">
 
@@ -118,15 +117,12 @@
       <div id="buttons">
         <div class="cocktails-main-left">
           <a id="add_elem" style="display: none;"> <img id="addImg" class="button-main-menu" src="../images/ic_add.png"/>
-          <p>
-            Añadir
-          </p> </a>
+          <p data-i18n="add"></p> </a>
         </div>
         <div class="cocktails-main-right">
           <a id="finish_elem" style="display: none;"> <img id="finishImg" class="button-main-menu" src="../images/ic_checkmark.png"/>
-          <p id="finish_elem_p">
-            Finalizar sección
-          </p> </a>
+            <p id="finish_elem_p" data-i18n="finish_section"></p> 
+          </a>
         </div>
         <div class="cocktails-main-bottom"></div>
       </div>
