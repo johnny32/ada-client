@@ -53,6 +53,7 @@
       var page = 0;
     
       $(document).ready(function() {
+        var locale = getBrowserLocale();
         $('#content').hide();
         $('#less').hide();
         var opts = {
@@ -91,7 +92,7 @@
               $('#content').show();
             },
             error: function(header, status, from){
-              alert("Error con el servidor");
+              alert("Error");
             }
           });
           $.ajax({
@@ -104,7 +105,7 @@
               $("#recommended-cocktail").append(a);
             },
             error: function(header, status, from){
-              alert("Error con el servidor");
+              alert("Error");
             }
           });
         } else if (params.type == 'user') {
@@ -123,7 +124,7 @@
               $('#content').show();
             },
             error: function(header, status, from){
-              alert("Error con el servidor");
+              alert("Error");
             }
           });
           
@@ -133,10 +134,12 @@
             url : "http://graph.facebook.com/" + username,
             dataType : "json",
             success : function(data){
-              $('#txt_list').text($('#txt_list').text().replace('Listado de cocktails:', 'Listado de cocktails de ' + data.name + ':'));
+              if(locale == 'es' || locale == 'ca') $('#txt_list_name').text('de ' + data.name + ':');
+              else  $('#txt_list_name').text('of ' + data.name + ':');
+              $('#txt_list_name').show();
             },
             error: function(header, status, from){
-              alert("Error con el servidor");
+              alert("Error");
             }
           });
           
@@ -165,7 +168,7 @@
           success : function(data){
             
             if(data.length == 0){
-              alert("No hay más cocktails para mostrar");
+              //alert("No hay más cocktails para mostrar");
               less10();
             }
             else{
@@ -179,7 +182,7 @@
             }
           },
           error: function(header, status, from){
-            alert("Error con el servidor");
+            alert("Error");
           }
         });
         
@@ -239,9 +242,10 @@
         <img class="logo" src="../images/logo_petit.png" alt="Sinatra Cocteleria" onclick="loadPage('index.html')"/>
       </div>
       <div id="best-div">
-       <span id="txt_recommended">Cocktail recomendado</span>
+       <span id="txt_recommended" data-i18n="recommended_cocktail"></span>
         <ul id="recommended-cocktail"></ul>
-        <span id="txt_list">Listado de cocktails:</span>
+        <span id="txt_list" data-i18n="cocktails_list_generic"></span>
+        <span id="txt_list_name" style="display:none;"></span>
         <ul id="list-cocktails" style="margin-top: 2%; padding-bottom: 5%;"></ul>
       </div>
       <div id="footer">

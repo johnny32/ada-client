@@ -123,6 +123,11 @@ i18n = {
     'es' : 'VASOS',
     'ca' : 'GOTS'
   },
+  Creador:{
+    'en' : 'CREATOR',
+    'es' : 'CREADOR',
+    'ca' : 'CREADOR'
+  },
   nombre:{
     'en' : 'NAME',
     'es' : 'NOMBRE',
@@ -178,6 +183,11 @@ i18n = {
     'es' : 'Elemento repetido',
     'ca' : 'Element repetit'
   },
+  save_cocktail:{
+    'en' : 'Save cocktail',
+    'es' : 'Guardar coctail',
+    'ca' : 'Guardar coctail'
+  },
   /********************** ADD *********************/
   add:{
     'en' : 'Add',
@@ -198,5 +208,58 @@ i18n = {
     'en' : 'You are about to add: ',
     'es' : 'Estás a punto de añadir: ',
     'ca' : 'Estàs a punt d\'afegir: '
+  },
+  /********************** COCKTAIL *********************/
+  share:{
+    'en' : 'Share',
+    'es' : 'Compartir',
+    'ca' : 'Compartir'
+  },
+  more_cocktails:{
+    'en' : 'See more user cocktails',
+    'es' : 'Ver más coctails del usuario',
+    'ca' : 'Veure més coctails de l\'usuari'
+  },
+  rating_cocktail:{
+    'en' : 'Rating cocktail:',
+    'es' : 'Votar coctail:',
+    'ca' : 'Votar coctail:'
+  },
+  ya_has_votado:{
+    'en' : 'You have already voted for this cocktail',
+    'es' : 'Ya has votado por este coctail',
+    'ca' : 'Ja has votat per aquest coctail'
+  },
+  tu_puntuacion:{
+    'en' : 'you scored',
+    'es' : 'tu puntuación ha sido',
+    'ca' : 'la teva puntuació ha sigut'
+  },
+  /********************** RATING *********************/
+  rate_this_cocktail:{
+    'en' : 'Rate this cocktail',
+    'es' : 'Vota este coctail',
+    'ca' : 'Vota aquest coctail'
+  },
+  rating_correctly:{
+    'en' : 'Rated correctly',
+    'es' : 'Votado correctamente',
+    'ca' : 'Votat correctament'
+  },
+  /********************** COCKTAILS LIST *********************/
+  cocktails_list:{
+    'en' : 'Cocktails list of ',
+    'es' : 'Listado de coctails de ',
+    'ca' : 'Llistat de coctails de '
+  },
+  cocktails_list_generic:{
+    'en' : 'Cocktails list',
+    'es' : 'Listado de coctails',
+    'ca' : 'Llistat de coctails'
+  },
+  recommended_cocktail:{
+    'en' : 'Recommended cocktail',
+    'es' : 'Coctail recomendado',
+    'ca' : 'Coctail recomanat'
   },
 };

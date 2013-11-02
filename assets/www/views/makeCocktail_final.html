@@ -130,8 +130,9 @@
       function loadCocktail() {
         $('#info').show();
         $('#loading').hide();
+        var locale = getBrowserLocale();
         cocktail = jQuery.parseJSON(window.localStorage.getItem("cocktail_temp"));
-        $('#cocktail_info').append("<span class=\"title_section\">ZUMOS: </span>");
+        $('#cocktail_info').append("<span class=\"title_section\">" + i18n["Zumo"][locale] + ": </span>");
         for (var i = 0; i < cocktail.zumos.length; i++) {
           if(i != cocktail.zumos.length - 1)
             $('#cocktail_info').append(cocktail.zumos[i] + ",");
@@ -139,7 +140,7 @@
             $('#cocktail_info').append(cocktail.zumos[i] + "<br />");
         }
         if(cocktail.licores.length > 0){
-          $('#cocktail_info').append("<span class=\"title_section\">LICORES: </span>");
+          $('#cocktail_info').append("<span class=\"title_section\">" + i18n["Licor"][locale] + ": </span>");
           for (var i = 0; i < cocktail.licores.length; i++) {
             if(i != cocktail.licores.length - 1)
               $('#cocktail_info').append(cocktail.licores[i] + ",");
@@ -147,8 +148,8 @@
               $('#cocktail_info').append(cocktail.licores[i] + "</br>");
           }
         }
-        $('#cocktail_info').append("<span class=\"title_section\">CARBONICO: </span>" + cocktail.carbonico + "</br>");
-        $('#cocktail_info').append("<span class=\"title_section\">VASO: </span>" + cocktail.vaso + "</br>");
+        $('#cocktail_info').append("<span class=\"title_section\">" + i18n["Carbonico"][locale] + ": </span>" + cocktail.carbonico + "</br>");
+        $('#cocktail_info').append("<span class=\"title_section\">" + i18n["Vaso"][locale] + ": </span>" + cocktail.vaso + "</br>");
         $('#title').append(cocktail.nombre + "</br>");
       }
 
@@ -186,7 +187,7 @@
       <div>
         <a id="send_cocktail">
           <img id="saveImg" src="../images/ic_cocktail_checkmark.png"/>
-          <p>Guardar cocktail</p>
+          <p data-i18n="save_cocktail"></p>
         </a>
       </div>
     </div>

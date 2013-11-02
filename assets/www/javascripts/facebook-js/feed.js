@@ -5,38 +5,144 @@
 //
 //////////////////////////
 
+var locale = getBrowserLocale();
+
 //Publish a story to the user's own wall
 function publishStory(nombre_cocktail, id, image) {
-  FB.ui({
-    method: 'feed',
-    name: 'He creado el cocktail ' + nombre_cocktail,
-    caption: 'Aplicación Android de Sinatra Cockteleria',
-    description: 'He creado el cocktail ' + nombre_cocktail + ' gracias a la aplicación de Sinatra Cockteleria. ¡Descárgate la aplicación y crea tu también uno!',
-    link: server_url + "/" + id,
-    picture: server_url + image,
-    actions: [{ name: 'Descárgate la app', link: 'https://play.google.com/store/apps/details?id=com.claramanrique.sinatracockteleria&hl=es_419' }],
-  }, 
-  function(response) {
-    console.log('publishStory UI response: ', response);
-  });
+  if(locale == 'es'){
+    FB.ui({
+      method: 'feed',
+      name: 'He creado el coctail ' + nombre_cocktail,
+      caption: 'Aplicación Android de Sinatra Cockteleria',
+      description: 'He creado el coctail ' + nombre_cocktail + ' gracias a la aplicación de Sinatra Cockteleria. ¡Descárgate la aplicación y crea tu también uno!',
+      link: server_url + "/" + id,
+      picture: server_url + image,
+      actions: [{ name: 'Descárgate la app', link: 'https://play.google.com/store/apps/details?id=com.claramanrique.sinatracockteleria&hl=es_419' }],
+    }, 
+    function(response) {
+      console.log('publishStory UI response: ', response);
+    });
+  }
+  else if(locale == 'ca'){
+   FB.ui({
+      method: 'feed',
+      name: 'He creat el coctail ' + nombre_cocktail,
+      caption: 'Aplicació Android Sinatra Cockteleria',
+      description: 'He creat el coctail ' + nombre_cocktail + ' gràcies a l\'aplicació de Sinatra Cockteleria. Descarrega\'t l\'aplicació i crea\'n un!',
+      link: server_url + "/" + id,
+      picture: server_url + image,
+      actions: [{ name: 'Descarrega l\'app', link: 'https://play.google.com/store/apps/details?id=com.claramanrique.sinatracockteleria&hl=es_419' }],
+    }, 
+    function(response) {
+      console.log('publishStory UI response: ', response);
+    });
+  }
+  else{
+    FB.ui({
+      method: 'feed',
+      name: 'I created the cocktail ' + nombre_cocktail,
+      caption: 'Sinatra Cockteleria Android app',
+      description: 'I created the cocktail ' + nombre_cocktail + ' through the application of Sinatra Cockteleria. Download the application and also make one!',
+      link: server_url + "/" + id,
+      picture: server_url + image,
+      actions: [{ name: 'Download app', link: 'https://play.google.com/store/apps/details?id=com.claramanrique.sinatracockteleria&hl=es_419' }],
+    }, 
+    function(response) {
+      console.log('publishStory UI response: ', response);
+    });
+  }
 }
 
 function lookCocktail(nombre_cocktail, id, image) {
-  FB.ui({
-    method: 'feed',
-    name: 'Mira este cocktail "' + nombre_cocktail + '"',
-    caption: 'Aplicación Android de Sinatra Cockteleria',
-    description: 'Mira este cocktail "' + nombre_cocktail + '" gracias a la aplicación de Sinatra Cockteleria. ¡Descárgate la aplicación y crea tu también uno!',
-    link: server_url + "/" + id,
-    picture: server_url + image,
-    actions: [{ name: 'Descárgate la app', link: 'https://play.google.com/store/apps/details?id=com.claramanrique.sinatracockteleria&hl=es_419' }],
-  }, 
-  function(response) {
-    console.log('publishStory UI response: ', response);
-  });
+  if(locale == 'es'){
+    FB.ui({
+      method: 'feed',
+      name: 'Mira este cocktail ' + nombre_cocktail,
+      caption: 'Aplicación Android de Sinatra Cockteleria',
+      description: 'Mira este cocktail ' + nombre_cocktail + ' gracias a la aplicación de Sinatra Cockteleria. ¡Descárgate la aplicación y crea tu también uno!',
+      link: server_url + "/" + id,
+      picture: server_url + image,
+      actions: [{ name: 'Descárgate la app', link: 'https://play.google.com/store/apps/details?id=com.claramanrique.sinatracockteleria&hl=es_419' }],
+    }, 
+    function(response) {
+      console.log('publishStory UI response: ', response);
+    });
+  }
+  else if(locale == 'ca'){
+   FB.ui({
+      method: 'feed',
+      name: 'Mira aquest coctail ' + nombre_cocktail,
+      caption: 'Aplicació Android Sinatra Cockteleria',
+      description: 'Mira aquest coctail ' + nombre_cocktail + ' gràcies a l\'aplicació de Sinatra Cockteleria. Descarrega\'t l\'aplicació i crea\'n un!',
+      link: server_url + "/" + id,
+      picture: server_url + image,
+      actions: [{ name: 'Descarrega l\'app', link: 'https://play.google.com/store/apps/details?id=com.claramanrique.sinatracockteleria&hl=es_419' }],
+    }, 
+    function(response) {
+      console.log('publishStory UI response: ', response);
+    });
+  }
+  else{
+    FB.ui({
+      method: 'feed',
+      name: 'Look this cocktail ' + nombre_cocktail,
+      caption: 'Sinatra Cockteleria Android app',
+      description: 'Look this cocktail ' + nombre_cocktail + ' through the application of Sinatra Cockteleria. Download the application and also make one!',
+      link: server_url + "/" + id,
+      picture: server_url + image,
+      actions: [{ name: 'Download app', link: 'https://play.google.com/store/apps/details?id=com.claramanrique.sinatracockteleria&hl=es_419' }],
+    }, 
+    function(response) {
+      console.log('publishStory UI response: ', response);
+    });
+  }
 }
 
 function ratingCocktail(nombre_cocktail, id, image) {
+  if(locale == 'es'){
+    FB.ui({
+      method: 'feed',
+      name: 'He votado el coctail ' + nombre_cocktail,
+      caption: 'Aplicación Android de Sinatra Cockteleria',
+      description: 'He votado el coctail ' + nombre_cocktail + ' gracias a la aplicación de Sinatra Cockteleria. ¡Descárgate la aplicación y crea tu también uno!',
+      link: server_url + "/" + id,
+      picture: server_url + image,
+      actions: [{ name: 'Descárgate la app', link: 'https://play.google.com/store/apps/details?id=com.claramanrique.sinatracockteleria&hl=es_419' }],
+    }, 
+    function(response) {
+      console.log('publishStory UI response: ', response);
+    });
+  }
+  else if(locale == 'ca'){
+   FB.ui({
+      method: 'feed',
+      name: 'He votat el coctail ' + nombre_cocktail,
+      caption: 'Aplicació Android Sinatra Cockteleria',
+      description: 'He votat el coctail ' + nombre_cocktail + ' gràcies a l\'aplicació de Sinatra Cockteleria. Descarrega\'t l\'aplicació i crea\'n un!',
+      link: server_url + "/" + id,
+      picture: server_url + image,
+      actions: [{ name: 'Descarrega l\'app', link: 'https://play.google.com/store/apps/details?id=com.claramanrique.sinatracockteleria&hl=es_419' }],
+    }, 
+    function(response) {
+      console.log('publishStory UI response: ', response);
+    });
+  }
+  else{
+    FB.ui({
+      method: 'feed',
+      name: 'I rated the cocktail ' + nombre_cocktail,
+      caption: 'Sinatra Cockteleria Android app',
+      description: 'I rated the cocktail ' + nombre_cocktail + ' through the application of Sinatra Cockteleria. Download the application and also make one!',
+      link: server_url + "/" + id,
+      picture: server_url + image,
+      actions: [{ name: 'Download app', link: 'https://play.google.com/store/apps/details?id=com.claramanrique.sinatracockteleria&hl=es_419' }],
+    }, 
+    function(response) {
+      console.log('publishStory UI response: ', response);
+    });
+  }
+
+
   FB.ui({
     method: 'feed',
     name: 'He votado el cocktail "' + nombre_cocktail + '"',

@@ -104,6 +104,7 @@
 
       function fillData(cktl, user_name) {
         console.log("Fill data");
+        var locale = getBrowserLocale();
         $('#info').show();
         color_array = cktl.imagen.split('_');
         console.log("color_array: " + color_array);
@@ -120,10 +121,10 @@
         else if (color == "Naranja")
           $('#cocktail_image').attr("class", "border-naranja");
 
-        $('#cocktail_info').append('<span class=\"title_section\">CREADOR: </span> ' + user_name + '<br>' + '<span class=\"title_section\">ZUMOS: </span> ' + cktl.zumos.join(', ') + '<br>');
+        $('#cocktail_info').append('<span class=\"title_section\">' + i18n["Creador"][locale] + ': </span> ' + user_name + '<br>' + '<span class=\"title_section\">' + i18n["Zumo"][locale] + ': </span> ' + cktl.zumos.join(', ') + '<br>');
         if (cktl.licores.length > 0)
-          $('#cocktail_info').append('<span class=\"title_section\">LICORES: </span> ' + cktl.licores.join(', ') + '<br>');
-        $('#cocktail_info').append('<span class=\"title_section\">CARBÓNICO: </span> ' + cktl.carbonico + '<br>' + '<span class=\"title_section\">VASO: </span> ' + cktl.vaso + '<br>');
+          $('#cocktail_info').append('<span class=\"title_section\">' + i18n["Licor"][locale] + ': </span> ' + cktl.licores.join(', ') + '<br>');
+        $('#cocktail_info').append('<span class=\"title_section\">' + i18n["Carbonico"][locale] + ': </span> ' + cktl.carbonico + '<br>' + '<span class=\"title_section\">' + i18n["Vaso"][locale] + ': </span> ' + cktl.vaso + '<br>');
         $('#title').append(cktl.nombre + "</br>");
 
         if (cktl.rating > 0) {
@@ -225,24 +226,21 @@
           <img id="cocktail_image" />
           <div class="div_share">
             <a id="a_share" style="-webkit-tap-highlight-color: rgba(255, 255, 255, 0);"> <img id="shareImg" src="../images/ic_cocktail_share.png" alt="Compartir" />
-            <p style="color: white; text-decoration: none;">
-              Compartir
-            </p> </a>
+              <p style="color: white; text-decoration: none;" data-i18n="share"></p>
+            </a>
           </div>
           <div id="div_rating"></div>
           <div id="cocktail_info" style="width: 65%;"></div>
         </div>
         <div class="div_more_id" style="float:left;">
           <a id="a_more" style="-webkit-tap-highlight-color: rgba(255, 255, 255, 0);"> <img id="cocktailMoreImg" src="../images/ic_cocktail_zoom.png" alt="Ver mas cocktails" />
-          <p style="color: white; text-decoration: none;">
-            Ver m&aacute;s cocktails del usuario
-          </p> </a>
+            <p style="color: white; text-decoration: none;" data-i18n="more_cocktails"></p>
+          </a>
         </div>
         <div class="div_rate" id="div_rate_id" style="float: right;">
           <a id="a_rate" style="-webkit-tap-highlight-color: rgba(255, 255, 255, 0);"> <img id="cocktailStarImg" class="button-main-menu" src="../images/ic_cocktail_star.png"/>
-          <p style="color: white; text-decoration: none;">
-              Votar cocktail
-          </p> </a>
+            <p style="color: white; text-decoration: none;" data-i18n="rating_cocktail"></p>
+          </a>
         </div>
       </div>
     </div>
