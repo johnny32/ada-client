@@ -103,11 +103,11 @@ function onDeviceReady() {
   var onCredits = function() {
     loadPage('credits.html');
   };
-
+  var locale = getBrowserLocale();
   var optionsmenu = new OptionsMenu({
     id : "optionsmenu",
     items : [[{
-      label : "Créditos",
+      label : i18n["credits"][locale],
       image : "../images/ic_credits.png",
       action : onCredits
     }]]

@@ -50,6 +50,11 @@ i18n = {
     'es' : 'Los mejores',
     'ca' : 'Els millors'
   },
+  credits:{
+    'en' : 'Credits',
+    'es' : 'Créditos',
+    'ca' : 'Crèdits'
+  },
   /********************** WHO WE ARE *********************/
   who_we_are1:{
     'en' : 'We are a company dedicated to training in all aspects of the liquor.',
