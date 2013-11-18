@@ -37,17 +37,7 @@
         });
         authUser();
         
-        $('#lessImg').hover(function() {
-          $(this).attr('src', '../images/ic_less_hover.png');
-        }, function() {
-          $(this).attr('src', '../images/ic_less.png');
-        });
-        
-        $('#moreImg').hover(function() {
-          $(this).attr('src', '../images/ic_more_hover.png');
-        }, function() {
-          $(this).attr('src', '../images/ic_more.png');
-        });
+        loadCocktails();
       });
       
       var page = 0;
@@ -56,6 +46,7 @@
         var locale = getBrowserLocale();
         $('#content').hide();
         $('#less').hide();
+        $('#more').hide();
         var opts = {
           lines : 13, // The number of lines to draw
           length : 20, // The length of each line
@@ -76,7 +67,10 @@
         }
         var target = document.getElementById('loading');
         var spinner = new Spinner(opts).spin(target);
+      });  
         
+        
+      function loadCocktails(){  
         var params = getUrlParameters();
         var cocktails;
                 
@@ -151,7 +145,8 @@
           var a = "<li class=\"list_cocktail\" onclick=\"loadPage('cocktail.html', {id: '" + cktl._id + "'})\"><a id:'" + cktl._id + "' class=\"list_cocktail_item\">" + cktl.nombre + "</a></li>";
            $("#list-cocktails").append(a);
         }
-      });
+        $('#more').show();
+      }
       
       function more10(){
         page++;
@@ -172,6 +167,9 @@
               less10();
             }
             else{
+           	  if(data.length < 10){
+                $('#more').hide();
+           	  }
               cocktails = data;
               $('#loading').hide();
               for (var c in cocktails) {
@@ -195,6 +193,7 @@
         }
         $('#list-cocktails').html("");
         $('#loading').show();
+        $('#more').show();
         $.ajax({
           type : "GET",
           url : server_url + cocktails_route + "/q/" + (page*10),

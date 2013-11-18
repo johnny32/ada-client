@@ -226,9 +226,9 @@ i18n = {
     'ca' : 'Veure més coctails de l\'usuari'
   },
   rating_cocktail:{
-    'en' : 'Rating cocktail:',
-    'es' : 'Votar coctail:',
-    'ca' : 'Votar coctail:'
+    'en' : 'Rating cocktail',
+    'es' : 'Votar coctail',
+    'ca' : 'Votar coctail'
   },
   ya_has_votado:{
     'en' : 'You have already voted for this cocktail',

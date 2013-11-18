@@ -36,14 +36,46 @@
 
     <script>
     
+      function loadLoading(){
+        $('#div_more_div').hide();
+        $('#div_rate_id').hide();
+        
+        var opts = {
+          lines : 13, // The number of lines to draw
+          length : 20, // The length of each line
+          width : 23, // The line thickness
+          radius : 40, // The radius of the inner circle
+          corners : 1, // Corner roundness (0..1)
+          rotate : 90, // The rotation offset
+          direction : 1, // 1: clockwise, -1: counterclockwise
+          color : '#CCC', // #rgb or #rrggbb
+          speed : 0.5, // Rounds per second
+          trail : 52, // Afterglow percentage
+          shadow : true, // Whether to render a shadow
+          hwaccel : true, // Whether to use hardware acceleration
+          className : 'spinner', // The CSS class to assign to the spinner
+          zIndex : 2e9, // The z-index (defaults to 2000000000)
+          top : 'auto', // Top position relative to parent in px
+          left : 'auto' // Left position relative to parent in px
+        }
+        var target = document.getElementById('loading');
+        var spinner = new Spinner(opts).spin(target);
+      }
+    
       document.addEventListener("deviceready", function(){
+        $('#content').hide();
+        
         FB.init({
             appId: '326614590799358',
             nativeInterface: CDV.FB,
             useCachedDialogs: false
         });
         authUser();
-        
+        loadCocktail();
+      });
+      
+      function loadCocktail(){
+      
         var cocktail_id = getUrlParameters("id").id;
         console.log("cocktail_id: " + cocktail_id);
         if (cocktail_id == 'r') {
@@ -100,7 +132,7 @@
           $(this).attr('src', '../images/ic_cocktail_star.png');
         });
         
-      }, false);
+      }
 
       function fillData(cktl, user_name) {
         console.log("Fill data");
@@ -126,6 +158,10 @@
           $('#cocktail_info').append('<span class=\"title_section\">' + i18n["Licor"][locale] + ': </span> ' + cktl.licores.join(', ') + '<br>');
         $('#cocktail_info').append('<span class=\"title_section\">' + i18n["Carbonico"][locale] + ': </span> ' + cktl.carbonico + '<br>' + '<span class=\"title_section\">' + i18n["Vaso"][locale] + ': </span> ' + cktl.vaso + '<br>');
         $('#title').append(cktl.nombre + "</br>");
+
+        $('#loading').hide();
+        $('#div_more_div').show();
+        $('#div_rate_id').show();
 
         if (cktl.rating > 0) {
           var rating = rating2Image(cktl.rating);
@@ -206,7 +242,7 @@
       }
     </style>
   </head>
-  <body>
+  <body onLoad="loadLoading()">
     <!-- This initializes the Facebook JS SDK. -->
     <div id="fb-root"></div>
     
@@ -215,7 +251,7 @@
     
       <div id="msg"></div>
     </div>
-    
+    <div id="loading" style="position: relative; top: 300px;"></div>
     <div class="content">
       <div id="header2">
         <img class="logo" src="../images/logo_petit.png" alt="Sinatra Cocteleria" onclick="loadPage('index.html')"/>
@@ -232,7 +268,7 @@
           <div id="div_rating"></div>
           <div id="cocktail_info" style="width: 65%;"></div>
         </div>
-        <div class="div_more_id" style="float:left;">
+        <div class="div_more_id" id="div_more_div" style="float:left;">
           <a id="a_more" style="-webkit-tap-highlight-color: rgba(255, 255, 255, 0);"> <img id="cocktailMoreImg" src="../images/ic_cocktail_zoom.png" alt="Ver mas cocktails" />
             <p style="color: white; text-decoration: none;" data-i18n="more_cocktails"></p>
           </a>
