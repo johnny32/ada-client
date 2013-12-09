@@ -29,10 +29,10 @@
       $(document).ready(function(){
       
         var data = JSON.parse(window.localStorage.getItem("list_Galeria"));
-      
+        
         $.each(data, function(k,v){ 
           console.log(v);
-          $('#Gallery').append('<li><a href="' + server_url + images_ingredients_route + "/" + v.thumbnail + '"><img src="' + server_url + images_ingredients_route + "/" + v.imagen + '"/></a></li>');
+          $('#Gallery').append('<li><a href="http://192.241.145.147' + v.thumb + '"><img src="http://192.241.145.147' + v.image + '"/></a></li>');
         });
       
         var myPhotoSwipe = $("#Gallery a").photoSwipe({

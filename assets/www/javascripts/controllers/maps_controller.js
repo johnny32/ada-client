@@ -10,18 +10,16 @@
 function initialize() {
   
   var data = JSON.parse(window.localStorage.getItem("list_Mapa"));
-  var centro = data.centro;
-  var puntos = data.puntos;
   
   var mapProp = {
-    center: new google.maps.LatLng(centro.latitud, centro.longitud), //Per a que es vegi be el globus, no centrem el mapa just a on esta la cockteleria, sino una mica mes amunt i a la dreta
-    zoom: centro.zoom,
+    center: new google.maps.LatLng(41.971634, 2.824428), //Per a que es vegi be el globus, no centrem el mapa just a on esta la cockteleria, sino una mica mes amunt i a la dreta
+    zoom: 9,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
   var map = new google.maps.Map(document.getElementById("google-map"), mapProp);
   
-  $.each(puntos, function(k,v){
-    afegirGlobus(map, v.latitud, v.longitud, v.titulo, v.descripcion);
+  $.each(data, function(k,v){
+    afegirGlobus(map, v.latitude, v.longitude, v.name, v.address);
   });
 }
 

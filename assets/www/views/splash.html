@@ -123,172 +123,258 @@
       });
       function init() {
         var locale = getBrowserLocale();
-        //Comprovar versio d'ingredients
-        
-        //Descarregar versio zumos
-        //TODO: Obtenir version del servidor (Zumos)
-        vZumoDown = 1;
-        console.log("Version zumos: " + window.localStorage.getItem("vZumo"));
-        vZumoLocal = window.localStorage.getItem("vZumo");
-        if(vZumoLocal == null || vZumoLocal < vZumoDown){
-        	console.log("Descargar zumos");
-        	//Descarregar zumos
-        	
-        	$.ajax({
-            type : "GET",
-            async : false,
-            url : server_url + ingredients_route + "/Zumo",
-            dataType : "json",
-            success : function(data) {
-              console.log("success zumos");
+
+        //Descarregar zumos
+        $.ajax({
+          type : "GET",
+          async : false,
+          url : "http://192.241.145.147/api/juices",
+          dataType : "json",
+          success : function(data) {
+            console.log("success zumos");
+            
+            //Obtenir el timestamp més elevat
+            var vZumoDown = null;
+            $.each(data, function(k,v){
+              console.log(v.timestamp);
+              if(vZumoDown == null || vZumoDown < v.timestamp){
+                vZumoDown = v.timestamp
+              }
+            });
+            
+            //Si el més elevat es després del que tenim guardat o no en tenim cap de guardat, guardar tots els sucs
+            console.log("Version zumos: " + window.localStorage.getItem("vZumo"));
+            vZumoLocal = window.localStorage.getItem("vZumo");
+            if(vZumoLocal == null || vZumoLocal < vZumoDown){
+              //guardar el nou timestamp (el mes elevat) i el llistat de sucs
+              window.localStorage.setItem("vZumo", vZumoDown);
               window.localStorage.setItem("list_Zumo", JSON.stringify(data));
-            },
-            error : function(header, status, from) {
-              navigator.notification.confirm("Error de connexión", retryConnection, "Error", 'Reintentar, Salir');
             }
-          });
-        	window.localStorage.setItem("vZumo", vZumoDown);
-        	console.log("Zumos version: " + vZumoDown);
-        }
-        
-        //Descarregar versio licores
-        //TODO: Obtenir version del servidor (Licores)
-        vLicorDown = 1;
-        console.log("Version licores: " + window.localStorage.getItem("vLicor"));
-        vLicorLocal = window.localStorage.getItem("vLicor");
-        if(vLicorLocal == null || vLicorLocal < vLicorDown){
-        	console.log("Descargar licores");
-        	//Descarregar licores
-        	
-        	$.ajax({
-            type : "GET",
-            async : false,
-            url : server_url + ingredients_route + "/Licor",
-            dataType : "json",
-            success : function(data) {
-              console.log("success licor");
+            //Altrament, no guardar res
+            
+          },
+          error : function(header, status, from) {
+            if(locale == 'es'){
+              navigator.notification.confirm("Error de conexión", retryConnection, "Error", 'Reintentar, Salir');
+            }
+            else if(locale == 'ca'){
+              navigator.notification.confirm("Error de conexió", retryConnection, "Error", 'Reintentar, Sortir');
+            }
+            else{
+              navigator.notification.confirm("Connection unavailable", retryConnection, "Error", 'Retry, Exit');
+            }
+          }
+        });
+  
+        //Descarregar licores
+        $.ajax({
+          type : "GET",
+          async : false,
+          url : "http://192.241.145.147/api/licors",
+          dataType : "json",
+          success : function(data) {
+            console.log("success licores");
+            
+            //Obtenir el timestamp més elevat
+            var vLicorDown = null;
+            $.each(data, function(k,v){
+              console.log(v.timestamp);
+              if(vLicorDown == null || vLicorDown < v.timestamp){
+                vLicorDown = v.timestamp
+              }
+            });
+            
+            //Si el més elevat es després del que tenim guardat o no en tenim cap de guardat, guardar tots els licors
+            console.log("Version licores: " + window.localStorage.getItem("vLicor"));
+            vLicorLocal = window.localStorage.getItem("vLicor");
+            if(vLicorLocal == null || vLicorLocal < vLicorDown){
+              //guardar el nou timestamp (el mes elevat) i el llistat de licors
+              window.localStorage.setItem("vLicor", vLicorDown);
               window.localStorage.setItem("list_Licor", JSON.stringify(data));
-            },
-            error : function(header, status, from) {
-              navigator.notification.confirm("Error de connexión", retryConnection, "Error", 'Reintentar, Salir');
             }
-          });
-        	window.localStorage.setItem("vLicor", vLicorDown);
-        	console.log("Licores version: " + vLicorDown);
-        }
-        
-        //Descarregar version carbonicos
-        //TODO: Obtenir version del servidor (Carbonicos)
-        vCarbonicoDown = 1;
-        console.log("Version carbonicos: " + window.localStorage.getItem("vCarbonico"));
-        vCarbonicoLocal = window.localStorage.getItem("vCarbonico");
-        if(vCarbonicoLocal == null || vCarbonicoLocal < vCarbonicoDown){
-        	console.log("Descargar carbonicos");
-        	//Descarregar carbonicos
-        	
-        	$.ajax({
-            type : "GET",
-            async : false,
-            url : server_url + ingredients_route + "/Carbonico",
-            dataType : "json",
-            success : function(data) {
-              console.log("success carbonico");
+            //Altrament, no guardar res
+            
+          },
+          error : function(header, status, from) {
+            if(locale == 'es'){
+              navigator.notification.confirm("Error de conexión", retryConnection, "Error", 'Reintentar, Salir');
+            }
+            else if(locale == 'ca'){
+              navigator.notification.confirm("Error de conexió", retryConnection, "Error", 'Reintentar, Sortir');
+            }
+            else{
+              navigator.notification.confirm("Connection unavailable", retryConnection, "Error", 'Retry, Exit');
+            }
+          }
+        });
+  
+        //Descarregar carbonicos
+        $.ajax({
+          type : "GET",
+          async : false,
+          url : "http://192.241.145.147/api/carbonics",
+          dataType : "json",
+          success : function(data) {
+            console.log("success carbonicos");
+            
+            //Obtenir el timestamp més elevat
+            var vCarbonicoDown = null;
+            $.each(data, function(k,v){
+              console.log(v.timestamp);
+              if(vCarbonicoDown == null || vCarbonicoDown < v.timestamp){
+                vCarbonicoDown = v.timestamp
+              }
+            });
+            
+            //Si el més elevat es després del que tenim guardat o no en tenim cap de guardat, guardar tots els carbonics
+            console.log("Version carbonico: " + window.localStorage.getItem("vCarbonico"));
+            vCarbonicoLocal = window.localStorage.getItem("vCarbonico");
+            if(vCarbonicoLocal == null || vCarbonicoLocal < vCarbonicoDown){
+              //guardar el nou timestamp (el mes elevat) i el llistat de carbonics
+              window.localStorage.setItem("vCarbonico", vCarbonicoDown);
               window.localStorage.setItem("list_Carbonico", JSON.stringify(data));
-            },
-            error : function(header, status, from) {
-              navigator.notification.confirm("Error de connexión", retryConnection, "Error", 'Reintentar, Salir');
             }
-          });
-        	window.localStorage.setItem("vCarbonico", vCarbonicoDown);
-        	console.log("Carbonicos version: " + vCarbonicoDown);
-        }
-        
-        //Descarregar versio vasos
-        //TODO: Obtenir version del servidor (Vasos)
-        vVasoDown = 1;
-        console.log("Version vasos: " + window.localStorage.getItem("vVaso"));
-        vVasoLocal = window.localStorage.getItem("vVaso");
-        if(vVasoLocal == null || vVasoLocal < vVasoDown){
-        	console.log("Descargar vasos");
-        	//Descarregar vasos
-        	
-        	$.ajax({
-            type : "GET",
-            async : false,
-            url : server_url + ingredients_route + "/Vaso",
-            dataType : "json",
-            success : function(data) {
-              console.log("success vaso");
+            //Altrament, no guardar res
+            
+          },
+          error : function(header, status, from) {
+            if(locale == 'es'){
+              navigator.notification.confirm("Error de conexión", retryConnection, "Error", 'Reintentar, Salir');
+            }
+            else if(locale == 'ca'){
+              navigator.notification.confirm("Error de conexió", retryConnection, "Error", 'Reintentar, Sortir');
+            }
+            else{
+              navigator.notification.confirm("Connection unavailable", retryConnection, "Error", 'Retry, Exit');
+            }
+          }
+        });
+
+        //Descarregar vasos
+        $.ajax({
+          type : "GET",
+          async : false,
+          url : "http://192.241.145.147/api/glasses",
+          dataType : "json",
+          success : function(data) {
+            console.log("success vasos");
+            
+            //Obtenir el timestamp més elevat
+            var vVasoDown = null;
+            $.each(data, function(k,v){
+              console.log(v.timestamp);
+              if(vVasoDown == null || vVasoDown < v.timestamp){
+                vVasoDown = v.timestamp
+              }
+            });
+            
+            //Si el més elevat es després del que tenim guardat o no en tenim cap de guardat, guardar tots els gots
+            console.log("Version vasos: " + window.localStorage.getItem("vVaso"));
+            vVasoLocal = window.localStorage.getItem("vVaso");
+            if(vVasoLocal == null || vVasoLocal < vVasoDown){
+              //guardar el nou timestamp (el mes elevat) i el llistat de gots
+              window.localStorage.setItem("vVaso", vVasoDown);
               window.localStorage.setItem("list_Vaso", JSON.stringify(data));
-            },
-            error : function(header, status, from) {
-              if(locale == 'es'){
-                navigator.notification.confirm("Error de conexión", retryConnection, "Error", 'Reintentar, Salir');
-              }
-              else if(locale == 'ca'){
-                navigator.notification.confirm("Error de conexió", retryConnection, "Error", 'Reintentar, Sortir');
-              }
-              else{
-                navigator.notification.confirm("Connection unavailable", retryConnection, "Error", 'Retry, Exit');
-              }
             }
-          });
-        	window.localStorage.setItem("vVaso", vVasoDown);
-        	console.log("Vasos version: " + vVasoDown);
-        }
-        
-        //Comprovar versio galeria
-        
-        //TODO: Obtenir version del servidor (Galeria)
-        vGaleriaDown = 2;
-        console.log("Version galeria: " + window.localStorage.getItem("vGaleria"));
-        vGaleriaLocal = window.localStorage.getItem("vGaleria");
-        if(vGaleriaLocal == null || vGaleriaLocal < vGaleriaDown){
-          console.log("Descargar galeria");
-          //Descarregar galeria
-          
-          //TODO: Descargar galeria de servidor
-          
-          //TODO: Quitar galeria hardcoreada
-          data = [{"_id": "1", "imagen" : "vaso/vaso_hawaii.jpg", "thumbnail": "vaso/vaso_hawaii.jpg"}, {"_id": "2", "imagen" : "vaso/vaso_penguen.jpg", "thumbnail": "vaso/vaso_penguen.jpg"}, {"_id": "3", "imagen" : "vaso/vaso_mojito.jpg",  "thumbnail": "vaso/vaso_penguen.jpg"}];
-          
-          window.localStorage.setItem("list_Galeria", JSON.stringify(data));
-         
-          window.localStorage.setItem("vGaleria", vGaleriaDown);
-          console.log("Galeria version: " + vGaleriaDown);
-        }
-        
-        //Comprovar versio punts del mapa
-        
-        //TODO: Obtenir version del servidor (Punts mapa)
-        vMapaDown = 2;
-        console.log("Version mapa: " + window.localStorage.getItem("vMapa"));
-        vMapaLocal = window.localStorage.getItem("vMapa");
-        if(vMapaLocal == null || vMapaLocal < vMapaDown){
-          console.log("Descargar mapa");
-          //Descarregar mapa
-          
-          //TODO: Descargar mapa de servidor
-          
-          //TODO: Quitar mapa hardcoreada
-          data = {"centro": {"latitud": 41.971634, "longitud": 2.824428, "zoom": 9}, "puntos": [{"latitud": 41.975434, "longitud": 2.823328, "titulo": "Escuela Sinatra Cockteleria", "descripcion": "C/ Creu, 2-Bis, Desp. 3"}, {"latitud": 41.815156, "longitud": 3.065009, "titulo": "Baobab (antiguo Bar Havana)", "descripcion": "Av/ s'Agaró, 176.<br /> Al lado de la disctoteca Malibu"}]};
-          
-          console.log(JSON.stringify(data));
-          
-          window.localStorage.setItem("list_Mapa", JSON.stringify(data));
-         
-          window.localStorage.setItem("vMapa", vMapaDown);
-          console.log("Mapa version: " + vMapaDown);
-        }
-        if(locale == 'es'){
-          $('#element_loading_txt').html("Inicializando sesión de Facebook");
-        }
-        else if(locale == 'ca'){
-          $('#element_loading_txt').html("Inicialitzant sessió de Facebook");
-        }
-        else{
-          $('#element_loading_txt').html("Initializing Facebook session");
-        }
+            //Altrament, no guardar res
+            
+          },
+          error : function(header, status, from) {
+            if(locale == 'es'){
+              navigator.notification.confirm("Error de conexión", retryConnection, "Error", 'Reintentar, Salir');
+            }
+            else if(locale == 'ca'){
+              navigator.notification.confirm("Error de conexió", retryConnection, "Error", 'Reintentar, Sortir');
+            }
+            else{
+              navigator.notification.confirm("Connection unavailable", retryConnection, "Error", 'Retry, Exit');
+            }
+          }
+        });
+
+        //Descarregar galeria
+        $.ajax({
+          type : "GET",
+          async : false,
+          url : "http://192.241.145.147/api/galleries",
+          dataType : "json",
+          success : function(data) {
+            console.log("success galeria");
+            
+            //Obtenir el timestamp més elevat
+            var vGaleriaDown = null;
+            $.each(data, function(k,v){
+              console.log(v.timestamp);
+              if(vGaleriaDown == null || vGaleriaDown < v.timestamp){
+                vGaleriaDown = v.timestamp
+              }
+            });
+            
+            //Si el més elevat es després del que tenim guardat o no en tenim cap de guardat, guardar totes les galeries
+            console.log("Version galeria: " + window.localStorage.getItem("vGaleria"));
+            vGaleriaLocal = window.localStorage.getItem("vGaleria");
+            if(vGaleriaLocal == null || vGaleriaLocal < vGaleriaDown){
+              //guardar el nou timestamp (el mes elevat) i el llistat de les galeries
+              window.localStorage.setItem("vGaleria", vGaleriaDown);
+              window.localStorage.setItem("list_Galeria", JSON.stringify(data));
+            }
+            //Altrament, no guardar res
+            
+          },
+          error : function(header, status, from) {
+            if(locale == 'es'){
+              navigator.notification.confirm("Error de conexión", retryConnection, "Error", 'Reintentar, Salir');
+            }
+            else if(locale == 'ca'){
+              navigator.notification.confirm("Error de conexió", retryConnection, "Error", 'Reintentar, Sortir');
+            }
+            else{
+              navigator.notification.confirm("Connection unavailable", retryConnection, "Error", 'Retry, Exit');
+            }
+          }
+        });
+
+        //Descarregar mapa
+        $.ajax({
+          type : "GET",
+          async : false,
+          url : "http://192.241.145.147/api/maps",
+          dataType : "json",
+          success : function(data) {
+            console.log("success mapa");
+            alert("ojo, que falta el punto central del mapa, ¿punto medio de los puntos?");
+            //Obtenir el timestamp més elevat
+            var vMapaDown = null;
+            $.each(data, function(k,v){
+              console.log(v.timestamp);
+              if(vMapaDown == null || vMapaDown < v.timestamp){
+                vMapaDown = v.timestamp
+              }
+            });
+            
+            //Si el més elevat es després del que tenim guardat o no en tenim cap de guardat, guardar tots els punts del mapa
+            console.log("Version mapa: " + window.localStorage.getItem("vMapa"));
+            vMapaLocal = window.localStorage.getItem("vMapa");
+            if(vMapaLocal == null || vMapaLocal < vMapaDown){
+              //guardar el nou timestamp (el mes elevat) i el llistat dels mapes
+              window.localStorage.setItem("vMapa", vMapaDown);
+              window.localStorage.setItem("list_Mapa", JSON.stringify(data));
+            }
+            //Altrament, no guardar res
+            
+          },
+          error : function(header, status, from) {
+            if(locale == 'es'){
+              navigator.notification.confirm("Error de conexión", retryConnection, "Error", 'Reintentar, Salir');
+            }
+            else if(locale == 'ca'){
+              navigator.notification.confirm("Error de conexió", retryConnection, "Error", 'Reintentar, Sortir');
+            }
+            else{
+              navigator.notification.confirm("Connection unavailable", retryConnection, "Error", 'Retry, Exit');
+            }
+          }
+        });
         
   	    FB.init({
   	      appId: '326614590799358',
