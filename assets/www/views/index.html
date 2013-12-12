@@ -33,7 +33,11 @@
       
     </style>
     <script>
+    
       document.addEventListener("deviceready", function(){
+      
+        console.log("===> ZUMOS: " + window.localStorage.getItem("list_Zumo"));
+        
         FB.init({
             appId: '326614590799358',
             nativeInterface: CDV.FB,

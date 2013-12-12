@@ -62,10 +62,28 @@ $(document).ready(function($) {
         var images_route;
         var wrapper = $('.swiper-wrapper');
         
-        wrapper.append('<div class="swiper-slide" id="' + actual_product + key + 
-          '">' + '<div id="elem_title' + key + '" style="font-size: 22px; margin: 10px 0 10px 0;">' + 
-          value.descripcion + '</div>' + '<div id="elem_image' + key + '">' + 
-          '<img class="cocktail_slide_image" src="' + server_url + images_ingredients_route + "/" +value.imagen + '">' + '</div>' + '</div>');
+        console.log("====> VALUE: " + JSON.stringify(value));
+        
+        console.log('====>IMAGE: "http://192.241.145.147' + value.image + '"');
+        
+        if(locale == 'es'){
+          wrapper.append('<div class="swiper-slide" id="' + actual_product + key + 
+            '">' + '<div id="elem_title' + key + '" server_id="' + value.id + '" style="font-size: 22px; margin: 10px 0 10px 0;">' + 
+            value.name_es + '</div>' + '<div id="elem_image' + key + '">' + 
+            '<img class="cocktail_slide_image" src="http://192.241.145.147' + value.image + '">' + '</div>' + '</div>');
+        }
+        else if(locale == 'ca'){
+          wrapper.append('<div class="swiper-slide" id="' + actual_product + key + 
+            '">' + '<div id="elem_title' + key + '" server_id="' + value.id + '" style="font-size: 22px; margin: 10px 0 10px 0;">' + 
+            value.name_ca + '</div>' + '<div id="elem_image' + key + '">' + 
+            '<img class="cocktail_slide_image" src="http://192.241.145.147' + value.image + '">' + '</div>' + '</div>');
+        }
+        else{
+          wrapper.append('<div class="swiper-slide" id="' + actual_product + key + 
+            '">' + '<div id="elem_title' + key + '" server_id="' + value.id + '" style="font-size: 22px; margin: 10px 0 10px 0;">' + 
+            value.name_en + '</div>' + '<div id="elem_image' + key + '">' + 
+            '<img class="cocktail_slide_image" src="http://192.241.145.147' + value.image + '">' + '</div>' + '</div>');
+        }
       });
       
       //Swiper Scroller
@@ -248,8 +266,12 @@ $(document).ready(function($) {
         }
         else{
           var element_id = mySwiper.activeSlide
+          
+          //TODO: Element id = server_id
+          
           var elem = new Object();
-          elem.id = element_id;
+          //elem.id = element_id;
+          elem.id = $('#elem_title' + element_id).attr("server_id");
           elem.nombre = $('#elem_title' + element_id).text();
   
           //Check if element isn't in array
@@ -272,6 +294,9 @@ $(document).ready(function($) {
               $('#element_loading').hide();
             },300);
           }
+          
+          console.log("=======> ELEM: " + JSON.stringify(actual_array));
+          
         }
       },
       finish_element_function : function() {
