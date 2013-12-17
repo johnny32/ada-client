@@ -36,13 +36,14 @@
     
     <script>
       document.addEventListener("deviceready", function(){
+/*           
         FB.init({
             appId: '326614590799358',
             nativeInterface: CDV.FB,
             useCachedDialogs: false
         });
         authUser();
-        
+  */      
         $('#saveImg').hover(function() {
           $(this).attr('src', '../images/ic_cocktail_checkmark_hover.png');
         }, function() {
@@ -51,7 +52,10 @@
         
       });
 
-      $(document).ready(function($) {
+      $(document).ready(function() {
+        console.log("DOCUMENT READY");
+        console.log("MAKE COCKTAIL FINAL: " + window.localStorage.getItem("cocktail_temp"));
+
         var opts = {
           lines : 13, // The number of lines to draw
           length : 20, // The length of each line
@@ -75,49 +79,53 @@
         var data_img;
         //Obtenir imatge cocktail
         cocktail = window.localStorage.getItem("cocktail_temp");
+        console.log("===>get cocktail image");
+
         $.ajax({
-          type : "POST",
-          url : server_url + "/image",
+          type : "GET",
+          url : "http://192.241.145.147/api/cocktails/get_image_cocktail",
           data : JSON.parse(cocktail),
-          success : function(data) {
-            data_img = data.img;
-            $('#cocktail_image').attr("src", server_url + data.img);
-            color_array = data.img.split('_');
-            color = color_array[color_array.length - 1].split('.')[0];
-            
-            if(color == "Amarillo")  $('#cocktail_image').attr("class", "border-amarillo");
-            else if(color == "Verde") $('#cocktail_image').attr("class", "border-verde");
-            else if(color == "Rojo") $('#cocktail_image').attr("class", "border-rojo");
-            else if(color == "Naranja") $('#cocktail_image').attr("class", "border-naranja");
-            
+          success : function(data){
+            console.log("Success image: " + JSON.stringify(data));
+            data_img = data.image;
+            $('#cocktail_image').attr("src", "http://192.241.145.147" + data_img);
+            $('#cocktail_image').attr("class", "border-azul");
             loadCocktail();
-           },
+          },
           error: function(header, status, from){
-            alert("Error con el servidor");
+            alert("Error con el servidor getting image");
           }
         });
-
+        
         $('#send_cocktail').click(function() {
           
+          console.log("SEND COCKTAIL CLICK");
           var user_id = window.localStorage.getItem("fb_id");
-          
           //var user_id = "1093535454";
           
           var cocktail = jQuery.parseJSON(window.localStorage.getItem("cocktail_temp"));
-          cocktail.creador = user_id;
-          cocktail.imagen = data_img;
-          cocktail = JSON.stringify(cocktail);
-
+          cocktail.fb_user = user_id;
+          cocktail.image = data_img;
+          //cocktail = JSON.stringify(cocktail);
+          console.log("SEND: " + JSON.stringify(cocktail));
           $.ajax({
             type : "POST",
-            url : server_url + cocktails_route,
-            data : JSON.parse(cocktail),
+            url : "http://192.241.145.147/api/cocktails/",
+            //data : JSON.parse(cocktail),
+            data : cocktail,
             success : function(data) {
               //Mostrar pagina de compartir
               // data.url -> Url a postejar al fb
               // data.id -> Id del cocktail
+              console.log("SUCESS: " + JSON.stringify(data));
+              console.log("ID: " + data.id);
+              console.log("IMAGE: " + data_img);
               cocktail = jQuery.parseJSON(window.localStorage.getItem("cocktail_temp"));
-              publishStory(cocktail.nombre, data.id, data_img);
+              console.log("NAME: " + cocktail.name);
+              console.log("COCKTAIL: " + JSON.stringify(cocktail));
+              //TODO uncomment this line
+              //publishStory(cocktail.name, data.id, data_img);
+              console.log("AFTER PUBLISH STORY");
               loadPage('cocktail.html', {"id": data.id, "back": '1'})
             },
             error : function(data) {
@@ -128,29 +136,31 @@
       });
 
       function loadCocktail() {
+        
         $('#info').show();
         $('#loading').hide();
         var locale = getBrowserLocale();
-        cocktail = jQuery.parseJSON(window.localStorage.getItem("cocktail_temp"));
+        cocktail = jQuery.parseJSON(window.localStorage.getItem("cocktail_temp_with_names"));
         $('#cocktail_info').append("<span class=\"title_section\">" + i18n["Zumo"][locale] + ": </span>");
-        for (var i = 0; i < cocktail.zumos.length; i++) {
-          if(i != cocktail.zumos.length - 1)
-            $('#cocktail_info').append(cocktail.zumos[i] + ",");
+        for (var i = 0; i < cocktail.juices.length; i++) {
+          console.log("JUICES: " + JSON.stringify(cocktail.juices[i]));
+          if(i != cocktail.juices.length - 1)
+            $('#cocktail_info').append(cocktail.juices[i] + ",");
           else
-            $('#cocktail_info').append(cocktail.zumos[i] + "<br />");
+            $('#cocktail_info').append(cocktail.juices[i] + "<br />");
         }
-        if(cocktail.licores.length > 0){
+        if(cocktail.licors.length > 0){
           $('#cocktail_info').append("<span class=\"title_section\">" + i18n["Licor"][locale] + ": </span>");
-          for (var i = 0; i < cocktail.licores.length; i++) {
-            if(i != cocktail.licores.length - 1)
-              $('#cocktail_info').append(cocktail.licores[i] + ",");
+          for (var i = 0; i < cocktail.licors.length; i++) {
+            if(i != cocktail.licors.length - 1)
+              $('#cocktail_info').append(cocktail.licors[i] + ",");
             else
-              $('#cocktail_info').append(cocktail.licores[i] + "</br>");
+              $('#cocktail_info').append(cocktail.licors[i] + "</br>");
           }
         }
-        $('#cocktail_info').append("<span class=\"title_section\">" + i18n["Carbonico"][locale] + ": </span>" + cocktail.carbonico + "</br>");
-        $('#cocktail_info').append("<span class=\"title_section\">" + i18n["Vaso"][locale] + ": </span>" + cocktail.vaso + "</br>");
-        $('#title').append(cocktail.nombre + "</br>");
+        $('#cocktail_info').append("<span class=\"title_section\">" + i18n["Carbonico"][locale] + ": </span>" + cocktail.carbonic + "</br>");
+        $('#cocktail_info').append("<span class=\"title_section\">" + i18n["Vaso"][locale] + ": </span>" + cocktail.glass + "</br>");
+        $('#title').append(cocktail.name + "</br>");
       }
 
     </script>

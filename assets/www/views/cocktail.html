@@ -78,10 +78,15 @@
       
         var cocktail_id = getUrlParameters("id").id;
         console.log("cocktail_id: " + cocktail_id);
+        
         if (cocktail_id == 'r') {
+        
+          var data = new Object();
+          data.locale = getBrowserLocale();
           $.ajax({
             type : "GET",
-            url : server_url + cocktails_route + "/recommended",
+            url :"http://192.241.145.147/api/cocktails/get_admin_cocktail",
+            data: data,
             dataType : "json",
             async : false,
             success : function(data) {
@@ -138,26 +143,15 @@
         console.log("Fill data");
         var locale = getBrowserLocale();
         $('#info').show();
-        color_array = cktl.imagen.split('_');
-        console.log("color_array: " + color_array);
-        color = color_array[color_array.length - 1].split('.')[0];
+        
+        $('#cocktail_image').attr("src", "http://192.241.145.147" + cktl.imagen);
+        $('#cocktail_image').attr("class", "border-azul");
 
-        $('#cocktail_image').attr("src", server_url + cktl.imagen);
-
-        if (color == "Amarillo")
-          $('#cocktail_image').attr("class", "border-amarillo");
-        else if (color == "Verde")
-          $('#cocktail_image').attr("class", "border-verde");
-        else if (color == "Rojo")
-          $('#cocktail_image').attr("class", "border-rojo");
-        else if (color == "Naranja")
-          $('#cocktail_image').attr("class", "border-naranja");
-
-        $('#cocktail_info').append('<span class=\"title_section\">' + i18n["Creador"][locale] + ': </span> ' + user_name + '<br>' + '<span class=\"title_section\">' + i18n["Zumo"][locale] + ': </span> ' + cktl.zumos.join(', ') + '<br>');
-        if (cktl.licores.length > 0)
-          $('#cocktail_info').append('<span class=\"title_section\">' + i18n["Licor"][locale] + ': </span> ' + cktl.licores.join(', ') + '<br>');
-        $('#cocktail_info').append('<span class=\"title_section\">' + i18n["Carbonico"][locale] + ': </span> ' + cktl.carbonico + '<br>' + '<span class=\"title_section\">' + i18n["Vaso"][locale] + ': </span> ' + cktl.vaso + '<br>');
-        $('#title').append(cktl.nombre + "</br>");
+        $('#cocktail_info').append('<span class=\"title_section\">' + i18n["Creador"][locale] + ': </span> ' + user_name + '<br>' + '<span class=\"title_section\">' + i18n["Zumo"][locale] + ': </span> ' + cktl.juices.join(', ') + '<br>');
+        if (cktl.licors.length > 0)
+          $('#cocktail_info').append('<span class=\"title_section\">' + i18n["Licor"][locale] + ': </span> ' + cktl.licors.join(', ') + '<br>');
+        $('#cocktail_info').append('<span class=\"title_section\">' + i18n["Carbonico"][locale] + ': </span> ' + cktl.carbonic + '<br>' + '<span class=\"title_section\">' + i18n["Vaso"][locale] + ': </span> ' + cktl.glass + '<br>');
+        $('#title').append(cktl.name + "</br>");
 
         $('#loading').hide();
         $('#div_more_div').show();
@@ -174,7 +168,7 @@
           $('#a_more').click(function() {
             loadPage('cocktails.html', {
               type : 'user',
-              id : cktl.creador
+              id : cktl.fb_user
             });
           });
           $('#a_rate').click(function() {

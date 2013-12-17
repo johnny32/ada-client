@@ -75,6 +75,23 @@
         var cocktails;
                 
         if (params.type == 'best') {
+        
+        
+          var data = new Object();
+          data.page = 0;
+          $.ajax({
+            type : "GET",
+            url : "http://192.241.145.147/api/cocktails/get_cocktails_by_rate_and_page",
+            data: data,
+            dataType : "json",
+            success : function(data){
+              alert(JSON.stringify(data));
+            },
+            error: function(header, status, from){
+              alert("Error getting cocktails by page");
+            }
+          });
+        
           $.ajax({
             type : "GET",
             url : server_url + cocktails_route + "/q/0",

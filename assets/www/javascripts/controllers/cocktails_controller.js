@@ -203,19 +203,39 @@ $(document).ready(function($) {
         //Parsejem el JSON per al servidor
         
         cocktail_final = new Object();
-        cocktail_final.zumos = new Array();
+        cocktail_final.juices = new Array();
         for(var i = 0;i < selected_data.zumo.length; i++){
-          cocktail_final.zumos[i] = selected_data.zumo[i].nombre;
+          cocktail_final.juices[i] = selected_data.zumo[i].id;
         }
-        cocktail_final.licores = new Array();
+        cocktail_final.licors = new Array();
         for(var i = 0;i < selected_data.licor.length; i++){
-          cocktail_final.licores[i] = selected_data.licor[i].nombre;
+          cocktail_final.licors[i] = selected_data.licor[i].id;
         }
-        cocktail_final.carbonico = selected_data.carbonico[0].nombre;
-        cocktail_final.vaso = selected_data.vaso[0].nombre;
-        cocktail_final.nombre = selected_data.nombre;
-        cocktail_final.creador = "";
+        cocktail_final.carbonic = selected_data.carbonico[0].id;
+        cocktail_final.glass = selected_data.vaso[0].id;
+        cocktail_final.name = selected_data.nombre;
+        cocktail_final.fb_user = "";
         window.localStorage.setItem("cocktail_temp", JSON.stringify(cocktail_final));
+        
+        
+        cocktail_final_with_names = new Object();
+        cocktail_final_with_names.juices = new Array();
+        for(var i = 0;i < selected_data.zumo.length; i++){
+          cocktail_final_with_names.juices[i] = selected_data.zumo[i].nombre;
+        }
+        cocktail_final_with_names.licors = new Array();
+        for(var i = 0;i < selected_data.licor.length; i++){
+          cocktail_final_with_names.licors[i] = selected_data.licor[i].nombre;
+        }
+        cocktail_final_with_names.carbonic = selected_data.carbonico[0].nombre;
+        cocktail_final_with_names.glass = selected_data.vaso[0].nombre;
+        cocktail_final_with_names.name = selected_data.nombre;
+        cocktail_final_with_names.fb_user = "";
+        window.localStorage.setItem("cocktail_temp_with_names", JSON.stringify(cocktail_final_with_names));
+        
+        console.log("======> COCKTAIL: " + JSON.stringify(cocktail_final));
+        console.log("======> COCKTAIL WITH NAMES: " + JSON.stringify(cocktail_final_with_names));
+        
         loadPage('makeCocktail_final.html');
       }
       else{
