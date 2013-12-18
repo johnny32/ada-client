@@ -30,6 +30,7 @@
     <script>
       
       document.addEventListener("deviceready", function(){
+
         FB.init({
             appId: '326614590799358',
             nativeInterface: CDV.FB,
@@ -76,66 +77,93 @@
                 
         if (params.type == 'best') {
         
+          console.log("BEST");
         
           var data = new Object();
-          data.page = 0;
+          data.page = page;
+          
+          console.log("DATA: " + JSON.stringify(data));
+          
           $.ajax({
             type : "GET",
             url : "http://192.241.145.147/api/cocktails/get_cocktails_by_rate_and_page",
             data: data,
+            async : false,
             dataType : "json",
             success : function(data){
-              alert(JSON.stringify(data));
+              console.log("SUCCESS: " + JSON.stringify(data));
+            
+              cocktails = data;
+              $('#loading').hide();
+              $('#content').show();
+              
+              for (var c in cocktails) {
+                console.log("C: " + JSON.stringify(c));
+                var cktl = cocktails[c];
+                var a = "<li class=\"list_cocktail\" onclick=\"loadPage('cocktail.html', {id: '" + cktl.id + "'})\"><a id:'" + cktl.id + "' class=\"list_cocktail_item\">" + cktl.name + "</a></li>";
+                 $("#list-cocktails").append(a);
+              }
+              $('#more').show();
+              
             },
             error: function(header, status, from){
               alert("Error getting cocktails by page");
             }
           });
         
+          console.log("GET ADMIN COCKTAIL");
+        
+          var data = new Object();
+          data.locale = getBrowserLocale();
+        
           $.ajax({
             type : "GET",
-            url : server_url + cocktails_route + "/q/0",
+            url :"http://192.241.145.147/api/cocktails/get_admin_cocktail",
             dataType : "json",
+            data : data,
             async : false,
-            success : function(data){
-              cocktails = data;
-              $('#loading').hide();
-              $('#content').show();
-            },
-            error: function(header, status, from){
-              alert("Error");
-            }
-          });
-          $.ajax({
-            type : "GET",
-            url : server_url + cocktails_route + "/recommended",
-            dataType : "json",
-            async : false,
-            success : function(cktl){
-              var a = "<li class=\"list_cocktail_r\" onclick=\"loadPage('cocktail.html', {id: 'r'})\"><a id: 'r' class=\"list_cocktail_item_r\">" + cktl.nombre + "</a></li>";
+            success : function(data) {
+              console.log("SUCCESS: " + JSON.stringify(data));
+              var a = "<li class=\"list_cocktail_r\" onclick=\"loadPage('cocktail.html', {id: 'r'})\"><a id: 'r' class=\"list_cocktail_item_r\">" + data.name + "</a></li>";
               $("#recommended-cocktail").append(a);
             },
-            error: function(header, status, from){
-              alert("Error");
+            error : function(header, status, from) {
+              alert("Error getting recommended cocktail");
             }
           });
+          
         } else if (params.type == 'user') {
           
           $('#less').hide();
           $('#more').hide();
           username = params.id;
+          
+          var data = new Object();
+          data.id_user = params.id;
+          
+          console.log("DATA: " + JSON.stringify(data));
+          
           $.ajax({
             type : "GET",
-            url : server_url + cocktails_route + "/user/" + params.id,
+            url : "http://192.241.145.147/api/cocktails/get_user_cocktails",
+            data: data,
             dataType : "json",
-            async : false,
             success : function(data){
               cocktails = data;
               $('#loading').hide();
               $('#content').show();
+              
+              for (var c in cocktails) {
+                console.log("C: " + JSON.stringify(c));
+                var cktl = cocktails[c];
+                var a = "<li class=\"list_cocktail\" onclick=\"loadPage('cocktail.html', {id: '" + cktl.id + "'})\"><a id:'" + cktl.id + "' class=\"list_cocktail_item\">" + cktl.name + "</a></li>";
+                 $("#list-cocktails").append(a);
+              }
+              $('#more').show();
+              
             },
             error: function(header, status, from){
-              alert("Error");
+              alert("Error getting cocktails");
             }
           });
           
@@ -145,6 +173,7 @@
             url : "http://graph.facebook.com/" + username,
             dataType : "json",
             success : function(data){
+              var locale = getBrowserLocale();
               if(locale == 'es' || locale == 'ca') $('#txt_list_name').text('de ' + data.name + ':');
               else  $('#txt_list_name').text('of ' + data.name + ':');
               $('#txt_list_name').show();
@@ -156,13 +185,6 @@
           
           $('#txt_recommended').remove();
         }
-
-        for (var c in cocktails) {
-          var cktl = cocktails[c];
-          var a = "<li class=\"list_cocktail\" onclick=\"loadPage('cocktail.html', {id: '" + cktl._id + "'})\"><a id:'" + cktl._id + "' class=\"list_cocktail_item\">" + cktl.nombre + "</a></li>";
-           $("#list-cocktails").append(a);
-        }
-        $('#more').show();
       }
       
       function more10(){
@@ -172,35 +194,36 @@
         }
         $('#list-cocktails').html("");
         $('#loading').show();
+        var data = new Object();
+        data.page = page;
         $.ajax({
           type : "GET",
-          url : server_url + cocktails_route + "/q/" + (page*10),
+          url : "http://192.241.145.147/api/cocktails/get_cocktails_by_rate_and_page",
+          data: data,
           dataType : "json",
           async : false,
           success : function(data){
-            
             if(data.length == 0){
               //alert("No hay más cocktails para mostrar");
               less10();
             }
             else{
-           	  if(data.length < 10){
+              if(data.length < 10){
                 $('#more').hide();
-           	  }
+              }
               cocktails = data;
               $('#loading').hide();
               for (var c in cocktails) {
                 var cktl = cocktails[c];
-                var a = "<li class=\"list_cocktail\" onclick=\"loadPage('cocktail.html', {id: '" + cktl._id + "'})\"><a id:'" + cktl._id + "' class=\"list_cocktail_item\">" + cktl.nombre + "</a></li>";
+                var a = "<li class=\"list_cocktail\" onclick=\"loadPage('cocktail.html', {id: '" + cktl.id + "'})\"><a id:'" + cktl.id + "' class=\"list_cocktail_item\">" + cktl.name + "</a></li>";
                 $("#list-cocktails").append(a);
               }
             }
           },
           error: function(header, status, from){
-            alert("Error");
+            alert("Error getting cocktails by page");
           }
         });
-        
       }
       
       function less10(){
@@ -211,9 +234,14 @@
         $('#list-cocktails').html("");
         $('#loading').show();
         $('#more').show();
+        
+        
+        var data = new Object();
+        data.page = page;
         $.ajax({
           type : "GET",
-          url : server_url + cocktails_route + "/q/" + (page*10),
+          url : "http://192.241.145.147/api/cocktails/get_cocktails_by_rate_and_page",
+          data: data,
           dataType : "json",
           async : false,
           success : function(data){
@@ -221,12 +249,12 @@
             $('#loading').hide();
             for (var c in cocktails) {
               var cktl = cocktails[c];
-              var a = "<li class=\"list_cocktail\" onclick=\"loadPage('cocktail.html', {id: '" + cktl._id + "'})\"><a id:'" + cktl._id + "' class=\"list_cocktail_item\">" + cktl.nombre + "</a></li>";
+              var a = "<li class=\"list_cocktail\" onclick=\"loadPage('cocktail.html', {id: '" + cktl.id + "'})\"><a id:'" + cktl.id + "' class=\"list_cocktail_item\">" + cktl.name + "</a></li>";
               $("#list-cocktails").append(a);
             }
           },
           error: function(header, status, from){
-            alert("Error con el servidor");
+            alert("Error getting cocktails by page");
           }
         });
       }

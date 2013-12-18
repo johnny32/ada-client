@@ -8,6 +8,7 @@
 var user = [];
 var goToPage = false;
 var permissions = ['user_status', 'publish_checkins', 'user_likes'];
+var goToIndex = false;
 
 //Detect when Facebook tells us that the user's session has been returned
 function authUser() {

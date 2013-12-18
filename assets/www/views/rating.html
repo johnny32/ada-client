@@ -36,7 +36,7 @@
         authUser();
         
         
-        if(getUrlParameters('rating').rating != "-1"){
+        if(getUrlParameters('rating').rating != "0"){
           $('#rats').hide();
           $('#your_rate').show();
           $('#your_rate').append("<img src=\"../images/ratings/r" + getUrlParameters('rating').rating + ".png\" />");
