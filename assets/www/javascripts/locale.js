@@ -241,6 +241,11 @@ i18n = {
     'ca' : 'la teva puntuació ha sigut'
   },
   /********************** RATING *********************/
+  rate:{
+    'en' : 'Rate',
+    'es' : 'Votar',
+    'ca' : 'Votar'
+  },
   rate_this_cocktail:{
     'en' : 'Rate this cocktail',
     'es' : 'Vota este coctail',

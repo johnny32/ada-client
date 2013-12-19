@@ -64,25 +64,25 @@ $(document).ready(function($) {
         
         console.log("====> VALUE: " + JSON.stringify(value));
         
-        console.log('====>IMAGE: "http://192.241.145.147' + value.image + '"');
+        console.log('====>IMAGE: "http://www.sinatracockteleriapp.com' + value.image + '"');
         
         if(locale == 'es'){
           wrapper.append('<div class="swiper-slide" id="' + actual_product + key + 
             '">' + '<div id="elem_title' + key + '" server_id="' + value.id + '" style="font-size: 22px; margin: 10px 0 10px 0;">' + 
             value.name_es + '</div>' + '<div id="elem_image' + key + '">' + 
-            '<img class="cocktail_slide_image" src="http://192.241.145.147' + value.image + '">' + '</div>' + '</div>');
+            '<img class="cocktail_slide_image" src="http://www.sinatracockteleriapp.com' + value.image + '">' + '</div>' + '</div>');
         }
         else if(locale == 'ca'){
           wrapper.append('<div class="swiper-slide" id="' + actual_product + key + 
             '">' + '<div id="elem_title' + key + '" server_id="' + value.id + '" style="font-size: 22px; margin: 10px 0 10px 0;">' + 
             value.name_ca + '</div>' + '<div id="elem_image' + key + '">' + 
-            '<img class="cocktail_slide_image" src="http://192.241.145.147' + value.image + '">' + '</div>' + '</div>');
+            '<img class="cocktail_slide_image" src="http://www.sinatracockteleriapp.com' + value.image + '">' + '</div>' + '</div>');
         }
         else{
           wrapper.append('<div class="swiper-slide" id="' + actual_product + key + 
             '">' + '<div id="elem_title' + key + '" server_id="' + value.id + '" style="font-size: 22px; margin: 10px 0 10px 0;">' + 
             value.name_en + '</div>' + '<div id="elem_image' + key + '">' + 
-            '<img class="cocktail_slide_image" src="http://192.241.145.147' + value.image + '">' + '</div>' + '</div>');
+            '<img class="cocktail_slide_image" src="http://www.sinatracockteleriapp.com' + value.image + '">' + '</div>' + '</div>');
         }
       });
       
@@ -296,8 +296,11 @@ $(document).ready(function($) {
   
           //Check if element isn't in array
           var trobat = false;
+          console.log("INIT FOR");
           for (var i = 0; i < actual_array.length; i++) {
-            if (actual_array[i].id == element_id) {
+            console.log("Actual array[" + i + "].id: " + actual_array[i].id);
+            console.log("element_id: " + elem.id);
+            if (actual_array[i].id == elem.id) {
               navigator.notification.alert(i18n["no_dos_veces"][locale], null, i18n["no_dos_veces_title"][locale])
               trobat = true;
               break;

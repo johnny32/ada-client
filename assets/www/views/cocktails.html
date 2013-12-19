@@ -86,7 +86,7 @@
           
           $.ajax({
             type : "GET",
-            url : "http://192.241.145.147/api/cocktails/get_cocktails_by_rate_and_page",
+            url : "http://www.sinatracockteleriapp.com/api/cocktails/get_cocktails_by_rate_and_page",
             data: data,
             async : false,
             dataType : "json",
@@ -118,7 +118,7 @@
         
           $.ajax({
             type : "GET",
-            url :"http://192.241.145.147/api/cocktails/get_admin_cocktail",
+            url :"http://www.sinatracockteleriapp.com/api/cocktails/get_admin_cocktail",
             dataType : "json",
             data : data,
             async : false,
@@ -131,7 +131,7 @@
               alert("Error getting recommended cocktail");
             }
           });
-          
+
         } else if (params.type == 'user') {
           
           $('#less').hide();
@@ -145,10 +145,13 @@
           
           $.ajax({
             type : "GET",
-            url : "http://192.241.145.147/api/cocktails/get_user_cocktails",
+            url : "http://www.sinatracockteleriapp.com/api/cocktails/get_user_cocktails",
             data: data,
             dataType : "json",
             success : function(data){
+            
+              console.log("SUCCESS!!!: " + JSON.stringify(data));
+            
               cocktails = data;
               $('#loading').hide();
               $('#content').show();
@@ -159,8 +162,6 @@
                 var a = "<li class=\"list_cocktail\" onclick=\"loadPage('cocktail.html', {id: '" + cktl.id + "'})\"><a id:'" + cktl.id + "' class=\"list_cocktail_item\">" + cktl.name + "</a></li>";
                  $("#list-cocktails").append(a);
               }
-              $('#more').show();
-              
             },
             error: function(header, status, from){
               alert("Error getting cocktails");
@@ -198,7 +199,7 @@
         data.page = page;
         $.ajax({
           type : "GET",
-          url : "http://192.241.145.147/api/cocktails/get_cocktails_by_rate_and_page",
+          url : "http://www.sinatracockteleriapp.com/api/cocktails/get_cocktails_by_rate_and_page",
           data: data,
           dataType : "json",
           async : false,
@@ -240,7 +241,7 @@
         data.page = page;
         $.ajax({
           type : "GET",
-          url : "http://192.241.145.147/api/cocktails/get_cocktails_by_rate_and_page",
+          url : "http://www.sinatracockteleriapp.com/api/cocktails/get_cocktails_by_rate_and_page",
           data: data,
           dataType : "json",
           async : false,

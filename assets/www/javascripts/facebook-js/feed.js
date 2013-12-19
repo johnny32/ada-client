@@ -14,8 +14,8 @@ function publishStory(nombre_cocktail, id, image) {
       name: 'He creado el coctail ' + nombre_cocktail,
       caption: 'Aplicación Android de Sinatra Cockteleria',
       description: 'He creado el coctail ' + nombre_cocktail + ' gracias a la aplicación de Sinatra Cockteleria. ¡Descárgate la aplicación y crea tu también uno!',
-      link: "http://192.241.145.147/cocktails/" + id,
-      picture: "http://192.241.145.147" + image,
+      link: "http://www.sinatracockteleriapp.com/cocktails/" + id,
+      picture: "http://www.sinatracockteleriapp.com" + image,
       actions: [{ name: 'Descárgate la app', link: 'https://play.google.com/store/apps/details?id=com.claramanrique.sinatracockteleria&hl=es_419' }],
     }, 
     function(response) {
@@ -28,8 +28,8 @@ function publishStory(nombre_cocktail, id, image) {
       name: 'He creat el coctail ' + nombre_cocktail,
       caption: 'Aplicació Android Sinatra Cockteleria',
       description: 'He creat el coctail ' + nombre_cocktail + ' gràcies a l\'aplicació de Sinatra Cockteleria. Descarrega\'t l\'aplicació i crea\'n un!',
-      link: "http://192.241.145.147/cocktails/" + id,
-      picture: "http://192.241.145.147" + image,
+      link: "http://www.sinatracockteleriapp.com/cocktails/" + id,
+      picture: "http://www.sinatracockteleriapp.com" + image,
       actions: [{ name: 'Descarrega l\'app', link: 'https://play.google.com/store/apps/details?id=com.claramanrique.sinatracockteleria&hl=es_419' }],
     }, 
     function(response) {
@@ -37,17 +37,13 @@ function publishStory(nombre_cocktail, id, image) {
     });
   }
   else{
-    console.log("PUBLISH STORY EN ");
-    console.log("Nombre cocktail: " + nombre_cocktail);
-    console.log("id: " + id);
-    console.log("image: http://192.241.145.147" + image);
     FB.ui({
       method: 'feed',
       name: 'I created the cocktail ' + nombre_cocktail,
       caption: 'Sinatra Cockteleria Android app',
       description: 'I created the cocktail ' + nombre_cocktail + ' through the application of Sinatra Cockteleria. Download the application and also make one!',
-      link: "http://192.241.145.147/cocktails/" + id,
-      picture: "http://192.241.145.147" + image,
+      link: "http://www.sinatracockteleriapp.com/cocktails/" + id,
+      picture: "http://www.sinatracockteleriapp.com" + image,
       actions: [{ name: 'Download app', link: 'https://play.google.com/store/apps/details?id=com.claramanrique.sinatracockteleria&hl=es_419' }],
     }, 
     function(response) {
@@ -64,8 +60,8 @@ function lookCocktail(nombre_cocktail, id, image) {
       name: 'Mira este cocktail ' + nombre_cocktail,
       caption: 'Aplicación Android de Sinatra Cockteleria',
       description: 'Mira este cocktail ' + nombre_cocktail + ' gracias a la aplicación de Sinatra Cockteleria. ¡Descárgate la aplicación y crea tu también uno!',
-      link: "http://192.241.145.147/cocktails/" + id,
-      picture: "http://192.241.145.147" + image,
+      link: "http://www.sinatracockteleriapp.com/cocktails/" + id,
+      picture: "http://www.sinatracockteleriapp.com" + image,
       actions: [{ name: 'Descárgate la app', link: 'https://play.google.com/store/apps/details?id=com.claramanrique.sinatracockteleria&hl=es_419' }],
     }, 
     function(response) {
@@ -78,8 +74,8 @@ function lookCocktail(nombre_cocktail, id, image) {
       name: 'Mira aquest coctail ' + nombre_cocktail,
       caption: 'Aplicació Android Sinatra Cockteleria',
       description: 'Mira aquest coctail ' + nombre_cocktail + ' gràcies a l\'aplicació de Sinatra Cockteleria. Descarrega\'t l\'aplicació i crea\'n un!',
-      link: "http://192.241.145.147/cocktails/" + id,
-      picture: "http://192.241.145.147" + image,
+      link: "http://www.sinatracockteleriapp.com/cocktails/" + id,
+      picture: "http://www.sinatracockteleriapp.com" + image,
       actions: [{ name: 'Descarrega l\'app', link: 'https://play.google.com/store/apps/details?id=com.claramanrique.sinatracockteleria&hl=es_419' }],
     }, 
     function(response) {
@@ -92,8 +88,8 @@ function lookCocktail(nombre_cocktail, id, image) {
       name: 'Look this cocktail ' + nombre_cocktail,
       caption: 'Sinatra Cockteleria Android app',
       description: 'Look this cocktail ' + nombre_cocktail + ' through the application of Sinatra Cockteleria. Download the application and also make one!',
-      link: "http://192.241.145.147/cocktails/" + id,
-      picture: "http://192.241.145.147" + image,
+      link: "http://www.sinatracockteleriapp.com/cocktails/" + id,
+      picture: "http://www.sinatracockteleriapp.com" + image,
       actions: [{ name: 'Download app', link: 'https://play.google.com/store/apps/details?id=com.claramanrique.sinatracockteleria&hl=es_419' }],
     }, 
     function(response) {
@@ -110,8 +106,8 @@ function ratingCocktail(nombre_cocktail, id, image) {
       name: 'He votado el coctail ' + nombre_cocktail,
       caption: 'Aplicación Android de Sinatra Cockteleria',
       description: 'He votado el coctail ' + nombre_cocktail + ' gracias a la aplicación de Sinatra Cockteleria. ¡Descárgate la aplicación y crea tu también uno!',
-      link: "http://192.241.145.147/cocktails/" + id,
-      picture: "http://192.241.145.147" + image,
+      link: "http://www.sinatracockteleriapp.com/cocktails/" + id,
+      picture: "http://www.sinatracockteleriapp.com" + image,
       actions: [{ name: 'Descárgate la app', link: 'https://play.google.com/store/apps/details?id=com.claramanrique.sinatracockteleria&hl=es_419' }],
     }, 
     function(response) {
@@ -124,8 +120,8 @@ function ratingCocktail(nombre_cocktail, id, image) {
       name: 'He votat el coctail ' + nombre_cocktail,
       caption: 'Aplicació Android Sinatra Cockteleria',
       description: 'He votat el coctail ' + nombre_cocktail + ' gràcies a l\'aplicació de Sinatra Cockteleria. Descarrega\'t l\'aplicació i crea\'n un!',
-      link: "http://192.241.145.147/cocktails/" + id,
-      picture: "http://192.241.145.147" + image,
+      link: "http://www.sinatracockteleriapp.com/cocktails/" + id,
+      picture: "http://www.sinatracockteleriapp.com" + image,
       actions: [{ name: 'Descarrega l\'app', link: 'https://play.google.com/store/apps/details?id=com.claramanrique.sinatracockteleria&hl=es_419' }],
     }, 
     function(response) {
@@ -138,8 +134,8 @@ function ratingCocktail(nombre_cocktail, id, image) {
       name: 'I rated the cocktail ' + nombre_cocktail,
       caption: 'Sinatra Cockteleria Android app',
       description: 'I rated the cocktail ' + nombre_cocktail + ' through the application of Sinatra Cockteleria. Download the application and also make one!',
-      link: "http://192.241.145.147/cocktails/" + id,
-      picture: "http://192.241.145.147" + image,
+      link: "http://www.sinatracockteleriapp.com/cocktails/" + id,
+      picture: "http://www.sinatracockteleriapp.com" + image,
       actions: [{ name: 'Download app', link: 'https://play.google.com/store/apps/details?id=com.claramanrique.sinatracockteleria&hl=es_419' }],
     }, 
     function(response) {

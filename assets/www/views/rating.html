@@ -35,7 +35,6 @@
         });
         authUser();
         
-        
         if(getUrlParameters('rating').rating != "0"){
           $('#rats').hide();
           $('#your_rate').show();
@@ -83,18 +82,21 @@
         rate.rating = r;
         var jsonRate = JSON.stringify(rate);
         var locale = getBrowserLocale();
+        
+        console.log("http://www.sinatracockteleriapp.com/api/cocktails/" + getUrlParameters().c_id + "/rate_cocktail?rate=" + r + "&fb_user=" + getUrlParameters().u_id);
+        
         $.ajax({
           type : "POST",
-          url : server_url + "/ratings",
-          data : JSON.parse(jsonRate),
-          success : function(data) {
-            alert(i18n["rating_correctly"][locale]);
+          url : "http://www.sinatracockteleriapp.com/api/cocktails/" + getUrlParameters().c_id + "/rate_cocktail?rate=" + r + "&fb_user=" + getUrlParameters().u_id,
+          dataType : "json",
+          success : function(data){
+            navigator.notification.alert(i18n["rating_correctly"][locale], null, i18n["rate"][locale]);
             ratingCocktail(rate.nombre, rate.id_cocktail, rate.imagen);
             navigator.app.backHistory();
             //loadPage('cocktail.html', {id: getUrlParameters("c_id").c_id})
           },
           error: function(header, status, from){
-            alert("Error");
+            alert("Error rating");
           }
         });
       }

@@ -36,14 +36,14 @@
     
     <script>
       document.addEventListener("deviceready", function(){
-/*           
+           
         FB.init({
             appId: '326614590799358',
             nativeInterface: CDV.FB,
             useCachedDialogs: false
         });
         authUser();
-  */      
+        
         $('#saveImg').hover(function() {
           $(this).attr('src', '../images/ic_cocktail_checkmark_hover.png');
         }, function() {
@@ -83,12 +83,12 @@
 
         $.ajax({
           type : "GET",
-          url : "http://192.241.145.147/api/cocktails/get_image_cocktail",
+          url : "http://www.sinatracockteleriapp.com/api/cocktails/get_image_cocktail",
           data : JSON.parse(cocktail),
           success : function(data){
             console.log("Success image: " + JSON.stringify(data));
             data_img = data.image;
-            $('#cocktail_image').attr("src", "http://192.241.145.147" + data_img);
+            $('#cocktail_image').attr("src", "http://www.sinatracockteleriapp.com" + data_img);
             $('#cocktail_image').attr("class", "border-azul");
             loadCocktail();
           },
@@ -110,7 +110,7 @@
           console.log("SEND: " + JSON.stringify(cocktail));
           $.ajax({
             type : "POST",
-            url : "http://192.241.145.147/api/cocktails/",
+            url : "http://www.sinatracockteleriapp.com/api/cocktails/",
             //data : JSON.parse(cocktail),
             data : cocktail,
             success : function(data) {

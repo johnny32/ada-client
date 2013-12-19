@@ -12,8 +12,8 @@ function initialize() {
   var data = JSON.parse(window.localStorage.getItem("list_Mapa"));
   
   var mapProp = {
-    center: new google.maps.LatLng(41.971634, 2.824428), //Per a que es vegi be el globus, no centrem el mapa just a on esta la cockteleria, sino una mica mes amunt i a la dreta
-    zoom: 9,
+    center: new google.maps.LatLng(40.396764305572056, -3.427734375), //Per a que es vegi be el globus, no centrem el mapa just a on esta la cockteleria, sino una mica mes amunt i a la dreta
+    zoom: 5,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
   var map = new google.maps.Map(document.getElementById("google-map"), mapProp);

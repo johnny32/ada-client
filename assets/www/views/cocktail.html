@@ -71,6 +71,9 @@
             useCachedDialogs: false
         });
         authUser();
+        
+        console.log("=====> LOAD COCKTAIL");
+        
         loadCocktail();
       });
       
@@ -85,7 +88,7 @@
           data.locale = getBrowserLocale();
           $.ajax({
             type : "GET",
-            url :"http://192.241.145.147/api/cocktails/get_admin_cocktail",
+            url :"http://www.sinatracockteleriapp.com/api/cocktails/get_admin_cocktail",
             data: data,
             dataType : "json",
             async : false,
@@ -99,29 +102,34 @@
         } else {
           console.log("no es recomendado");
           var data = new Object();
-          data.id = cocktail_id;
           data.locale = getBrowserLocale();
+          console.log("DATA: " + JSON.stringify(data));
           $.ajax({
             type : "GET",
-            url : "http://192.241.145.147/api/cocktails",
-            data = data,
+            url : "http://www.sinatracockteleriapp.com/api/cocktails/" + cocktail_id + "/get_cocktail",
+            data : data,
             dataType : "json",
             async : false,
             success : function(data) {
               cocktail = data;
               console.log("cocktail: " + JSON.stringify(cocktail));
-              $.ajax({
-                type : "GET",
-                url : "http://graph.facebook.com/" + cocktail.owner,
-                dataType : "json",
-                async : false,
-                success : function(data2) {
-                  fillData(cocktail, data2.name);
-                },
-                error : function(header, status, from) {
-                  alert("Error con el servidor");
-                }
-              });
+              if(cocktail.owner != null){
+                $.ajax({
+                  type : "GET",
+                  url : "http://graph.facebook.com/" + cocktail.owner,
+                  dataType : "json",
+                  async : false,
+                  success : function(data2) {
+                    fillData(cocktail, data2.name);
+                  },
+                  error : function(header, status, from) {
+                    alert("Error getting facebook name");
+                  }
+                });
+              }
+              else{
+                fillData(cocktail, "");
+              }
             },
             error : function(header, status, from) {
               alert("Error con el servidor");
@@ -148,7 +156,7 @@
         var locale = getBrowserLocale();
         $('#info').show();
         
-        $('#cocktail_image').attr("src", "http://192.241.145.147" + cktl.image);
+        $('#cocktail_image').attr("src", "http://www.sinatracockteleriapp.com" + cktl.image);
         $('#cocktail_image').attr("class", "border-azul");
 
         $('#cocktail_info').append('<span class=\"title_section\">' + i18n["Creador"][locale] + ': </span> ' + user_name + '<br>' + '<span class=\"title_section\">' + i18n["Zumo"][locale] + ': </span> ' + cktl.juices.join(', ') + '<br>');
@@ -176,17 +184,22 @@
             });
           });
           $('#a_rate').click(function() {
-            
+            console.log("RATE BUTTON");
             var data = new Object();
             data.fb_user = window.localStorage.getItem("fb_id");
+            console.log("DATA : " + JSON.stringify(data));
+            console.log("ID: " + getUrlParameters("id").id);
             $.ajax({
               type : "GET",
-              url :"http://192.241.145.147/api/cocktails/" + cktl.id + "/get_user_rate",
+              url :"http://www.sinatracockteleriapp.com/api/cocktails/" + getUrlParameters("id").id + "/get_user_rate",
               data: data,
               dataType : "json",
               async : false,
               success : function(data) {
-                loadPage('rating.html', {type: 'user', rating: data.rate, c_id: cktl.id, u_id: cktl.owner, imagen: cktl.image, nombre: cktl.name});
+              
+                console.log("SUCCESS: " + JSON.stringify(data));
+              
+                loadPage('rating.html', {type: 'user', rating: data.rate, c_id: getUrlParameters("id").id, u_id: cktl.owner, imagen: cktl.image, nombre: cktl.name});
               },
               error : function(header, status, from) {
                 alert("Error getting rate");
